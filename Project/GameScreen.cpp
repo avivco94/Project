@@ -14,9 +14,17 @@
 #include <memory>
 #include "GlockBullet.h"
 #include "DefaultBullet.h"
+#include "ShopScreen.h"
+#include "HudScreen.h"
 
 GameScreen::GameScreen(std::shared_ptr<Client> client)
 	: m_client(client) {
+
+	m_sm.addScreen(HUD_SCREEN, std::make_shared<HudScreen>());
+	m_sm.addScreen(SHOP_SCREEN, std::make_shared<ShopScreen>(sf::Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y)));
+
+	m_sm.setScreen(HUD_SCREEN);
+
 	m_view = sf::View(sf::Vector2f(60, 60), sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y));
 	m_view.setViewport(sf::FloatRect(0, 0, 1, 1));
 	m_view.zoom(1.f);
@@ -98,20 +106,37 @@ void GameScreen::update(sf::RenderWindow& window) {
 	/*if (m_directions != 0 || m_mouseLongPressed) {
 		Updates<PlayerInfoUpdate>::getInstance().add(PlayerInfoUpdate(m_player->getPlayerInfo(m_client->m_id)));
 	}*/
+	m_sm.update(window);
 }
 
 bool GameScreen::handleEvent(const sf::Event& event) {
 	switch (event.type) {
-		case sf::Event::MouseButtonPressed: {
-			m_mouseLongPressed = true;
-			break;
-		}
-		case sf::Event::MouseButtonReleased: {
-			m_mouseLongPressed = false;
-			break;
-		}
 		case sf::Event::KeyPressed: {
 			switch (event.key.code) {
+				case sf::Keyboard::B: {
+					if(m_sm.dequeSize() == 1)
+						m_sm.setScreen(SHOP_SCREEN);
+					else if (m_sm.dequeSize() == 2)
+						m_sm.backScreen();
+					break;
+				}
+			}
+			break;
+		}
+	}
+
+	if (!m_sm.handleEvent(event)) {
+		switch (event.type) {
+			case sf::Event::MouseButtonPressed: {
+				m_mouseLongPressed = true;
+				break;
+			}
+			case sf::Event::MouseButtonReleased: {
+				m_mouseLongPressed = false;
+				break;
+			}
+			case sf::Event::KeyPressed: {
+				switch (event.key.code) {
 				case sf::Keyboard::W: {
 					m_directions |= Up;
 					break;
@@ -128,11 +153,11 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 					m_directions |= Left;
 					break;
 				}
+				}
+				break;
 			}
-			break;
-		}
-		case sf::Event::KeyReleased: {
-			switch (event.key.code) {
+			case sf::Event::KeyReleased: {
+				switch (event.key.code) {
 				case sf::Keyboard::W: {
 					m_directions &= ~Up;
 					break;
@@ -149,8 +174,9 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 					m_directions &= ~Left;
 					break;
 				}
+				}
+				break;
 			}
-			break;
 		}
 	}
 	return true;
@@ -168,6 +194,8 @@ void GameScreen::drawScreen(sf::RenderWindow& window) {
 	std::for_each(begin(m_otherPlayers), end(m_otherPlayers), [&window](std::pair<const std::string, std::shared_ptr<Player>>& p) {
 		p.second->draw(window);
 	});
+	window.setView(last_view);
+	m_sm.drawScreens(window);
 }
 
 sf::Vector2f GameScreen::getCenter() const {

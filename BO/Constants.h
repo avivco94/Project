@@ -32,6 +32,7 @@ const std::string ON_MOUSE_DOWN = "onMouseDown";
 const std::string ON_MOUSE_UP = "onMouseUp";
 const std::string ON_MOUSE_MOVE = "onMouseMove";
 const std::string ON_KEY_PRESSED = "onKeyPressed";
+
 const std::string ON_MOVE = "onMove";
 const std::string ON_GAME_START = "onGameStart";
 const std::string ON_GAME_EXIT = "onGameExit";

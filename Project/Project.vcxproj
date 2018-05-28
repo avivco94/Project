@@ -186,8 +186,10 @@
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="IScreen.cpp" />
     <ClCompile Include="IBaseGun.cpp" />
+    <ClCompile Include="ITypeable.cpp" />
     <ClCompile Include="M16Gun.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
     <ClCompile Include="Moveable.cpp" />
     <ClCompile Include="MoveableSpriteObject.cpp" />
@@ -228,7 +230,9 @@
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IScreen.h" />
     <ClInclude Include="IBaseGun.h" />
+    <ClInclude Include="ITypeable.h" />
     <ClInclude Include="M16Gun.h" />
+    <ClInclude Include="MenuManager.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="Moveable.h" />
     <ClInclude Include="MoveableSpriteObject.h" />

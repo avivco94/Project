@@ -5,6 +5,7 @@
 #include "EventsManager.h"
 #include <SFML/Graphics.hpp>
 #include "Button.h"
+#include "MenuManager.h"
 
 class ShopScreen :
 	public IScreen
@@ -22,10 +23,11 @@ public:
 
 private:
 	sf::RectangleShape m_rect;
-	std::vector<std::unique_ptr<Button>> m_buttons;
+	std::vector<std::shared_ptr<Button>> m_buttons;
 	bool m_show = true;
 	bool m_isPaused = false;
 	std::shared_ptr<EventsManager> m_em;
+	std::shared_ptr<MenuManager> m_menu;
 
 protected:
 	void drawScreen(sf::RenderWindow& window) override;

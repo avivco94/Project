@@ -5,6 +5,7 @@
 #include "Tilemap.h"
 #include "Constants.h"
 #include "Player.h"
+#include "ScreensManager.h"
 
 class GameScreen :
 	public IScreen {
@@ -31,6 +32,6 @@ class GameScreen :
 		float m_lastSend = 0;
 		CommandController m_controller;
 		bool m_mouseLongPressed = false;
-
+		ScreensManager m_sm;
 };
 

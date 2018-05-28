@@ -25,9 +25,16 @@ void ScreensManager::drawScreens(sf::RenderWindow& window) {
 	});
 }
 
-void ScreensManager::handleEvent(sf::Event event) {
-	if (!m_screensDeque.empty())
-		m_screensDeque.back().second->handleEvent(event);
+bool ScreensManager::handleEvent(sf::Event event) {
+	if (!m_screensDeque.empty()) {
+		for (auto it = m_screensDeque.crbegin(); it != m_screensDeque.crend(); ++it) {
+			if (it->second->isEventsHandler()) {
+				it->second->handleEvent(event);
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void ScreensManager::update(sf::RenderWindow& window) {

@@ -7,18 +7,16 @@
 
 
 ShopScreen::ShopScreen(const sf::Vector2f & size) : m_rect(size) {
-	int heightJumps = (int)size.y / 4;
+	int heightJumps = (int)size.y / 3;
+	m_rect.setFillColor(sf::Color::Transparent);
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
 	m_em = std::make_shared<EventsManager>();
-	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 1), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Resume"));
-	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 2), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Start"));
-	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 3), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Exit"));
-
-	for (int i = 0; i < m_buttons.size(); i++) {
-		m_buttons[i]->onMouseUp([&](string eventName, sf::Event event, EventSubscriber * object) {
-			return menuSelect(eventName, event, object);
-		});
-	}
+	m_menu = std::make_shared<MenuManager>(m_em);
+	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 1), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "PISTOLS"));
+	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 2), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "RIFELES"));
+	m_menu->setOnClick(([&](string eventName, sf::Event event, EventSubscriber * object) {
+		return menuSelect(eventName, event, object);
+	}));
 
 	m_rect.setPosition(0, 0);
 	m_rect.setFillColor(sf::Color::Black);
@@ -46,14 +44,10 @@ bool ShopScreen::handleEvent(const sf::Event & event)
 }
 
 void ShopScreen::drawScreen(sf::RenderWindow & window) {
-	if (m_show) {
-		window.draw(m_rect);
-		int counter = 0;
-		for (int i = 0; i < m_buttons.size(); i++) {
-			if (m_buttons[i]->getText() != "Resume" || m_isPaused)
-				m_buttons[i]->draw(window);
-		}
-	}
+		//window.draw(m_rect);
+		m_menu->drawMenu(window);
+		
+	
 }
 
 bool ShopScreen::menuSelect(string eventName, sf::Event event, EventSubscriber * obejct) {

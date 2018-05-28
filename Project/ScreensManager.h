@@ -13,7 +13,7 @@ class ScreensManager
 		void backScreen();
 		void update(sf::RenderWindow& window);
 		void drawScreens(sf::RenderWindow& window);
-		void handleEvent(sf::Event event);
+		bool handleEvent(sf::Event event);
 		unsigned int dequeSize();
 
 	private:

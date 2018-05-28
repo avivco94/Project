@@ -7,7 +7,7 @@
 #include "MoveCommand.h"
 #include "RotationCommand.h"
 #include "MenuScreen.h"
-
+#include "ShopScreen.h"
 #include <iostream>
 
 

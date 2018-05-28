@@ -44,6 +44,17 @@ void IClickable::onMouseUp(std::function<bool(string eventName, sf::Event event,
 	m_onMouseUpFunc = func;
 }
 
+bool IClickable::click(sf::Event event) {
+	if (m_onMouseUpFunc != NULL && !m_onMouseUpFunc(ON_MOUSE_DOWN, event, this)) {
+		return false;
+	}
+
+	//Set to focused if not focused yet
+	if (!m_isFocused)
+		m_isFocused = true;
+	return true;
+}
+
 bool IClickable::mouseDown(sf::Event event) {
 	//Checks if the mouse event is on the current object
 	if (isContain({ (float)event.mouseButton.x, (float)event.mouseButton.y })) {
