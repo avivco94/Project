@@ -11,4 +11,3 @@ class DefaultGun :
 		std::shared_ptr<IBullet> makeBullet(const std::string& id, sf::Vector2f pos, sf::Vector2f vec, float rotaion) override;
 
 };
-

@@ -43,6 +43,10 @@ bool MenuScreen::handleEvent(const sf::Event & event)
 			m_em->fireEvent(ON_MOUSE_MOVE, event, 0);
 			break;
 		}
+		case sf::Event::KeyPressed: {
+			m_em->fireEvent(ON_KEY_PRESSED, event, 0);
+			break;
+		}
 	}
 	return true;
 }

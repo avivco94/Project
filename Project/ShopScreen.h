@@ -6,12 +6,13 @@
 #include <SFML/Graphics.hpp>
 #include "Button.h"
 #include "MenuManager.h"
+#include "Player.h"
 
 class ShopScreen :
 	public IScreen
 {
 public:
-	ShopScreen(const sf::Vector2f& size);
+	ShopScreen(const sf::Vector2f& size, std::shared_ptr<Player> p);
 	ShopScreen();
 	~ShopScreen();
 	void showMenu(bool show, bool isPaused);
@@ -28,7 +29,7 @@ private:
 	bool m_isPaused = false;
 	std::shared_ptr<EventsManager> m_em;
 	std::shared_ptr<MenuManager> m_menu;
-
+	std::shared_ptr<Player> m_p;
 protected:
 	void drawScreen(sf::RenderWindow& window) override;
 };

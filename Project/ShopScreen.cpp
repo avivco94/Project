@@ -2,11 +2,12 @@
 #include <iostream>
 #include "Resources.h"
 #include "Button.h"
+#include "Player.h"
 
 
 
 
-ShopScreen::ShopScreen(const sf::Vector2f & size) : m_rect(size) {
+ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p) : m_rect(size), m_p(p) {
 	int heightJumps = (int)size.y / 3;
 	m_rect.setFillColor(sf::Color::Transparent);
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
@@ -31,14 +32,18 @@ void ShopScreen::update(sf::RenderWindow & window)
 bool ShopScreen::handleEvent(const sf::Event & event)
 {
 	switch (event.type) {
-	case sf::Event::MouseButtonPressed: {
-		m_em->fireEvent(ON_MOUSE_DOWN, event, 0);
-		break;
-	}
-	case sf::Event::MouseMoved: {
-		m_em->fireEvent(ON_MOUSE_MOVE, event, 0);
-		break;
-	}
+		case sf::Event::MouseButtonReleased: {
+			m_em->fireEvent(ON_MOUSE_UP, event, 0);
+			break;
+		}
+		case sf::Event::MouseMoved: {
+			m_em->fireEvent(ON_MOUSE_MOVE, event, 0);
+			break;
+		}
+		case sf::Event::KeyPressed: {
+			m_em->fireEvent(ON_KEY_PRESSED, event, 0);
+			break;
+		}
 	}
 	return true;
 }
@@ -54,15 +59,10 @@ bool ShopScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 	auto button = dynamic_cast<Button *>(obejct);
 	if (button != NULL) {
 		string eventByText = button->getText();
-		if (eventByText == "Start")
-			std::cout << "Start";
-		//m_em->fireEvent(ON_GAME_START, sf::Event(), 0);
-		else if (eventByText == "Exit")
-			std::cout << "Start";
-		//m_em->fireEvent(ON_GAME_EXIT, sf::Event(), 0);
-		else if (eventByText == "Resume")
-			std::cout << "Start";
-		//m_em->fireEvent(ON_GAME_RESUME, sf::Event(), 0);
+		if (eventByText == "PISTOLS")
+			std::cout << "PISTOLS";
+		else if (eventByText == "RIFELES")
+			std::cout << "RIFELES";
 		return true;
 	}
 	return false;

@@ -43,7 +43,7 @@ bool MenuManager::keyPressed(sf::Event event) {
 			break;
 	}
 
-	if (chooise != 0 && m_buttons.size() > chooise) {
+	if (chooise != 0 && m_buttons.size() >= chooise) {
 		m_buttons[chooise - 1]->click(event);
 		return true;
 	}

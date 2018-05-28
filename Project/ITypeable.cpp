@@ -2,10 +2,14 @@
 
 
 
-ITypeable::ITypeable(std::shared_ptr<EventsManager> em) : EventSubscriber(em){}
+ITypeable::ITypeable(std::shared_ptr<EventsManager> em) : EventSubscriber(em){
+	m_em->subscribe(ON_KEY_PRESSED, this);
+}
 
 
-ITypeable::~ITypeable(){}
+ITypeable::~ITypeable(){
+	m_em->unsubscribe(ON_KEY_PRESSED, this);
+}
 
 bool ITypeable::onFire(string eventName, sf::Event data, int n, va_list arg)
 {

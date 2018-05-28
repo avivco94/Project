@@ -21,7 +21,7 @@ GameScreen::GameScreen(std::shared_ptr<Client> client)
 	: m_client(client) {
 
 	m_sm.addScreen(HUD_SCREEN, std::make_shared<HudScreen>());
-	m_sm.addScreen(SHOP_SCREEN, std::make_shared<ShopScreen>(sf::Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y)));
+	m_sm.addScreen(SHOP_SCREEN, std::make_shared<ShopScreen>(sf::Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y), m_player));
 
 	m_sm.setScreen(HUD_SCREEN);
 
