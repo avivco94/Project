@@ -1,0 +1,310 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Drawables">
+      <UniqueIdentifier>{99d485bd-9248-4466-96e9-0f9a43763b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drawables">
+      <UniqueIdentifier>{8883fbfa-6d5f-4395-9c42-fc6cf124b1e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Commands">
+      <UniqueIdentifier>{de0be93e-96dc-4eb9-bf4e-6c58c38f1893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Commands">
+      <UniqueIdentifier>{c13d0f5b-1549-4ce5-ac8b-4aa65dc9cd69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Screens">
+      <UniqueIdentifier>{d3640d23-9efa-4b04-89f2-6c967cd2662c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Screens">
+      <UniqueIdentifier>{cbe134ac-0d99-45f5-8b8f-b08d02e3626b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Drawables\Bullet">
+      <UniqueIdentifier>{eeac49e1-5d73-45f1-ba1a-6ec07de469d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drawables\Bullet">
+      <UniqueIdentifier>{e74cb6ea-0f03-48e8-b0fa-fccf79eea70f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Drawables\Weapons">
+      <UniqueIdentifier>{3d9ef1c1-8079-45ba-8119-52db4178bd37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drawables\Weapons">
+      <UniqueIdentifier>{c6d4a4e1-6b8d-479a-beae-52a525b24b05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drawables\Tiles">
+      <UniqueIdentifier>{5b8e703f-01fb-4ec4-a6d5-bacdfd4e05aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Drawables\Tiles">
+      <UniqueIdentifier>{081d31dd-1335-490f-81d4-801c5f22c254}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TileObejctMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Helper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Resources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Collideable.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Moveable.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveableSpriteObject.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteObject.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandController.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="RotationCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="ICommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="IScreen.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="IDrawable.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScreen.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="IBullet.cpp">
+      <Filter>Source Files\Drawables\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="GlockBullet.cpp">
+      <Filter>Source Files\Drawables\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultBullet.cpp">
+      <Filter>Source Files\Drawables\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="IBaseGun.cpp">
+      <Filter>Source Files\Drawables\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="GlockGun.cpp">
+      <Filter>Source Files\Drawables\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultGun.cpp">
+      <Filter>Source Files\Drawables\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="HudScreen.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopScreen.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuScreen.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="M16Gun.cpp">
+      <Filter>Source Files\Drawables\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalTile.cpp">
+      <Filter>Source Files\Drawables\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Source Files\Drawables\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>Source Files\Drawables\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="CollideableTile.cpp">
+      <Filter>Source Files\Drawables\Tiles</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EventsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EventSubscriber.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="IClickable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreensManager.cpp">
+      <Filter>Source Files\Screens</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CollisionMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileObejctMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Collideable.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Moveable.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveableSpriteObject.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteObject.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandController.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="RotationCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ICommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="IScreen.h">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="IDrawable.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScreen.h">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="IBullet.h">
+      <Filter>Header Files\Drawables\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="GlockBullet.h">
+      <Filter>Header Files\Drawables\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ShootCommand.h">
+      <Filter>Header Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultBullet.h">
+      <Filter>Header Files\Drawables\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="IBaseGun.h">
+      <Filter>Header Files\Drawables\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="GlockGun.h">
+      <Filter>Header Files\Drawables\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultGun.h">
+      <Filter>Header Files\Drawables\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopScreen.h">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScreen.h">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="HudScreen.h">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="M16Gun.h">
+      <Filter>Header Files\Drawables\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Header Files\Drawables\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>Header Files\Drawables\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="CollideableTile.h">
+      <Filter>Header Files\Drawables\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalTile.h">
+      <Filter>Header Files\Drawables\Tiles</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EventSubscriber.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="IClickable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreensManager.h">
+      <Filter>Header Files\Screens</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\map.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\tileset.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+</Project>

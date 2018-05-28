@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{B35E6A36-46DC-4DD4-9362-DD6A6E83EDA5}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Project</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\BO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <StackReserveSize>2000000</StackReserveSize>
+      <StackCommitSize>2000000</StackCommitSize>
+      <HeapReserveSize>2000000</HeapReserveSize>
+      <HeapCommitSize>2000000</HeapCommitSize>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\BO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <StackReserveSize>2000000</StackReserveSize>
+      <StackCommitSize>2000000</StackCommitSize>
+      <HeapReserveSize>2000000</HeapReserveSize>
+      <HeapCommitSize>2000000</HeapCommitSize>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\BO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <StackReserveSize>2000000</StackReserveSize>
+      <StackCommitSize>2000000</StackCommitSize>
+      <HeapReserveSize>2000000</HeapReserveSize>
+      <HeapCommitSize>2000000</HeapCommitSize>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)\BO;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <StackReserveSize>2000000</StackReserveSize>
+      <StackCommitSize>2000000</StackCommitSize>
+      <HeapReserveSize>2000000</HeapReserveSize>
+      <HeapCommitSize>2000000</HeapCommitSize>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CollideableTile.cpp" />
+    <ClCompile Include="Collideable.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="CollisionMap.cpp" />
+    <ClCompile Include="DefaultBullet.cpp" />
+    <ClCompile Include="DefaultGun.cpp" />
+    <ClCompile Include="EventsManager.cpp" />
+    <ClCompile Include="EventSubscriber.cpp" />
+    <ClCompile Include="GameScreen.cpp" />
+    <ClCompile Include="GlockBullet.cpp" />
+    <ClCompile Include="GlockGun.cpp" />
+    <ClCompile Include="HudScreen.cpp" />
+    <ClCompile Include="IBullet.cpp" />
+    <ClCompile Include="IClickable.cpp" />
+    <ClCompile Include="ICommand.cpp" />
+    <ClCompile Include="CommandController.cpp" />
+    <ClCompile Include="IDrawable.cpp" />
+    <ClCompile Include="GameClock.cpp" />
+    <ClCompile Include="GameController.cpp" />
+    <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="IScreen.cpp" />
+    <ClCompile Include="IBaseGun.cpp" />
+    <ClCompile Include="M16Gun.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuScreen.cpp" />
+    <ClCompile Include="Moveable.cpp" />
+    <ClCompile Include="MoveableSpriteObject.cpp" />
+    <ClCompile Include="MoveCommand.cpp" />
+    <ClCompile Include="NormalTile.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="RotationCommand.cpp" />
+    <ClCompile Include="ScreensManager.cpp" />
+    <ClCompile Include="ShootCommand.cpp" />
+    <ClCompile Include="ShopScreen.cpp" />
+    <ClCompile Include="SpriteObject.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="Tilemap.cpp" />
+    <ClCompile Include="TileObejctMap.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="CollideableTile.h" />
+    <ClInclude Include="Collideable.h" />
+    <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="CollisionMap.h" />
+    <ClInclude Include="DefaultBullet.h" />
+    <ClInclude Include="DefaultGun.h" />
+    <ClInclude Include="EventsManager.h" />
+    <ClInclude Include="EventSubscriber.h" />
+    <ClInclude Include="GameScreen.h" />
+    <ClInclude Include="GlockBullet.h" />
+    <ClInclude Include="GlockGun.h" />
+    <ClInclude Include="HudScreen.h" />
+    <ClInclude Include="IBullet.h" />
+    <ClInclude Include="IClickable.h" />
+    <ClInclude Include="ICommand.h" />
+    <ClInclude Include="CommandController.h" />
+    <ClInclude Include="IDrawable.h" />
+    <ClInclude Include="GameClock.h" />
+    <ClInclude Include="GameController.h" />
+    <ClInclude Include="Helper.h" />
+    <ClInclude Include="IScreen.h" />
+    <ClInclude Include="IBaseGun.h" />
+    <ClInclude Include="M16Gun.h" />
+    <ClInclude Include="MenuScreen.h" />
+    <ClInclude Include="Moveable.h" />
+    <ClInclude Include="MoveableSpriteObject.h" />
+    <ClInclude Include="MoveCommand.h" />
+    <ClInclude Include="NormalTile.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="ResourceMap.h" />
+    <ClInclude Include="Resources.h" />
+    <ClInclude Include="RotationCommand.h" />
+    <ClInclude Include="ScreensManager.h" />
+    <ClInclude Include="ShootCommand.h" />
+    <ClInclude Include="ShopScreen.h" />
+    <ClInclude Include="SpriteObject.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="Tilemap.h" />
+    <ClInclude Include="TileObejctMap.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\map.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\tileset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BO\BO.vcxproj">
+      <Project>{fc2a9ef3-9503-414a-a1db-6bdfbb8c0f91}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

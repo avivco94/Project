@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="BulletInfo">
+    <Position X="0.5" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAGAAAAAAAAAABIAAAgAIAAgQAQAQAAAEAAAA=</HashCode>
+      <FileName>BulletInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Client">
+    <Position X="17" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAAAggAAAAAACAAAAAAAAAAAAAAAAAQAAAAgAAoAAAQ=</HashCode>
+      <FileName>Client.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NotFoundException">
+    <Position X="15" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameUpdate">
+    <Position X="3.25" Y="2.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAIAAEAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>GameUpdate.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Server">
+    <Position X="17" Y="3.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAgAAqAACAAAAAAAAAAAAAAABAACAAAEAAAAAoQAAIA=</HashCode>
+      <FileName>Server.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Updates&lt;T&gt;">
+    <Position X="20" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AEAAEAAAABAAAAAAAJAAAIACAAEAIAQAAAAAAgAKAAA=</HashCode>
+      <FileName>Updates.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Quadtree&lt;T&gt;">
+    <Position X="22.25" Y="0.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AEQABAAAAABAQAAEAIIAEAAAQBAAAAAgAAACAAiAAAA=</HashCode>
+      <FileName>Quadtree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="PlayerInfo">
+    <Position X="7" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAgAIAAQAAAAACQAQAAAAAUAAAA=</HashCode>
+      <FileName>PlayerInfo.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PlayerInfoUpdate">
+    <Position X="10" Y="2.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAJAAAAAAAAAAAQAAAAAAAAAI=</HashCode>
+      <FileName>PlayerInfoUpdate.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PlayersInfo">
+    <Position X="13.5" Y="2.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAIAAEAAAAAAAAQACAAAAAAQA=</HashCode>
+      <FileName>PlayersInfo.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SerializableInfo">
+    <Position X="7.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAQAACAAAAAAA=</HashCode>
+      <FileName>SerializableInfo.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="Direction">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAgIAAAAAAAAAAACAAAAAAAAAAAAACACAIAABAAI=</HashCode>
+      <FileName>Constants.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
