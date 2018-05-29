@@ -2,6 +2,7 @@
 #include "MoveableSpriteObject.h"
 #include "BulletInfo.h"
 #include "Collideable.h"
+#include "Constants.h"
 
 class IBullet 
 	: public MoveableSpriteObject, public Collideable {

@@ -3,6 +3,7 @@
 #include "Resources.h"
 #include "Button.h"
 #include "Player.h"
+#include "WeaponsFactory.h"
 
 
 
@@ -13,7 +14,7 @@ ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p) : m
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
 	m_em = std::make_shared<EventsManager>();
 	m_menu = std::make_shared<MenuManager>(m_em);
-	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 1), sf::Vector2f(220, 50), sf::Color::White, sf::Color::Red, *font, "GLOCK18-"));
+	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 1), sf::Vector2f(220, 50), sf::Color::White, sf::Color::Red, *font, GLOCK_NAME));
 	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 2), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "USP-"));
 	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 3), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "AK47-"));
 	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 4), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "M4A1-"));
@@ -62,16 +63,19 @@ bool ShopScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 	if (button != NULL) {
 		string eventByText = button->getText();
 		
-		if (eventByText == "GLOCK18-"){
-			std::cout << "glock";
-			this->showMenu(false, true);
+		auto& weaponWithPrice = WeaponsFactory::getInstace().get(eventByText);
+		m_p->buyWeapon(weaponWithPrice);
+
+		/*if (eventByText == "GLOCK18-"){
+			if (m_p->getCash() >= GLOCK_PRICE)
+				m_p->buyWeapon(Glock);
 		}
 		else if (eventByText == "USP-")
 			std::cout << "USP";
 		else if (eventByText == "AK47-")
 			std::cout << "ak";
 		else if (eventByText == "M4A1-")
-			std::cout << "m4";
+			std::cout << "m4";*/
 		return true;
 	}
 	return false;

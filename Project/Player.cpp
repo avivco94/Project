@@ -136,6 +136,22 @@ std::shared_ptr<std::map<std::string, std::shared_ptr<IBullet>>> Player::getBull
 int Player::getHP() {
 	return m_hp;
 }
+void Player::decHP(int amount) {
+	m_hp -= amount;
+}
 int Player::getAmmo() {
 	return m_weapon->getAmmo();
+}
+
+int Player::getCash(){
+	return m_cash;
+}
+
+void Player::buyWeapon(WeaponWithPrice& w){
+	if (m_cash >= w.price) {
+		m_cash -= w.price;
+		m_weapon = w.buyFunc({0,0});
+		m_weapon->setRotation(getRotation());
+		m_weapon->setCenter(getCenter());
+	}
 }

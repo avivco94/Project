@@ -46,6 +46,10 @@ const std::string HUD_SCREEN = "HudScreen";
 
 const sf::IntRect PLAYER_TEXTURE_RECT = sf::IntRect(0, 0, 40, 40);
 const sf::IntRect GLOCK_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
+const sf::IntRect USP_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
+const sf::IntRect AK_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
+const sf::IntRect M4_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
+
 
 const char SEPARATOR = ',';
 const char SEPARATOR2 = ';';
@@ -53,19 +57,51 @@ const char SEPARATOR2 = ';';
 const sf::IpAddress SERVER_IP = sf::IpAddress::LocalHost;
 const unsigned short SERVER_PORT = 5642;
 
-const sf::IntRect GLOCK_TEXTURE_RECT = sf::IntRect(0, 0, 40, 40);
+const sf::IntRect GLOCK_TEXTURE_RECT = sf::IntRect(0, 0, 50, 50);
 const int GLOCK_BULLETS_COUNT = 100;
+const sf::IntRect USP_TEXTURE_RECT = sf::IntRect(50, 0, 50, 50);
+const int USP_BULLETS_COUNT = 90;
+const sf::IntRect AK_TEXTURE_RECT = sf::IntRect(100, 0, 50, 50);
+const int AK_BULLETS_COUNT = 180;
+const sf::IntRect M4_TEXTURE_RECT = sf::IntRect(150, 0, 50, 50);
+const int M4_BULLETS_COUNT = 200;
+
 
 //Bullets per sec
-const float GLOCK_SPEED = 5;
+const float GLOCK_SPEED = 3;
+const float USP_SPEED = 5;
+const float AK_SPEED = 10;
+const float M4_SPEED = 12;
 
 //Coordinates per sec
 const float GLOCK_BULLET_SPEED = 1000;
+const float USP_BULLET_SPEED = 1200;
+const float AK_BULLET_SPEED = 1500;
+const float M4_BULLET_SPEED = 1800;
 const float PLAYER_SPEED = 300;
 
 //Coordinates to move
 const float GLOCK_BULLET_DURATION = 350;
+const float USP_BULLET_DURATION = 400;
+const float AK_BULLET_DURATION = 500;
+const float M4_BULLET_DURATION = 600;
 
+const std::string GLOCK_NAME = "GLOCK18-";
+const std::string USP_NAME = "USP-";
+const std::string AK_NAME = "AK47-";
+const std::string M4_NAME = "M4A1-";
+
+const int GLOCK_PRICE = 300;
+const int USP_PRICE = 400;
+const int M4_PRICE = 700;
+const int AK_PRICE = 600;
+
+enum weapons {
+	Glock,
+	Usp,
+	M4,
+	AK
+};
 
 inline std::istream& operator>>(std::istream& is, sf::Vector2f& v2f) {
 	is >> v2f.x;

@@ -163,6 +163,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AK47Gun.cpp" />
+    <ClCompile Include="AKBullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CollideableTile.cpp" />
     <ClCompile Include="Collideable.cpp" />
@@ -189,6 +191,7 @@
     <ClCompile Include="ITypeable.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="M16Gun.cpp" />
+    <ClCompile Include="M4Bullet.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="MenuScreen.cpp" />
@@ -206,8 +209,13 @@
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TileObejctMap.cpp" />
+    <ClCompile Include="USPBullet.cpp" />
+    <ClCompile Include="USPGun.cpp" />
+    <ClCompile Include="WeaponsFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AK47Gun.h" />
+    <ClInclude Include="AKBullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CollideableTile.h" />
     <ClInclude Include="Collideable.h" />
@@ -234,6 +242,7 @@
     <ClInclude Include="ITypeable.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="M16Gun.h" />
+    <ClInclude Include="M4Bullet.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="MenuScreen.h" />
     <ClInclude Include="Moveable.h" />
@@ -251,6 +260,9 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Tilemap.h" />
     <ClInclude Include="TileObejctMap.h" />
+    <ClInclude Include="USPBullet.h" />
+    <ClInclude Include="USPGun.h" />
+    <ClInclude Include="WeaponsFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Resources\map.txt" />

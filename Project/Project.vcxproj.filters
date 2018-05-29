@@ -180,6 +180,24 @@
     <ClCompile Include="Label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WeaponsFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AK47Gun.cpp">
+      <Filter>Source Files\Drawables\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="AKBullet.cpp">
+      <Filter>Source Files\Drawables\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="USPBullet.cpp">
+      <Filter>Source Files\Drawables\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="USPGun.cpp">
+      <Filter>Source Files\Drawables\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="M4Bullet.cpp">
+      <Filter>Source Files\Drawables\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionMap.h">
@@ -308,8 +326,26 @@
     <ClInclude Include="MenuManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Label.h">
+    <ClInclude Include="WeaponsFactory.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AK47Gun.h">
+      <Filter>Header Files\Drawables\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="AKBullet.h">
+      <Filter>Header Files\Drawables\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="M4Bullet.h">
+      <Filter>Header Files\Drawables\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="USPBullet.h">
+      <Filter>Header Files\Drawables\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="USPGun.h">
+      <Filter>Header Files\Drawables\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>Header Files\Drawables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

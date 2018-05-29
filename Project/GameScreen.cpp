@@ -21,6 +21,14 @@
 GameScreen::GameScreen(std::shared_ptr<Client> client)
 	: m_client(client) {
 
+	//TODO - Get position from server
+	m_player = std::make_shared<Player>(sf::Vector2f(40, 40));
+	m_otherPlayers.insert(std::make_pair("10", std::make_shared<Player>(sf::Vector2f(40, 40))));
+
+	//Update server - start pos
+	Updates<PlayerInfoUpdate>::getInstance().add(PlayerInfoUpdate(m_player->getPlayerInfo(m_client->m_id)));
+
+
 	m_sm.addScreen(HUD_SCREEN, std::make_shared<HudScreen>(sf::Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y), m_player));
 	m_sm.addScreen(SHOP_SCREEN, std::make_shared<ShopScreen>(sf::Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y), m_player));
 
@@ -32,13 +40,7 @@ GameScreen::GameScreen(std::shared_ptr<Client> client)
 
 	m_map.Load("Resources/map.txt", sf::Vector2u(40, 40));
 
-	//TODO - Get position from server
-	m_player = std::make_shared<Player>(sf::Vector2f(40, 40));
-	m_otherPlayers.insert(std::make_pair("10",std::make_shared<Player>(sf::Vector2f(40, 40))));
-
-	//Update server - start pos
-	Updates<PlayerInfoUpdate>::getInstance().add(PlayerInfoUpdate(m_player->getPlayerInfo(m_client->m_id)));
-
+	
 
 	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndWallCollision(c1, c2);
@@ -108,7 +110,7 @@ void GameScreen::update(sf::RenderWindow& window) {
 		Updates<PlayerInfoUpdate>::getInstance().add(PlayerInfoUpdate(m_player->getPlayerInfo(m_client->m_id)));
 	}*/
 
-	Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), 60 });
+	Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), m_player->getCash() });
 
 	m_sm.update(window);
 }
@@ -332,7 +334,8 @@ void GameScreen::playerAndBulletCollision(std::shared_ptr<Collideable> c1, std::
 	if (playerCircle.isCollide(bulletPoly)) {
 		auto bullets = player->getBullets()->find(bullet->getId());
 		if (!(bullets != player->getBullets()->end() && bullets->second == bullet) && !bullet->isOver()) {
-			std::cout << "Hit " << bullet->getId() << std::endl;
+			player->decHP(20);
+			std::cout << "Hit " << bullet->getId() << " HP " << player->getHP() << std::endl;
 			bullet->setOver();
 		}
 	}

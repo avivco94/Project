@@ -6,6 +6,8 @@
 #include "IBullet.h"
 #include <map>
 #include "IBaseGun.h"
+#include "Constants.h"
+#include "WeaponsFactory.h"
 
 class Player
 	: public MoveableSpriteObject, public Collideable {
@@ -27,11 +29,15 @@ class Player
 		float getRadius();
 		std::shared_ptr<std::map<std::string, std::shared_ptr<IBullet>>> getBullets();
 		int getHP();
+		void decHP(int amount);
 		int getAmmo();
+		int getCash();
+		void buyWeapon(WeaponWithPrice& w);
 	private:
 		int m_bulletsCounter = 0;
 		float m_radius;
 		std::shared_ptr<std::map<std::string, std::shared_ptr<IBullet>>> m_bullets;
 		std::shared_ptr<IBaseGun> m_weapon;
 		int m_hp = 100;
+		int m_cash = 800;
 };
