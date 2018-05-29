@@ -1,6 +1,6 @@
 #pragma once
 #include "MoveableSpriteObject.h"
-#include "Collideable.h"
+#include "CollideableType.h"
 #include "PlayerInfo.h"
 #include <deque>
 #include "IBullet.h"
@@ -10,7 +10,7 @@
 #include "WeaponsFactory.h"
 
 class Player
-	: public MoveableSpriteObject, public Collideable {
+	: public MoveableSpriteObject, public CollideableType<Player> {
 	public:
 		Player(sf::Vector2f pos);
 		~Player();

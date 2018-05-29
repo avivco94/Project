@@ -1,11 +1,11 @@
 #pragma once
 #include "MoveableSpriteObject.h"
 #include "BulletInfo.h"
-#include "Collideable.h"
+#include "CollideableType.h"
 #include "Constants.h"
 
 class IBullet 
-	: public MoveableSpriteObject, public Collideable {
+	: public MoveableSpriteObject, public CollideableType<IBullet> {
 	public: 
 		IBullet(std::string id, sf::IntRect rect, sf::Vector2f startPos, sf::Vector2f direction, float rotation, float durtion, float speed);
 		virtual ~IBullet() = 0;

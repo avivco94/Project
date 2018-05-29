@@ -1,10 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Tile.h"
-#include "Collideable.h"
+#include "CollideableType.h"
 
 class CollideableTile 
-	: public Tile, public Collideable {
+	: public Tile, public CollideableType<CollideableTile> {
 	public:
 		CollideableTile(int value, sf::Texture& texture, sf::IntRect rect);
 		~CollideableTile();

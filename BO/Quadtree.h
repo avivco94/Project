@@ -30,7 +30,7 @@ class Quadtree {
 
 template <typename T>
 Quadtree<T>::Quadtree(int pLevel, sf::IntRect pBounds) 
-	: m_level(pLevel), m_bounds(pBounds), m_r(sf::Vector2f(pBounds.width, pBounds.height)){
+	: m_level((unsigned)pLevel), m_bounds(pBounds), m_r(sf::Vector2f(pBounds.width, pBounds.height)){
 	m_r.setPosition(pBounds.left, pBounds.top);
 	m_r.setFillColor(sf::Color::Transparent);
 	m_r.setOutlineColor(sf::Color::White);

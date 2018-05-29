@@ -168,6 +168,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CollideableTile.cpp" />
     <ClCompile Include="Collideable.cpp" />
+    <ClCompile Include="CollideableType.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="CollisionMap.cpp" />
     <ClCompile Include="DefaultBullet.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="Button.h" />
     <ClInclude Include="CollideableTile.h" />
     <ClInclude Include="Collideable.h" />
+    <ClInclude Include="CollideableType.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="CollisionMap.h" />
     <ClInclude Include="DefaultBullet.h" />

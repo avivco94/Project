@@ -46,15 +46,15 @@ GameScreen::GameScreen(std::shared_ptr<Client> client)
 		playerAndWallCollision(c1, c2);
 	});
 
-	CollisionMap::getInstance().addEntry(typeid(GlockBullet).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	/*CollisionMap::getInstance().addEntry(typeid(GlockBullet).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+		bulletAndWallCollision(c1, c2);
+	});*/
+
+	CollisionMap::getInstance().addEntry(typeid(IBullet).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		bulletAndWallCollision(c1, c2);
 	});
 
-	CollisionMap::getInstance().addEntry(typeid(DefaultBullet).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-		bulletAndWallCollision(c1, c2);
-	});
-
-	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(GlockBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(IBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndBulletCollision(c1, c2);
 	});
 
@@ -262,7 +262,7 @@ void GameScreen::collisionCheck(std::shared_ptr<Collideable> c) {
 	}
 
 	std::for_each(begin(filtersCollisions), end(filtersCollisions), [this, &c](std::shared_ptr<Collideable> sprite) {
-		auto f = CollisionMap::getInstance().lookup(typeid(*c).name(), typeid(*sprite).name());
+		auto f = CollisionMap::getInstance().lookup(c->type().name(), sprite->type().name());
 		if (f) {
 			f(c, sprite);
 		}
