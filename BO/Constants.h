@@ -53,7 +53,7 @@ const char SEPARATOR2 = ';';
 const sf::IpAddress SERVER_IP = sf::IpAddress::LocalHost;
 const unsigned short SERVER_PORT = 5642;
 
-const sf::IntRect GLOCK_TEXTURE_RECT = sf::IntRect(0, 0, 40, 40);
+const sf::IntRect GLOCK_TEXTURE_RECT = sf::IntRect(0, 0, 50, 50);
 const int GLOCK_BULLETS_COUNT = 100;
 
 //Bullets per sec

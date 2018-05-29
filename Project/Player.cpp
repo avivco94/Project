@@ -14,6 +14,7 @@
 Player::Player(sf::Vector2f pos) 
 	: MoveableSpriteObject(*Resources::getInstance().getTexturesMap()->getResource(PLAYER_TEXTURE), PLAYER_TEXTURE_RECT, pos, PLAYER_SPEED), m_radius(PLAYER_TEXTURE_RECT.width / 2.f) {
 	m_weapon = std::make_shared<GlockGun>(pos);
+	m_weapon->setCenter(getCenter());
 	m_bullets = std::make_shared<std::map<std::string, std::shared_ptr<IBullet>>>();
 }
 
