@@ -3,6 +3,8 @@
 #include "Button.h"
 #include "MenuManager.h"
 #include "Player.h"
+#include "Label.h"
+#include <algorithm>
 
 class HudScreen :
 	public IScreen
@@ -17,9 +19,7 @@ class HudScreen :
 private:
 	sf::RectangleShape m_rect;
 	std::vector<std::shared_ptr<Button>> m_buttons;
-	bool m_show = true;
-	bool m_isPaused = false;
-	std::shared_ptr<EventsManager> m_em;
+	std::vector<std::shared_ptr<Label>> m_labels;
 	std::shared_ptr<MenuManager> m_menu;
 	std::shared_ptr<Player> m_p;
 	protected:

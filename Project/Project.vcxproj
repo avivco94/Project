@@ -187,6 +187,7 @@
     <ClCompile Include="IScreen.cpp" />
     <ClCompile Include="IBaseGun.cpp" />
     <ClCompile Include="ITypeable.cpp" />
+    <ClCompile Include="Label.cpp" />
     <ClCompile Include="M16Gun.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuManager.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="IScreen.h" />
     <ClInclude Include="IBaseGun.h" />
     <ClInclude Include="ITypeable.h" />
+    <ClInclude Include="Label.h" />
     <ClInclude Include="M16Gun.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="MenuScreen.h" />
