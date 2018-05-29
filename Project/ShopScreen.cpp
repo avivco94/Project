@@ -8,13 +8,15 @@
 
 
 ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p) : m_rect(size), m_p(p) {
-	int heightJumps = (int)size.y / 3;
+	int heightJumps = (int)size.y / 5;
 	m_rect.setFillColor(sf::Color::Transparent);
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
 	m_em = std::make_shared<EventsManager>();
 	m_menu = std::make_shared<MenuManager>(m_em);
-	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 1), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "PISTOLS"));
-	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 2), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "RIFELES"));
+	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 1), sf::Vector2f(220, 50), sf::Color::White, sf::Color::Red, *font, "GLOCK18-"));
+	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 2), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "USP-"));
+	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 3), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "AK47-"));
+	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 4), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "M4A1-"));
 	m_menu->setOnClick(([&](string eventName, sf::Event event, EventSubscriber * object) {
 		return menuSelect(eventName, event, object);
 	}));
@@ -59,10 +61,17 @@ bool ShopScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 	auto button = dynamic_cast<Button *>(obejct);
 	if (button != NULL) {
 		string eventByText = button->getText();
-		if (eventByText == "PISTOLS")
-			std::cout << "PISTOLS";
-		else if (eventByText == "RIFELES")
-			std::cout << "RIFELES";
+		
+		if (eventByText == "GLOCK18-"){
+			std::cout << "glock";
+			this->showMenu(false, true);
+		}
+		else if (eventByText == "USP-")
+			std::cout << "USP";
+		else if (eventByText == "AK47-")
+			std::cout << "ak";
+		else if (eventByText == "M4A1-")
+			std::cout << "m4";
 		return true;
 	}
 	return false;
