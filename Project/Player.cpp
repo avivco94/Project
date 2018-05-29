@@ -93,7 +93,7 @@ void Player::shoot() {
 
 void Player::updateBullets() {
 	std::for_each(begin(*m_bullets), end(*m_bullets), [](auto& bullet) {
-		if (bullet.second) {
+		if (bullet.second && !bullet.second->isOver()) {
 			CollisionManager::getInstance().remove(bullet.second);
 			bullet.second->move();
 			CollisionManager::getInstance().add(bullet.second);

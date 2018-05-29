@@ -327,8 +327,8 @@ void GameScreen::playerAndBulletCollision(std::shared_ptr<Collideable> c1, std::
 	Polygon bulletPoly(bullet->getVertices());
 	if (playerCircle.isCollide(bulletPoly)) {
 		auto bullets = player->getBullets()->find(bullet->getId());
-		if (!(bullets != player->getBullets()->end() && bullets->second == bullet)) {
-			std::cout << "Hit";
+		if (!(bullets != player->getBullets()->end() && bullets->second == bullet) && !bullet->isOver()) {
+			std::cout << "Hit " << bullet->getId() << std::endl;
 			bullet->setOver();
 		}
 	}
