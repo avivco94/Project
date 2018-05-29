@@ -25,5 +25,8 @@ protected:
 	sf::Color m_colorOnFocused;
 	sf::RectangleShape m_rect;
 	sf::Text m_text;
+	sf::RenderTexture m_renderTexture;
+	sf::Sprite m_renderTextureSprite;
+	bool m_lastIsHovered = true;
 };
 

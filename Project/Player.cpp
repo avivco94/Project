@@ -132,3 +132,10 @@ float Player::getRadius() {
 std::shared_ptr<std::map<std::string, std::shared_ptr<IBullet>>> Player::getBullets() {
 	return m_bullets;
 }
+
+int Player::getHP() {
+	return m_hp;
+}
+int Player::getAmmo() {
+	return m_weapon->getAmmo();
+}

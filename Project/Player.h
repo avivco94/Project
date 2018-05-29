@@ -26,10 +26,12 @@ class Player
 		void setCenter(sf::Vector2f pos) override;
 		float getRadius();
 		std::shared_ptr<std::map<std::string, std::shared_ptr<IBullet>>> getBullets();
+		int getHP();
+		int getAmmo();
 	private:
 		int m_bulletsCounter = 0;
 		float m_radius;
 		std::shared_ptr<std::map<std::string, std::shared_ptr<IBullet>>> m_bullets;
 		std::shared_ptr<IBaseGun> m_weapon;
-
+		int m_hp = 100;
 };

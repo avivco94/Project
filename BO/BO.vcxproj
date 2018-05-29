@@ -156,6 +156,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="GameUpdate.h" />
+    <ClInclude Include="HudUpdate.h" />
     <ClInclude Include="PlayerInfo.h" />
     <ClInclude Include="PlayerInfoUpdate.h" />
     <ClInclude Include="PlayersInfo.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="BulletInfo.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="GameUpdate.cpp" />
+    <ClCompile Include="HudUpdate.cpp" />
     <ClCompile Include="PlayerInfo.cpp" />
     <ClCompile Include="PlayerInfoUpdate.cpp" />
     <ClCompile Include="PlayersInfo.cpp" />

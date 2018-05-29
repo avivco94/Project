@@ -16,6 +16,7 @@
 #include "DefaultBullet.h"
 #include "ShopScreen.h"
 #include "HudScreen.h"
+#include "HudUpdate.h"
 
 GameScreen::GameScreen(std::shared_ptr<Client> client)
 	: m_client(client) {
@@ -106,6 +107,9 @@ void GameScreen::update(sf::RenderWindow& window) {
 	/*if (m_directions != 0 || m_mouseLongPressed) {
 		Updates<PlayerInfoUpdate>::getInstance().add(PlayerInfoUpdate(m_player->getPlayerInfo(m_client->m_id)));
 	}*/
+
+	Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), 60 });
+
 	m_sm.update(window);
 }
 

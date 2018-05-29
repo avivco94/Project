@@ -1,4 +1,6 @@
 #include "HudScreen.h"
+#include "Updates.h"
+#include "HudUpdate.h"
 
 
 
@@ -12,15 +14,21 @@ HudScreen::HudScreen(const sf::Vector2f& size, std::shared_ptr<Player> p)
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 0, 20), sf::Color::White, *font, "HP"));
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 1+50, 20), sf::Color::White, *font, "Amoo"));
-	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 3, 20), sf::Color::White, *font, "FPS"));
+	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 3, 20), sf::Color::White, *font, "$", ""));
 }
 
 
-HudScreen::~HudScreen()
-{
-}
+HudScreen::~HudScreen() {}
 
 void HudScreen::update(sf::RenderWindow & window){
+	if (!Updates<HudUpdate>::getInstance().empty()) {
+		Updates<HudUpdate>::getInstance().iterateAndPop([this](const HudUpdate& hu) {
+			m_labels[0]->setValue(std::to_string(hu.m_hp));
+			m_labels[1]->setValue(std::to_string(hu.m_ammo));
+			m_labels[2]->setValue(std::to_string(hu.m_fps));
+		});
+	}
+	
 }
 
 bool HudScreen::handleEvent(const sf::Event & event)

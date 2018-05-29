@@ -22,3 +22,6 @@ std::shared_ptr<IBullet> IBaseGun::shoot(const std::string& id) {
 	return NULL;
 }
 
+int IBaseGun::getAmmo() {
+	return m_bulletsCount;
+}
