@@ -1,9 +1,13 @@
 #include "Client.h"
 #include <iostream>
-#include "GameUpdate.h"
 #include "Updates.h"
-#include "PlayerInfoUpdate.h"
+#include "SerializableInfo.h"
+#include "InfoFactory.h"
+#include "ConnectionInfo.h"
+#include "Constants.h"
 
+#include <algorithm> 
+#include <cctype>
 
 Client::Client()
 	: m_thread(&Client::run, this) {
@@ -12,15 +16,25 @@ Client::Client()
 Client::~Client() {}
 
 void Client::run() {
-	if (m_socket.connect(SERVER_IP, SERVER_PORT) != sf::Socket::Done)
-		return;
+	while (m_socket.connect(SERVER_IP, SERVER_PORT, sf::seconds(10)) != sf::Socket::Done);
 	std::cout << "Connected to server " << SERVER_IP << std::endl;
-	
+	m_socket.setBlocking(false);
+	std::string data;
+
 	//Get the id from the server
 	sf::Packet packet;
 	if (m_socket.receive(packet) != sf::Socket::Done)
 		return;
-	packet >> m_id;
+	packet >> data;
+
+	std::string type = data.substr(0, data.find_first_of(" \t") + 1);
+	type.erase(std::find_if(type.rbegin(), type.rend(), [](int ch) {
+		return !std::isspace(ch);
+	}).base(), type.end());
+	data = data.substr(data.find_first_of(" \t") + 1);
+	auto info = InfoFactory::getInstance().get(type, data);
+	
+	Updates<std::shared_ptr<SerializableInfo>, Response>::getInstance().add(info);
 
 	while (1) {
 		receiveData();
@@ -28,14 +42,22 @@ void Client::run() {
 	}
 }
 void Client::receiveData() {
-	auto& gu = Updates<GameUpdate>::getInstance();
+	auto& infoUpdates = Updates<std::shared_ptr<SerializableInfo>, Response>::getInstance();
 	std::string data;
+
 	sf::Packet packet;
-	switch (receiveWithTimeout(m_socket, packet, sf::Time(sf::milliseconds(10)))) {
-		case sf::Socket::Done:
+	switch (m_socket.receive(packet)) {
+		case sf::Socket::Done: {
 			packet >> data;
-			gu.add(GameUpdate(data));
+			std::string type = data.substr(0, data.find_first_of(" \t") + 1);
+			type.erase(std::find_if(type.rbegin(), type.rend(), [](int ch) {
+				return !std::isspace(ch);
+			}).base(), type.end());
+			data = data.substr(data.find_first_of(" \t") + 1);
+			auto info = InfoFactory::getInstance().get(type, data);
+			infoUpdates.add(info);
 			break;
+		}
 		case sf::Socket::NotReady:
 			break;
 		default:
@@ -43,11 +65,11 @@ void Client::receiveData() {
 	}
 }
 void Client::sendData() {
-	auto& pu = Updates<PlayerInfoUpdate>::getInstance();
+	auto& pu = Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance();
 	std::string data;
 	sf::Packet packet;
 	if (!pu.empty()) {
-		data = pu.front().deserialize();
+		data = pu.front()->deserialize();
 		packet << data;
 		if (m_socket.send(packet) != sf::Socket::Done)
 			return;

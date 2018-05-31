@@ -19,7 +19,7 @@ class Player
 		void draw(sf::RenderWindow & window) override;
 		sf::FloatRect getRect() const override;
 		void setPosition(sf::Vector2f pos) override;
-		PlayerInfo getPlayerInfo(std::string id);
+		std::shared_ptr<PlayerInfo> getPlayerInfo();
 		void shoot();
 		void updateBullets();
 		void addDefaultBullet(BulletInfo& bi);
@@ -33,11 +33,14 @@ class Player
 		int getAmmo();
 		int getCash();
 		void buyWeapon(WeaponWithPrice& w);
+		std::string getId();
+		void setId(const std::string& id);
 	private:
 		int m_bulletsCounter = 0;
 		float m_radius;
 		std::shared_ptr<std::map<std::string, std::shared_ptr<IBullet>>> m_bullets;
 		std::shared_ptr<IBaseGun> m_weapon;
+		std::string m_id;
 		int m_hp = 100;
-		int m_cash = 800;
+		int m_cash = 10000/*800*/;
 };

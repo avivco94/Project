@@ -7,7 +7,6 @@ class Client {
 		Client();
 		~Client();
 		std::string m_id;
-
 	private:
 		void run();
 		void receiveData();

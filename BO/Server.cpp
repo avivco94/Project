@@ -3,10 +3,16 @@
 #include <list>
 #include "Constants.h"
 #include "Updates.h"
-#include "PlayerInfoUpdate.h"
 #include "Exceptions.h"
+#include "InfoFactory.h"
+#include "ConnectionInfo.h"
+#include "PlayerInfo.h"
+#include <algorithm> 
+#include <cctype>
 
-Server::Server() {}
+Server::Server() {
+	m_gi = std::make_shared<GameInfo>();
+}
 Server::~Server() {}
 
 void Server::run() {
@@ -41,10 +47,12 @@ void Server::newConnection() {
 	sf::TcpSocket* client = new sf::TcpSocket;
 	if (m_listener.accept(*client) == sf::Socket::Done) {
 		std::cout << "Client connected: " << client->getRemoteAddress() << std::endl;
+		ConnectionInfo ci(std::to_string(m_count));
 		sf::Packet p;
-		p << std::to_string(m_count);
+		p << ci.deserialize();
 		if ((*client).send(p) != sf::Socket::Done)
 			return;
+
 		m_clients.insert(std::make_pair(std::to_string(m_count), client));
 		m_count++;
 		m_selector.add(*client);
@@ -60,24 +68,23 @@ void Server::handleClientData(std::map<std::string, sf::TcpSocket*>::iterator& i
 	if (m_selector.isReady(client)) {
 		sf::Packet packet;
 		switch (client.receive(packet)) {
-		case sf::Socket::Done: {
-			std::string data;
-			packet >> data;
-			PlayerInfoUpdate pu(data);
-			try {
-				auto& p = m_gu.m_playersInfo->getPlayerInfo(pu.m_playerInfo->m_id);
-				p.m_pos = pu.m_playerInfo->m_pos;
-				p.m_rotation = pu.m_playerInfo->m_rotation;
-				p.m_bullets = pu.m_playerInfo->m_bullets;
-			} catch (NotFoundException ex) {
-				m_gu.m_playersInfo->addPlayerInfo(*pu.m_playerInfo);
+			case sf::Socket::Done: {
+				std::string data;
+				packet >> data;
+				std::string type = data.substr(0, data.find_first_of(" \t") + 1);
+				type.erase(std::find_if(type.rbegin(), type.rend(), [](int ch) {
+					return !std::isspace(ch);
+				}).base(), type.end());
+				data = data.substr(data.find_first_of(" \t") + 1);
+				auto info = InfoFactory::getInstance().get(type, data);
+				info->update(m_gi);
+				m_broadcast.push_back(info);
+				break;
+			} case sf::Socket::Disconnected: {
+				clientDisconnect(it);
+				isDeleted = true;
+				break;
 			}
-			//std::cout << m_gu.deserialize() << std::endl;
-			break;
-		} case sf::Socket::Disconnected:
-			clientDisconnect(it);
-			isDeleted = true;
-			break;
 		}
 	}
 	if (!isDeleted)
@@ -86,29 +93,45 @@ void Server::handleClientData(std::map<std::string, sf::TcpSocket*>::iterator& i
 
 void Server::clientDisconnect(std::map<std::string, sf::TcpSocket*>::iterator& it) {
 	sf::TcpSocket& client = *(*it).second;
-	m_gu.m_playersInfo->m_playersInfo.erase((*it).first);
+
+	auto player = m_gi->removePlayer(it->first);
+	if (player) {
+		player->m_toRemove = true;
+		std::string data = player->deserialize();
+		std::string type = data.substr(0, data.find_first_of(" \t") + 1);
+		type.erase(std::find_if(type.rbegin(), type.rend(), [](int ch) {
+			return !std::isspace(ch);
+		}).base(), type.end());
+		data = data.substr(data.find_first_of(" \t") + 1);
+		auto info = InfoFactory::getInstance().get(type, data);
+		m_broadcast.push_back(info);
+	}
+
 	m_selector.remove(client);
 	it = m_clients.erase(it);
 }
 
 void Server::broadcast() {
 	bool isDeleted = false;
-	for (auto it = m_clients.begin(); it != m_clients.end();) {
-		sf::TcpSocket& client = *(*it).second;
-		sf::Packet p;
-		std::string data = m_gu.deserialize();
-		p << data;
-		switch (client.send(p)) {
-		case sf::Socket::Done:
-			break;
-		case sf::Socket::Disconnected:
-			clientDisconnect(it);
-			isDeleted = true;
-			break;
-		default:
-			return;
+	while (!m_broadcast.empty()) {
+		auto info = m_broadcast.front();
+		for (auto it = m_clients.begin(); it != m_clients.end();) {
+			sf::TcpSocket& client = *(*it).second;
+			sf::Packet p;
+			p << info->deserialize();
+			switch (client.send(p)) {
+				case sf::Socket::Done:
+					break;
+				case sf::Socket::Disconnected:
+					clientDisconnect(it);
+					isDeleted = true;
+					break;
+				default:
+					return;
+			}
+			if (!isDeleted)
+				it++;
 		}
-		if (!isDeleted)
-			it++;
+		m_broadcast.pop_front();
 	}
 }

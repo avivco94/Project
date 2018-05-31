@@ -2,8 +2,10 @@
 #include <map>
 #include <SFML/Network.hpp>
 #include <SFML/System.hpp>
+#include <deque>
+#include "GameInfo.h"
+#include "SerializableInfo.h"
 
-#include "GameUpdate.h"
 class Server {
 	public:
 		Server();
@@ -15,9 +17,10 @@ class Server {
 		void clientDisconnect(std::map<std::string, sf::TcpSocket*>::iterator& it);
 		void broadcast();
 		int m_count = 0;
-		GameUpdate m_gu;
+		std::shared_ptr<GameInfo> m_gi;
 		std::map<std::string, sf::TcpSocket*> m_clients;
 		sf::TcpListener m_listener;
 		sf::SocketSelector m_selector;
+		std::deque<std::shared_ptr<SerializableInfo>> m_broadcast;
 };
 

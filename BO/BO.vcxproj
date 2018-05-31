@@ -153,28 +153,30 @@
   <ItemGroup>
     <ClInclude Include="BulletInfo.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="ConnectionInfo.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Exceptions.h" />
-    <ClInclude Include="GameUpdate.h" />
+    <ClInclude Include="GameInfo.h" />
     <ClInclude Include="HudUpdate.h" />
     <ClInclude Include="PlayerInfo.h" />
-    <ClInclude Include="PlayerInfoUpdate.h" />
-    <ClInclude Include="PlayersInfo.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="SerializableInfo.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="GameUpdater.h" />
     <ClInclude Include="Updates.h" />
+    <ClInclude Include="InfoFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BulletInfo.cpp" />
     <ClCompile Include="Client.cpp" />
-    <ClCompile Include="GameUpdate.cpp" />
+    <ClCompile Include="ConnectionInfo.cpp" />
+    <ClCompile Include="GameInfo.cpp" />
     <ClCompile Include="HudUpdate.cpp" />
     <ClCompile Include="PlayerInfo.cpp" />
-    <ClCompile Include="PlayerInfoUpdate.cpp" />
-    <ClCompile Include="PlayersInfo.cpp" />
     <ClCompile Include="SerializableInfo.cpp" />
     <ClCompile Include="Server.cpp" />
+    <ClCompile Include="InfoFactory.cpp" />
+    <ClCompile Include="GameUpdater.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

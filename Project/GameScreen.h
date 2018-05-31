@@ -6,9 +6,11 @@
 #include "Constants.h"
 #include "Player.h"
 #include "ScreensManager.h"
+#include "GameUpdater.h"
+#include "ConnectionInfo.h"
 
 class GameScreen :
-	public IScreen {
+	public IScreen, public GameUpdater, public std::enable_shared_from_this<GameScreen> {
 	public:
 		GameScreen(std::shared_ptr<Client> client);
 		~GameScreen();
@@ -17,6 +19,9 @@ class GameScreen :
 		void drawScreen(sf::RenderWindow& window) override;
 		sf::Vector2f getCenter() const override;
 		sf::FloatRect getRect() const override;
+		void update(BulletInfo& bi) override;
+		void update(PlayerInfo& pi) override;
+		void update(ConnectionInfo & pi) override;
 	private:
 		void collisionCheck(std::shared_ptr<Collideable> c);
 		void playerAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);

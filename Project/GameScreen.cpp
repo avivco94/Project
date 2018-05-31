@@ -4,33 +4,23 @@
 #include "RotationCommand.h"
 #include "ShootCommand.h"
 #include "GameClock.h"
-#include "PlayerInfoUpdate.h"
-#include <algorithm>
-#include <iostream>
 #include "CollisionManager.h"
 #include "CollisionMap.h"
 #include "CollideableTile.h"
 #include "Updates.h"
-#include <memory>
 #include "GlockBullet.h"
 #include "DefaultBullet.h"
 #include "ShopScreen.h"
 #include "HudScreen.h"
 #include "HudUpdate.h"
+#include "PlayerInfo.h"
+#include <algorithm>
+#include <iostream>
+#include <memory>
 
 GameScreen::GameScreen(std::shared_ptr<Client> client)
 	: m_client(client) {
-
-	//TODO - Get position from server
-	m_player = std::make_shared<Player>(sf::Vector2f(40, 40));
-	m_otherPlayers.insert(std::make_pair("10", std::make_shared<Player>(sf::Vector2f(40, 40))));
-
-	//Update server - start pos
-	Updates<PlayerInfoUpdate>::getInstance().add(PlayerInfoUpdate(m_player->getPlayerInfo(m_client->m_id)));
-
-
 	m_sm.addScreen(HUD_SCREEN, std::make_shared<HudScreen>(sf::Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y), m_player));
-	m_sm.addScreen(SHOP_SCREEN, std::make_shared<ShopScreen>(sf::Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y), m_player));
 
 	m_sm.setScreen(HUD_SCREEN);
 
@@ -40,15 +30,9 @@ GameScreen::GameScreen(std::shared_ptr<Client> client)
 
 	m_map.Load("Resources/map.txt", sf::Vector2u(40, 40));
 
-	
-
 	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndWallCollision(c1, c2);
 	});
-
-	/*CollisionMap::getInstance().addEntry(typeid(GlockBullet).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-		bulletAndWallCollision(c1, c2);
-	});*/
 
 	CollisionMap::getInstance().addEntry(typeid(IBullet).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		bulletAndWallCollision(c1, c2);
@@ -57,62 +41,56 @@ GameScreen::GameScreen(std::shared_ptr<Client> client)
 	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(IBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndBulletCollision(c1, c2);
 	});
-
-	/*CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(GlockBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-		playerAndBulletCollision(c1, c2);
-	});*/
 }
 GameScreen::~GameScreen() {}
 
 void GameScreen::update(sf::RenderWindow& window) {
-	//updateFromServer();
-	
-
-	if (m_mouseLongPressed) {
-		m_controller.addCommandAndExecute(std::make_shared<ShootCommand>(m_player));
-	}
-
-	sf::View last_view = window.getView();
-	window.setView(m_view);
-	auto pixelPos = sf::Mouse::getPosition(window);
-	sf::Vector2f worldMousePos = window.mapPixelToCoords(pixelPos);
-	float angle = std::atan2(worldMousePos.y - m_player->getCenter().y, worldMousePos.x - m_player->getCenter().x);
-	m_controller.addCommandAndExecute(std::make_shared<RotationCommand>(m_player, (float)(angle * 180.f / PI) + 90.f));
-	window.setView(last_view);
-
-	if (m_directions != 0) {
-		CollisionManager::getInstance().remove(m_player);
-		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(m_player, Helper::getInstance().getVectorToMove(m_directions, m_player->getRotation())));
-		CollisionManager::getInstance().add(m_player);
-		if (m_player->isMoved()) {
-			collisionCheck(m_player);
+	updateFromServer();
+	if (m_player) {
+		if (m_mouseLongPressed) {
+			m_controller.addCommandAndExecute(std::make_shared<ShootCommand>(m_player));
 		}
-		m_view.setCenter(m_player->getCenter());
-	}
 
-	m_player->updateBullets();
+		sf::View last_view = window.getView();
+		window.setView(m_view);
+		auto pixelPos = sf::Mouse::getPosition(window);
+		sf::Vector2f worldMousePos = window.mapPixelToCoords(pixelPos);
+		float angle = std::atan2(worldMousePos.y - m_player->getCenter().y, worldMousePos.x - m_player->getCenter().x);
+		m_controller.addCommandAndExecute(std::make_shared<RotationCommand>(m_player, (float)(angle * 180.f / PI) + 90.f));
+		window.setView(last_view);
 
-	auto bullets = m_player->getBullets();
-	std::for_each(begin(*bullets), end(*bullets), [this](std::pair<const std::string, std::shared_ptr<IBullet>>& bullet) {
-		collisionCheck(bullet.second);
-	});
+		if (m_directions != 0) {
+			CollisionManager::getInstance().remove(m_player);
+			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(m_player, Helper::getInstance().getVectorToMove(m_directions, m_player->getRotation())));
+			CollisionManager::getInstance().add(m_player);
+			if (m_player->isMoved()) {
+				collisionCheck(m_player);
+			}
+			m_view.setCenter(m_player->getCenter());
+		}
 
-	std::for_each(begin(m_otherPlayers), end(m_otherPlayers), [this](std::pair<const std::string, std::shared_ptr<Player>>& p) {
-		p.second->updateBullets();
-		collisionCheck(p.second);
-		auto bullets = p.second->getBullets();
+		m_player->updateBullets();
+
+		auto bullets = m_player->getBullets();
 		std::for_each(begin(*bullets), end(*bullets), [this](std::pair<const std::string, std::shared_ptr<IBullet>>& bullet) {
 			collisionCheck(bullet.second);
 		});
-	});
 
-	/*if (m_directions != 0 || m_mouseLongPressed) {
-		Updates<PlayerInfoUpdate>::getInstance().add(PlayerInfoUpdate(m_player->getPlayerInfo(m_client->m_id)));
-	}*/
+		std::for_each(begin(m_otherPlayers), end(m_otherPlayers), [this](std::pair<const std::string, std::shared_ptr<Player>>& p) {
+			p.second->updateBullets();
+			collisionCheck(p.second);
+			auto bullets = p.second->getBullets();
+			std::for_each(begin(*bullets), end(*bullets), [this](std::pair<const std::string, std::shared_ptr<IBullet>>& bullet) {
+				collisionCheck(bullet.second);
+			});
+		});
 
-	Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), m_player->getCash() });
+		Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
 
-	m_sm.update(window);
+		Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), m_player->getCash() });
+
+		m_sm.update(window);
+	}
 }
 
 bool GameScreen::handleEvent(const sf::Event& event) {
@@ -195,7 +173,8 @@ void GameScreen::drawScreen(sf::RenderWindow& window) {
 
 	m_map.draw(window);
 
-	m_player->draw(window);
+	if(m_player)
+		m_player->draw(window);
 
 	std::for_each(begin(m_otherPlayers), end(m_otherPlayers), [&window](std::pair<const std::string, std::shared_ptr<Player>>& p) {
 		p.second->draw(window);
@@ -214,37 +193,46 @@ sf::FloatRect GameScreen::getRect() const {
 	return sf::FloatRect();
 }
 
-void GameScreen::updateFromServer() {
-	auto& gu = Updates<GameUpdate>::getInstance();
-	gu.iterateAndPop([&](const GameUpdate& gameUpdate) {
-		auto players = gameUpdate.m_playersInfo->m_playersInfo;
-
-		//Update player
-		std::for_each(begin(players), end(players), [&](std::pair<const std::string, PlayerInfo>& p) {
-			if (p.first != m_client->m_id) {
-				auto playerIt = m_otherPlayers.find(p.first);
-				if (playerIt == m_otherPlayers.end()) {
-					auto a = m_otherPlayers.insert(std::make_pair(p.first, std::make_shared<Player>(p.second.m_pos)));
-					a.first->second->setCenter(p.second.m_pos);
-					a.first->second->setRotation(p.second.m_rotation);
-				}
-				else {
-					playerIt->second->setCenter(p.second.m_pos);
-					playerIt->second->setRotation(p.second.m_rotation);
-					std::for_each(begin(p.second.m_bullets), end(p.second.m_bullets), [&playerIt](BulletInfo& bi) {
-						playerIt->second->addDefaultBullet(bi);
-					});
-				}
-			}
-		});
-
-		//Remove disconnected players
-		for (auto it = m_otherPlayers.begin(); it != m_otherPlayers.end();) {
-			if (players.find(it->first) == players.end())
-				it = m_otherPlayers.erase(it);
-			else
-				++it;
+void GameScreen::update(BulletInfo & bi) {
+	if (bi.m_pid != m_player->getId()) {
+		auto playerIt = m_otherPlayers.find(bi.m_pid);
+		if (playerIt != m_otherPlayers.end()) {
+			playerIt->second->addDefaultBullet(bi);
 		}
+	}
+}
+
+void GameScreen::update(PlayerInfo & pi) {
+	if (pi.m_id != m_player->getId()) {
+		auto playerIt = m_otherPlayers.find(pi.m_id);
+		if (playerIt == m_otherPlayers.end()) { //If new Player
+			auto a = m_otherPlayers.insert(std::make_pair(pi.m_id, std::make_shared<Player>(pi.m_pos)));
+			a.first->second->setCenter(pi.m_pos);
+			a.first->second->setRotation(pi.m_rotation);
+		} else {
+			if (pi.m_toRemove) {
+				m_otherPlayers.erase(pi.m_id);
+			} else {
+				playerIt->second->setCenter(pi.m_pos);
+				playerIt->second->setRotation(pi.m_rotation);
+			}
+		}
+	}
+}
+
+void GameScreen::update(ConnectionInfo & pi) {
+	//TODO - Get position from server
+	m_player = std::make_shared<Player>(sf::Vector2f(40, 40));
+	m_player->setId(pi.m_id);
+	//Update server - start pos
+	Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
+	m_sm.addScreen(SHOP_SCREEN, std::make_shared<ShopScreen>(sf::Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y), m_player));
+}
+
+void GameScreen::updateFromServer() {
+	auto& gu = Updates<std::shared_ptr<SerializableInfo>, Response>::getInstance();
+	gu.iterateAndPop([&](auto gameUpdate) {
+		gameUpdate->update(shared_from_this());
 	});
 }
 

@@ -8,7 +8,6 @@
 
 #include "GameController.h"
 #include <iostream>
-#include "GameUpdate.h"
 #include "Updates.h"
 #include "Client.h"
 #include "Server.h"

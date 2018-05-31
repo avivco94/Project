@@ -10,6 +10,7 @@
 #include "GlockGun.h"
 #include <experimental/map>
 #include "CollisionManager.h"
+#include "Updates.h"
 
 Player::Player(sf::Vector2f pos) 
 	: MoveableSpriteObject(*Resources::getInstance().getTexturesMap()->getResource(PLAYER_TEXTURE), PLAYER_TEXTURE_RECT, pos, PLAYER_SPEED), m_radius(PLAYER_TEXTURE_RECT.width / 2.f) {
@@ -76,19 +77,21 @@ sf::Vector2f Player::getCenter() const {
 	return SpriteObject::getCenter();
 }
 
-PlayerInfo Player::getPlayerInfo(std::string id) {
-	auto pi = PlayerInfo(id, getCenter(), getRotation(), m_weapon->getCenter(), m_weapon->getTextureRect());
-	std::for_each(begin(*m_bullets), end(*m_bullets), [&pi](auto& bullet) {
+std::shared_ptr<PlayerInfo> Player::getPlayerInfo() {
+	//auto pi = PlayerInfo(id, getCenter(), getRotation(), m_weapon->getCenter(), m_weapon->getTextureRect());
+	/*std::for_each(begin(*m_bullets), end(*m_bullets), [&pi](auto& bullet) {
 		pi.m_bullets.push_back(bullet.second->getBulletInfo());
-	});
-	return std::move(pi);
+	});*/
+	return std::make_shared<PlayerInfo>(m_id, getCenter(), getRotation(), m_weapon->getCenter(), m_weapon->getTextureRect());
 }
 
 void Player::shoot() {
-	auto bullet = m_weapon->shoot(std::to_string(m_bulletsCounter));
+	auto bullet = m_weapon->shoot(std::to_string(m_bulletsCounter), m_id);
 	if (bullet != nullptr) {
 		m_bullets->insert(std::make_pair(std::to_string(m_bulletsCounter), bullet));
 		m_bulletsCounter++;
+		//std::cout << bullet->getBulletInfo()->deserialize() << std::endl;
+		Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(bullet->getBulletInfo());
 	}
 }
 
@@ -103,8 +106,10 @@ void Player::updateBullets() {
 }
 
 void Player::addDefaultBullet(BulletInfo& bi) {
+	//std::cout << m_bullets->size() << std::endl;
 	auto it = m_bullets->find(bi.m_id);
 	if (it == m_bullets->end()) {
+		//std::cout << bi.deserialize() << std::endl;
 		auto bullet = std::make_shared<DefaultBullet>(bi);
 		m_bullets->insert(std::make_pair(std::to_string(m_bulletsCounter), bullet));
 	}
@@ -155,4 +160,12 @@ void Player::buyWeapon(WeaponWithPrice& w){
 		m_weapon->setRotation(getRotation());
 		m_weapon->setCenter(getCenter());
 	}
+}
+
+std::string Player::getId() {
+	return m_id;
+}
+
+void Player::setId(const std::string& id) {
+	m_id = id;
 }

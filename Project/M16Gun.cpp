@@ -8,6 +8,6 @@ M16Gun::M16Gun(sf::Vector2f pos)
 
 M16Gun::~M16Gun() {}
 
-std::shared_ptr<IBullet> M16Gun::makeBullet(const std::string& id, sf::Vector2f pos, sf::Vector2f vec, float rotaion) {
-	return std::make_shared<M4Bullet>(id, pos, vec, rotaion);
+std::shared_ptr<IBullet> M16Gun::makeBullet(const std::string& id, sf::Vector2f pos, sf::Vector2f vec, float rotaion, const std::string& pid) {
+	return std::make_shared<M4Bullet>(id, pid, pos, vec, rotaion);
 }

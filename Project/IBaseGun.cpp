@@ -7,7 +7,7 @@ IBaseGun::IBaseGun(sf::IntRect rect, sf::Vector2f pos, float speed, int bulletsC
 
 IBaseGun::~IBaseGun() {}
 
-std::shared_ptr<IBullet> IBaseGun::shoot(const std::string& id) {
+std::shared_ptr<IBullet> IBaseGun::shoot(const std::string& id, const std::string& pid) {
 	if (GameClock::getInstance().isTimePassed(m_lastShoot, 1 / m_gunSpeed)) {
 		if (m_bulletsCount > 0) {
 			auto currRotation = getRotation();
@@ -16,7 +16,7 @@ std::shared_ptr<IBullet> IBaseGun::shoot(const std::string& id) {
 			sf::Vector2f pos = getCenter() + sf::Vector2f(m_radius * d.x, m_radius * d.y);
 			m_bulletsCount--;
 			m_lastShoot = GameClock::getInstance().getElapsedTime();
-			return makeBullet(id, pos, d, currRotation);
+			return makeBullet(id, pos, d, currRotation, pid);
 		} 
 	}
 	return NULL;

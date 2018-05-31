@@ -1,13 +1,12 @@
 #include "GameController.h"
 #include "Helper.h"
 #include "Resources.h"
-#include "GameUpdate.h"
-#include "PlayerInfoUpdate.h"
 #include "GameClock.h"
 #include "MoveCommand.h"
 #include "RotationCommand.h"
 #include "MenuScreen.h"
 #include "ShopScreen.h"
+#include "GameScreen.h"
 #include <iostream>
 
 

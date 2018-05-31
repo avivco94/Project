@@ -59,11 +59,11 @@ const unsigned short SERVER_PORT = 5642;
 
 const sf::IntRect GLOCK_TEXTURE_RECT = sf::IntRect(0, 0, 50, 50);
 const int GLOCK_BULLETS_COUNT = 100;
-const sf::IntRect USP_TEXTURE_RECT = sf::IntRect(50, 0, 50, 50);
+const sf::IntRect USP_TEXTURE_RECT = sf::IntRect(150, 0, 50, 50);
 const int USP_BULLETS_COUNT = 90;
-const sf::IntRect AK_TEXTURE_RECT = sf::IntRect(100, 0, 50, 50);
+const sf::IntRect AK_TEXTURE_RECT = sf::IntRect(50, 0, 50, 50);
 const int AK_BULLETS_COUNT = 180;
-const sf::IntRect M4_TEXTURE_RECT = sf::IntRect(150, 0, 50, 50);
+const sf::IntRect M4_TEXTURE_RECT = sf::IntRect(100, 0, 50, 50);
 const int M4_BULLETS_COUNT = 200;
 
 

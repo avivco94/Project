@@ -6,12 +6,13 @@
 
 
 
-class BulletInfo 
+struct BulletInfo 
 	: public SerializableInfo {
 	public:
 		BulletInfo(std::string params);
-		BulletInfo(std::string id, sf::IntRect rect, sf::Vector2f currPos, float rotation, sf::Vector2f direction, float durtion, float speed, sf::Vector2f passed);
-		std::string deserialize() const override;
+		BulletInfo(std::string id, std::string pid, sf::IntRect rect, sf::Vector2f currPos, float rotation, sf::Vector2f direction, float durtion, float speed, sf::Vector2f passed);
+		std::string deserializeInfo() const override;
+		std::string m_pid;
 		std::string m_id;
 		sf::IntRect m_rect;
 		sf::Vector2f m_currPos;
@@ -20,6 +21,8 @@ class BulletInfo
 		float m_durtion;
 		float m_speed;
 		sf::Vector2f m_passed;
+		void update(std::shared_ptr<GameUpdater> gu) override;
+
 	protected:
 		void serialize(std::stringstream& params) override;
 };
