@@ -13,7 +13,7 @@
 Server::Server() {
 	m_gi = std::make_shared<GameInfo>();
 	//TODO - Start Positions By map
-	for (int i = 0; i < 100; i++)
+	for (int i = 1; i < 100; i++)
 		m_startPositions.push_back(sf::Vector2f(40 * i, 40));
 }
 Server::~Server() {}
