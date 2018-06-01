@@ -3,6 +3,7 @@
 #include <SFML\Graphics.hpp>
 #include <list>
 #include <experimental\vector>
+#include <iostream>
 
 template <typename T>
 class Quadtree {
@@ -13,6 +14,8 @@ class Quadtree {
 		void insert(std::shared_ptr<T> pRect);
 		bool remove(std::shared_ptr<T> pRect);
 		unsigned int size();
+		void printPath(std::shared_ptr<T> pRect);
+		void getAll(std::shared_ptr<std::vector<std::shared_ptr<T>>> returnObjects);
 		std::shared_ptr<std::vector<std::shared_ptr<T>>> retrieve(std::shared_ptr<T> pRect);
 		void draw(sf::RenderTarget& rt);
 	private:
@@ -173,6 +176,8 @@ void Quadtree<T>::retrieve(std::shared_ptr<std::vector<std::shared_ptr<T>>> retu
 	if (index != -1 && m_nodes[0] != nullptr) {
 		m_nodes[index]->retrieve(returnObjects, rect);
 	}
+	if (index == -1)
+		getAll(returnObjects);
 
 	std::for_each(begin(m_objects), end(m_objects), [&returnObjects](std::shared_ptr<T> object) {
 		returnObjects->push_back(object);
@@ -182,6 +187,28 @@ void Quadtree<T>::retrieve(std::shared_ptr<std::vector<std::shared_ptr<T>>> retu
 template <typename T>
 unsigned int Quadtree<T>::size() {
 	return m_objects.size();
+}
+
+template<typename T>
+inline void Quadtree<T>::printPath(std::shared_ptr<T> pRect) {
+	int index = getIndex(pRect);
+	std::cout << index << " ";
+	if (index != -1 && m_nodes[0] != nullptr) {
+		m_nodes[index]->printPath(pRect);
+	}
+}
+
+template<typename T>
+inline void Quadtree<T>::getAll(std::shared_ptr<std::vector<std::shared_ptr<T>>> returnObjects) {
+	if (m_nodes[0] != nullptr) {
+		m_nodes[0]->getAll(returnObjects);
+		m_nodes[1]->getAll(returnObjects);
+		m_nodes[2]->getAll(returnObjects);
+		m_nodes[3]->getAll(returnObjects);
+	}
+	std::for_each(begin(m_objects), end(m_objects), [&returnObjects](std::shared_ptr<T> object) {
+		returnObjects->push_back(object);
+	});
 }
 
 template <typename T>

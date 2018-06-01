@@ -19,6 +19,11 @@ void CollisionManager::add(std::shared_ptr<Collideable> c) {
 		m_quad->insert(c);
 	}
 }
+void CollisionManager::printPath(std::shared_ptr<Collideable> c) {
+	if (m_quad != NULL) {
+		m_quad->printPath(c);
+	}
+}
 void CollisionManager::remove(std::shared_ptr<Collideable> c) {
 	if (m_quad != NULL) {
 		m_quad->remove(c);

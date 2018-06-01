@@ -78,11 +78,13 @@ void Tilemap::draw(sf::RenderWindow& window) {
 	}
 	window.draw(m_renderTextureSprite);
 
-	/*m_renderTextureQuad.clear(sf::Color::Transparent);
-	CollisionManager::getInstance().draw(m_renderTextureQuad);
-	m_renderTextureQuad.display();
-	m_renderTextureSpriteQuad.setTexture(m_renderTextureQuad.getTexture());
-	lastDrawQuad = GameClock::getInstance().getElapsedTime();
+	/*if (GameClock::getInstance().isTimePassed(lastDrawQuad, 5)) {
+		m_renderTextureQuad.clear(sf::Color::Transparent);
+		CollisionManager::getInstance().draw(m_renderTextureQuad);
+		m_renderTextureQuad.display();
+		m_renderTextureSpriteQuad.setTexture(m_renderTextureQuad.getTexture());
+		lastDrawQuad = GameClock::getInstance().getElapsedTime();
+	}
 	window.draw(m_renderTextureSpriteQuad);*/
 }
 

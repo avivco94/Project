@@ -119,6 +119,7 @@ class CollisionManager
 		static CollisionManager & getInstance();
 		void init(sf::IntRect rect);
 		void add(std::shared_ptr<Collideable> c);
+		void printPath(std::shared_ptr<Collideable> c);
 		void remove(std::shared_ptr<Collideable> c);
 		std::shared_ptr<std::vector<std::shared_ptr<Collideable>>> retrieve(std::shared_ptr<Collideable> c);
 		void draw(sf::RenderTarget& rt);

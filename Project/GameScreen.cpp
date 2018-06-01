@@ -38,7 +38,11 @@ GameScreen::GameScreen(std::shared_ptr<Client> client)
 		bulletAndWallCollision(c1, c2);
 	});
 
-	CollisionMap::getInstance().addEntry(typeid(IBasePlayer).name(), typeid(IBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(IBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+		playerAndBulletCollision(c1, c2);
+	});
+
+	CollisionMap::getInstance().addEntry(typeid(EnemyPlayer).name(), typeid(IBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndBulletCollision(c1, c2);
 	});
 
@@ -67,6 +71,14 @@ void GameScreen::update(sf::RenderWindow& window) {
 			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(m_player, Helper::getInstance().getVectorToMove(m_directions, m_player->getRotation())));
 			CollisionManager::getInstance().add(m_player);
 			if (m_player->isMoved()) {
+				/*std::cout << "Player ";
+				CollisionManager::getInstance().printPath(m_player);
+				std::cout << std::endl;
+				if (!m_otherPlayers.empty()) {
+					std::cout << "Enemy ";
+					CollisionManager::getInstance().printPath(m_otherPlayers.begin()->second);
+					std::cout << std::endl;
+				}*/
 				collisionCheck(m_player);
 			}
 			m_view.setCenter(m_player->getCenter());
@@ -250,6 +262,7 @@ void GameScreen::updateFromServer() {
 
 void GameScreen::collisionCheck(std::shared_ptr<Collideable> c) {
 	auto suspectedCollisions = CollisionManager::getInstance().retrieve(c);
+	//std::cout << suspectedCollisions->size() << std::endl;
 	std::vector<std::shared_ptr<Collideable>> filtersCollisions;
 	if (suspectedCollisions) {
 		float distanceOffset = sqrt(pow(40, 2) + pow(40, 2));
@@ -310,8 +323,11 @@ void GameScreen::playerAndWallCollision(std::shared_ptr<Collideable> c1, std::sh
 					v.x += player->getCenter().x - c2->getCenter().x > 0.f ? -1.f : 1.f;
 			}
 		}
-		if (v.x != 0 || v.y != 0)
+		if (v.x != 0 || v.y != 0) {
+			CollisionManager::getInstance().remove(player);
 			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, -v));
+			CollisionManager::getInstance().add(player);
+		}
 		player->setForceMove(false);
 	}
 }
@@ -353,31 +369,41 @@ void GameScreen::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, 
 		sf::Vector2f v = Helper::getInstance().getVectorToMove(m_directions, player1->getRotation());
 
 		auto& a = Updates<std::shared_ptr<ICommand>>::getInstance();
-
-		int d = m_map.getDirectionByIndexes(m_map.getIndexByPos(c1->getCenter()), m_map.getIndexByPos(c2->getCenter()));
+		
 		sf::Vector2f temp = v;
-
-		if (!(((d & Up) == Up && temp.y < 0) || ((d & Down) == Down && temp.y > 0))) {
+		v = { 0,0 };
+		/*if (!((temp.y < 0 && player1->getCenter().y > player2->getCenter().y) ||
+			   temp.y > 0 && player1->getCenter().y < player2->getCenter().y)) {
 			v.y = 0;
 		}
 
-		if (!(((d & Left) == Left && temp.x < 0) || ((d & Right) == Right && temp.x > 0))) {
+		if (!((temp.x < 0 && player1->getCenter().x > player2->getCenter().x) ||
+			   temp.x > 0 && player1->getCenter().x < player2->getCenter().x)) {
 			v.x = 0;
-		}
+		}*/
 
-		if ((d & UpLeft) == UpLeft || (d & DownLeft) == DownLeft ||
-			(d & UpRight) == UpRight || (d & DownRight) == DownRight) {
-			float dis_x = abs(player1->getCenter().x - c2->getCenter().x);
-			float dis_y = abs(player1->getCenter().y - c2->getCenter().y);
+		float dis_x = abs(player1->getCenter().x - c2->getCenter().x);
+		float dis_y = abs(player1->getCenter().y - c2->getCenter().y);
 
+		if (dis_y >= dis_x)
+			v.y = temp.y;
+
+		if (dis_x >= dis_y)
+			v.x = temp.x;
+
+		//Fix player pos near to corner of tile
+		if (abs(dis_x - dis_y) <= 10) {
 			if (dis_y >= dis_x)
-				v.y = temp.y;
-
-			if (dis_x >= dis_y)
-				v.x = temp.x;
+				v.y += player1->getCenter().y - c2->getCenter().y > 0.f ? -1.f : 1.f;
+			else if (dis_x >= dis_y)
+				v.x += player1->getCenter().x - c2->getCenter().x > 0.f ? -1.f : 1.f;
 		}
-		if (v.x != 0 || v.y != 0)
+
+		if (v.x != 0 || v.y != 0) {
+			CollisionManager::getInstance().remove(player1);
 			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, -v));
+			CollisionManager::getInstance().add(player1);
+		}
 		player1->setForceMove(false);
 	}
 }
