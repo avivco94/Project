@@ -95,6 +95,7 @@ void Server::clientDisconnect(std::map<std::string, sf::TcpSocket*>::iterator& i
 
 	auto player = m_gi->removePlayer(it->first);
 	if (player) {
+		m_startPositions.push_back(sf::Vector2f(40.f * (std::stoi(player->m_id) + 1), 40.f));
 		player->m_toRemove = true;
 		std::string data = player->deserialize();
 		auto info = InfoFactory::getInstance().get(data);

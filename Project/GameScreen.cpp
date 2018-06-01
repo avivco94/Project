@@ -38,7 +38,7 @@ GameScreen::GameScreen(std::shared_ptr<Client> client)
 		bulletAndWallCollision(c1, c2);
 	});
 
-	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(IBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	CollisionMap::getInstance().addEntry(typeid(IBasePlayer).name(), typeid(IBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndBulletCollision(c1, c2);
 	});
 
@@ -235,6 +235,7 @@ void GameScreen::update(ConnectionInfo & pi) {
 	//TODO - Get position from server
 	m_player = std::make_shared<Player>(pi.m_pos);
 	m_player->setId(pi.m_id);
+	m_view.setCenter(m_player->getCenter());
 	//Update server - start pos
 	Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
 	m_sm.addScreen(SHOP_SCREEN, std::make_shared<ShopScreen>(sf::Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y), m_player));
@@ -326,7 +327,7 @@ void GameScreen::bulletAndWallCollision(std::shared_ptr<Collideable> c1, std::sh
 }
 
 void GameScreen::playerAndBulletCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-	auto player = std::static_pointer_cast<Player>(c1);
+	auto player = std::static_pointer_cast<IBasePlayer>(c1);
 	auto bullet = std::static_pointer_cast<IBullet>(c2);
 	Circle playerCircle(player->getCenter(), player->getRadius());
 	Polygon bulletPoly(bullet->getVertices());
@@ -374,14 +375,6 @@ void GameScreen::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, 
 
 			if (dis_x >= dis_y)
 				v.x = temp.x;
-
-			//Fix player pos near to corner of tile
-			if (abs(dis_x - dis_y) <= 10) {
-				if (dis_y >= dis_x)
-					v.y += player1->getCenter().y - c2->getCenter().y > 0.f ? -1.f : 1.f;
-				else if (dis_x >= dis_y)
-					v.x += player1->getCenter().x - c2->getCenter().x > 0.f ? -1.f : 1.f;
-			}
 		}
 		if (v.x != 0 || v.y != 0)
 			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, -v));
