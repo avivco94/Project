@@ -366,44 +366,20 @@ void GameScreen::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, 
 	Circle playerCircle2(player2->getCenter(), player2->getRadius());
 	if (playerCircle1.isCollide(playerCircle2)) {
 		player1->setForceMove(true);
+		CollisionManager::getInstance().remove(player1);
 		sf::Vector2f v = Helper::getInstance().getVectorToMove(m_directions, player1->getRotation());
+		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, -v));
 
 		auto& a = Updates<std::shared_ptr<ICommand>>::getInstance();
 		
-		sf::Vector2f temp = v;
-		v = { 0,0 };
-		/*if (!((temp.y < 0 && player1->getCenter().y > player2->getCenter().y) ||
-			   temp.y > 0 && player1->getCenter().y < player2->getCenter().y)) {
-			v.y = 0;
-		}
+		//Calculate the vertical vector
+		sf::Vector2f temp = { player1->getCenter().y - player2->getCenter().y , -(player1->getCenter().x - player2->getCenter().x) };
+		//Normalize the vertical vector
+		float len = sqrt(pow(temp.x, 2) + pow(temp.y, 2));
+		temp /= len;
 
-		if (!((temp.x < 0 && player1->getCenter().x > player2->getCenter().x) ||
-			   temp.x > 0 && player1->getCenter().x < player2->getCenter().x)) {
-			v.x = 0;
-		}*/
-
-		float dis_x = abs(player1->getCenter().x - c2->getCenter().x);
-		float dis_y = abs(player1->getCenter().y - c2->getCenter().y);
-
-		if (dis_y >= dis_x)
-			v.y = temp.y;
-
-		if (dis_x >= dis_y)
-			v.x = temp.x;
-
-		//Fix player pos near to corner of tile
-		if (abs(dis_x - dis_y) <= 10) {
-			if (dis_y >= dis_x)
-				v.y += player1->getCenter().y - c2->getCenter().y > 0.f ? -1.f : 1.f;
-			else if (dis_x >= dis_y)
-				v.x += player1->getCenter().x - c2->getCenter().x > 0.f ? -1.f : 1.f;
-		}
-
-		if (v.x != 0 || v.y != 0) {
-			CollisionManager::getInstance().remove(player1);
-			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, -v));
-			CollisionManager::getInstance().add(player1);
-		}
+		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, temp));
+		CollisionManager::getInstance().add(player1);
 		player1->setForceMove(false);
 	}
 }
