@@ -5,6 +5,8 @@
 #include "Tilemap.h"
 #include "Constants.h"
 #include "Player.h"
+#include "EnemyPlayer.h"
+
 #include "ScreensManager.h"
 #include "GameUpdater.h"
 #include "ConnectionInfo.h"
@@ -27,12 +29,13 @@ class GameScreen :
 		void playerAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void bulletAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void playerAndBulletCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
+		void playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void updateFromServer();
 		std::shared_ptr<Client> m_client;
 		sf::View m_view;
 		Tilemap m_map;
 		std::shared_ptr<Player> m_player;
-		std::map<std::string, std::shared_ptr<Player>> m_otherPlayers;
+		std::map<std::string, std::shared_ptr<EnemyPlayer>> m_otherPlayers;
 		int m_directions = 0;
 		float m_lastSend = 0;
 		CommandController m_controller;

@@ -105,6 +105,12 @@ struct Circle : Shape {
 		}
 		return false;
 	}
+
+	bool isCollide(Circle c) {
+		float cDistance = distance(c.m_center, m_center);
+		float cRadius = c.m_radius + m_radius;
+		return cDistance <= cRadius;
+	}
 };
 
 class CollisionManager

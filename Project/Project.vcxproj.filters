@@ -201,6 +201,12 @@
     <ClCompile Include="CollideableType.cpp">
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
+    <ClCompile Include="IBasePlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CollisionMap.h">
@@ -351,6 +357,12 @@
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
     <ClInclude Include="CollideableType.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="IBasePlayer.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyPlayer.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
   </ItemGroup>

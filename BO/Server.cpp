@@ -12,6 +12,9 @@
 
 Server::Server() {
 	m_gi = std::make_shared<GameInfo>();
+	//TODO - Start Positions By map
+	for (int i = 0; i < 100; i++)
+		m_startPositions.push_back(sf::Vector2f(40 * i, 40));
 }
 Server::~Server() {}
 
@@ -47,7 +50,8 @@ void Server::newConnection() {
 	sf::TcpSocket* client = new sf::TcpSocket;
 	if (m_listener.accept(*client) == sf::Socket::Done) {
 		std::cout << "Client connected: " << client->getRemoteAddress() << std::endl;
-		ConnectionInfo ci(std::to_string(m_count));
+		ConnectionInfo ci(std::to_string(m_count), m_startPositions.front());
+		m_startPositions.pop_front();
 		sf::Packet p;
 		p << ci.deserialize();
 		if ((*client).send(p) != sf::Socket::Done)
