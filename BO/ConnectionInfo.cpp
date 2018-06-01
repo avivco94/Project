@@ -9,7 +9,7 @@ ConnectionInfo::ConnectionInfo(std::string params)
 }
 
 ConnectionInfo::ConnectionInfo(std::string id, sf::Vector2f pos)
-	: SerializableInfo(""), m_id(id), m_pos(pos) {}
+	: SerializableInfo("ConnectionInfo"), m_id(id), m_pos(pos) {}
 
 std::string ConnectionInfo::deserializeInfo() const {
 	return m_id + " " + std::to_string(m_pos.x) + " " + std::to_string(m_pos.y);
