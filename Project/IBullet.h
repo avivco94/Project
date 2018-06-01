@@ -20,6 +20,7 @@ class IBullet
 		sf::FloatRect getRect() const override;
 		bool isCollide(sf::FloatRect rect) override;
 		const std::string& getId();
+		const std::string& getPId();
 	protected:
 		std::string m_pid;
 		std::string m_id;

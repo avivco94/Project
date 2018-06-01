@@ -18,7 +18,7 @@ Client::~Client() {}
 void Client::run() {
 	while (m_socket.connect(SERVER_IP, SERVER_PORT, sf::seconds(10)) != sf::Socket::Done);
 	std::cout << "Connected to server " << SERVER_IP << std::endl;
-	m_socket.setBlocking(false);
+	
 	std::string data;
 
 	//Get the id from the server
@@ -26,16 +26,10 @@ void Client::run() {
 	if (m_socket.receive(packet) != sf::Socket::Done)
 		return;
 	packet >> data;
-
-	std::string type = data.substr(0, data.find_first_of(" \t") + 1);
-	type.erase(std::find_if(type.rbegin(), type.rend(), [](int ch) {
-		return !std::isspace(ch);
-	}).base(), type.end());
-	data = data.substr(data.find_first_of(" \t") + 1);
-	auto info = InfoFactory::getInstance().get(type, data);
+	auto info = InfoFactory::getInstance().get(data);
 	
 	Updates<std::shared_ptr<SerializableInfo>, Response>::getInstance().add(info);
-
+	m_socket.setBlocking(false);
 	while (1) {
 		receiveData();
 		sendData();
@@ -49,12 +43,7 @@ void Client::receiveData() {
 	switch (m_socket.receive(packet)) {
 		case sf::Socket::Done: {
 			packet >> data;
-			std::string type = data.substr(0, data.find_first_of(" \t") + 1);
-			type.erase(std::find_if(type.rbegin(), type.rend(), [](int ch) {
-				return !std::isspace(ch);
-			}).base(), type.end());
-			data = data.substr(data.find_first_of(" \t") + 1);
-			auto info = InfoFactory::getInstance().get(type, data);
+			auto info = InfoFactory::getInstance().get(data);
 			infoUpdates.add(info);
 			break;
 		}

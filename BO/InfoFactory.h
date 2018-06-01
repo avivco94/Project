@@ -8,7 +8,7 @@ class InfoFactory
 {
 	public:
 		static InfoFactory& getInstance();
-		std::shared_ptr<SerializableInfo> get(const std::string& type, const std::string& data);
+		std::shared_ptr<SerializableInfo> get(const std::string& data);
 	private:
 		InfoFactory();
 		~InfoFactory();

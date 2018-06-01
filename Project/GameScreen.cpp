@@ -85,8 +85,10 @@ void GameScreen::update(sf::RenderWindow& window) {
 			});
 		});
 
-		Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
-
+		if (GameClock::getInstance().isTimePassed(m_lastSend, 0.2f)) {
+			Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
+			m_lastSend = GameClock::getInstance().getElapsedTime();
+		}
 		Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), m_player->getCash() });
 
 		m_sm.update(window);
@@ -215,6 +217,7 @@ void GameScreen::update(PlayerInfo & pi) {
 			} else {
 				playerIt->second->setCenter(pi.m_pos);
 				playerIt->second->setRotation(pi.m_rotation);
+				playerIt->second->setDefaultWeapon(pi.m_weaponRect);
 			}
 		}
 	}
@@ -322,9 +325,11 @@ void GameScreen::playerAndBulletCollision(std::shared_ptr<Collideable> c1, std::
 	if (playerCircle.isCollide(bulletPoly)) {
 		auto bullets = player->getBullets()->find(bullet->getId());
 		if (!(bullets != player->getBullets()->end() && bullets->second == bullet) && !bullet->isOver()) {
-			player->decHP(20);
-			std::cout << "Hit " << bullet->getId() << " HP " << player->getHP() << std::endl;
-			bullet->setOver();
+			if (bullet->getPId() != player->getId()) {
+				player->decHP(20);
+				std::cout << "Hit " << bullet->getId() << " Player " << m_player->getId() << " HP " << player->getHP() << std::endl;
+				bullet->setOver();
+			}
 		}
 	}
 }

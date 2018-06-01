@@ -71,12 +71,7 @@ void Server::handleClientData(std::map<std::string, sf::TcpSocket*>::iterator& i
 			case sf::Socket::Done: {
 				std::string data;
 				packet >> data;
-				std::string type = data.substr(0, data.find_first_of(" \t") + 1);
-				type.erase(std::find_if(type.rbegin(), type.rend(), [](int ch) {
-					return !std::isspace(ch);
-				}).base(), type.end());
-				data = data.substr(data.find_first_of(" \t") + 1);
-				auto info = InfoFactory::getInstance().get(type, data);
+				auto info = InfoFactory::getInstance().get(data);
 				info->update(m_gi);
 				m_broadcast.push_back(info);
 				break;
@@ -98,12 +93,7 @@ void Server::clientDisconnect(std::map<std::string, sf::TcpSocket*>::iterator& i
 	if (player) {
 		player->m_toRemove = true;
 		std::string data = player->deserialize();
-		std::string type = data.substr(0, data.find_first_of(" \t") + 1);
-		type.erase(std::find_if(type.rbegin(), type.rend(), [](int ch) {
-			return !std::isspace(ch);
-		}).base(), type.end());
-		data = data.substr(data.find_first_of(" \t") + 1);
-		auto info = InfoFactory::getInstance().get(type, data);
+		auto info = InfoFactory::getInstance().get(data);
 		m_broadcast.push_back(info);
 	}
 

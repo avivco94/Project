@@ -33,6 +33,7 @@ class Player
 		int getAmmo();
 		int getCash();
 		void buyWeapon(WeaponWithPrice& w);
+		void setDefaultWeapon(sf::IntRect rect);
 		std::string getId();
 		void setId(const std::string& id);
 	private:

@@ -11,6 +11,7 @@
 #include <experimental/map>
 #include "CollisionManager.h"
 #include "Updates.h"
+#include "DefaultGun.h"
 
 Player::Player(sf::Vector2f pos) 
 	: MoveableSpriteObject(*Resources::getInstance().getTexturesMap()->getResource(PLAYER_TEXTURE), PLAYER_TEXTURE_RECT, pos, PLAYER_SPEED), m_radius(PLAYER_TEXTURE_RECT.width / 2.f) {
@@ -157,6 +158,14 @@ void Player::buyWeapon(WeaponWithPrice& w){
 	if (m_cash >= w.price) {
 		m_cash -= w.price;
 		m_weapon = w.buyFunc({0,0});
+		m_weapon->setRotation(getRotation());
+		m_weapon->setCenter(getCenter());
+	}
+}
+
+void Player::setDefaultWeapon(sf::IntRect rect) {
+	if (m_weapon->getTextureRect() != rect) {
+		m_weapon = std::make_shared<DefaultGun>(rect, sf::Vector2f(0, 0));
 		m_weapon->setRotation(getRotation());
 		m_weapon->setCenter(getCenter());
 	}

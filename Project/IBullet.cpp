@@ -52,3 +52,7 @@ bool IBullet::isCollide(sf::FloatRect rect) {
 const std::string& IBullet::getId() {
 	return m_id;
 }
+
+const std::string & IBullet::getPId(){
+	return m_pid;
+}

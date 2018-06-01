@@ -54,7 +54,8 @@ const sf::IntRect M4_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
 const char SEPARATOR = ',';
 const char SEPARATOR2 = ';';
 
-const sf::IpAddress SERVER_IP = sf::IpAddress::LocalHost;
+//const sf::IpAddress SERVER_IP = sf::IpAddress::LocalHost;
+const sf::IpAddress SERVER_IP = "40.118.3.201";
 const unsigned short SERVER_PORT = 5642;
 
 const sf::IntRect GLOCK_TEXTURE_RECT = sf::IntRect(0, 0, 50, 50);
@@ -95,13 +96,6 @@ const int GLOCK_PRICE = 300;
 const int USP_PRICE = 400;
 const int M4_PRICE = 700;
 const int AK_PRICE = 600;
-
-enum weapons {
-	Glock,
-	Usp,
-	M4,
-	AK
-};
 
 inline std::istream& operator>>(std::istream& is, sf::Vector2f& v2f) {
 	is >> v2f.x;
