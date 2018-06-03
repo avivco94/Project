@@ -9,6 +9,7 @@
 #include "Resources.h"
 #include "GameClock.h"
 #include "CollisionManager.h"
+#include "BorderLine.h"
 
 using std::ifstream;
 
@@ -28,14 +29,14 @@ bool Tilemap::Load(const std::string& filePath, sf::Vector2u tileSize) {
 
 	CollisionManager::getInstance().init(sf::IntRect(0,0, tileSize.x * m_size_x, tileSize.y * m_size_y));
 
+	CollisionManager::getInstance().add(std::make_shared<BorderLine>(sf::Vector2f(0.f, 0.f), sf::Vector2f(tileSize.x*m_size_x, 1)));
+	CollisionManager::getInstance().add(std::make_shared<BorderLine>(sf::Vector2f(0.f, 0.f), sf::Vector2f(1, tileSize.y*m_size_y)));
+	CollisionManager::getInstance().add(std::make_shared<BorderLine>(sf::Vector2f(0, tileSize.y*m_size_y), sf::Vector2f(tileSize.x*m_size_x, 1)));
+	CollisionManager::getInstance().add(std::make_shared<BorderLine>(sf::Vector2f(tileSize.x*m_size_x, 0), sf::Vector2f(1, tileSize.y*m_size_y)));
+
+	/*
 	CollisionManager::getInstance().add(std::make_shared<CollideableTile>(*tileset,
-		sf::IntRect(0, 0, tileSize.x*m_size_x, 1), sf::Vector2f(0, 0), false));
-	CollisionManager::getInstance().add(std::make_shared<CollideableTile>(*tileset,
-		sf::IntRect(0, 0, 1, tileSize.y*m_size_y), sf::Vector2f(0, 0), false));
-	CollisionManager::getInstance().add(std::make_shared<CollideableTile>(*tileset,
-		sf::IntRect(0, 0, tileSize.x*m_size_x, 1), sf::Vector2f(0, tileSize.y*m_size_y), false));
-	CollisionManager::getInstance().add(std::make_shared<CollideableTile>(*tileset,
-		sf::IntRect(0, 0, 1, tileSize.y*m_size_y), sf::Vector2f(tileSize.x*m_size_x, 0), false));
+		sf::IntRect(0, 0, 1, tileSize.y*m_size_y), sf::Vector2f(tileSize.x*m_size_x, 0), false));*/
 
 	for (unsigned int i = 0; i < m_size_y; ++i) {
 		for (unsigned int j = 0; j < m_size_x; ++j) {
