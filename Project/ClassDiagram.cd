@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Comment CommentText="Bullet will be Colideable too">
-    <Position X="8.256" Y="11.785" Height="0.291" Width="1.915" />
+    <Position X="8.122" Y="11.785" Height="0.291" Width="1.915" />
   </Comment>
   <Comment CommentText="Will be more guns">
     <Position X="1.027" Y="14.681" Height="0.291" Width="1.915" />
@@ -42,7 +42,7 @@
   <Class Name="GameController">
     <Position X="21.5" Y="7" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>EgAAAgAACBAAABBACAAAAAAEAAAIgAAAAAAAAAAUAAA=</HashCode>
+      <HashCode>EgAAAgAACBAAABBACAAAAAAEAAAAgAACAAAAAAAUAAA=</HashCode>
       <FileName>GameController.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -113,9 +113,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Collideable">
-    <Position X="11.5" Y="3" Width="1.5" />
+    <Position X="11.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAAAAQQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAAAAQQAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Collideable.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -143,14 +143,14 @@
   <Class Name="Player">
     <Position X="17.5" Y="9" Width="3.25" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAMACAIAACAAAIAAAACCAACACAAAAAAAQYBARA=</HashCode>
+      <HashCode>ACAAAAAEAAAAAAAABAAEAIAEAAABAAAAAAAAAUAAARA=</HashCode>
       <FileName>Player.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpriteObject">
     <Position X="8.5" Y="3" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAABCAAAAAAAAIAAAAiAAgCCCAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAABCABAAAAAAIAAAAiAAgCCCAAAAAAAAAAAAA=</HashCode>
       <FileName>SpriteObject.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -171,7 +171,7 @@
   <Class Name="IBullet">
     <Position X="10.25" Y="11.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AUAAAACQiCAAAACAAAIAAAAAAAKAACQAgAAAAIEIAAA=</HashCode>
+      <HashCode>A0AAAACQCCAAAACAAAIAAAAAAAKAAKQAgAAAAIEIAAA=</HashCode>
       <FileName>IBullet.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -192,14 +192,14 @@
   <Class Name="IBaseGun">
     <Position X="4.25" Y="11.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAACIgAAAAAAAQAAABAAAAAAARAAAAAAAAAA=</HashCode>
+      <HashCode>ACAAAAAEAACIgAAAAAAAQAAABAAAAAAARAAAAAAAAAA=</HashCode>
       <FileName>IBaseGun.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="M16Gun">
     <Position X="4.25" Y="15.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABAAAAAABACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>M16Gun.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -269,42 +269,42 @@
   <Class Name="GameScreen">
     <Position X="0.5" Y="6.75" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACCAKCAAABIAAAIEAGBBAAICASAAAAAAABEEAAA=</HashCode>
+      <HashCode>AAAAACCQKCAAABIAAAIEAGBBAAICACACAAAAAREEAAA=</HashCode>
       <FileName>GameScreen.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IScreen">
     <Position X="4.75" Y="3" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAACAACAAAAAABAEAAIAAAAAAAAAIAAAAACAAAAEAAA=</HashCode>
+      <HashCode>AAACAACAAAAAABAEAAIAAAAABAAAIAAAAADAAEAEAAA=</HashCode>
       <FileName>IScreen.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ShopScreen">
     <Position X="4.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEEAgCAECAAABAAAAAAAAAAQAAAICCCAASAAAAEAAA=</HashCode>
       <FileName>ShopScreen.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="MenuScreen">
     <Position X="6.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAEEAgCBACAAABAAAAAAAAAAAgAAICACAASAAAAEAAA=</HashCode>
       <FileName>MenuScreen.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HudScreen">
     <Position X="8.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAABAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAEAACAACAAABAAAABAAAACQBAAACAAAAQAAAAEAAA=</HashCode>
       <FileName>HudScreen.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="CollisionManager">
     <Position X="24.5" Y="10.5" Width="4" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAQAAEAAIAAAAAAAAQAAYAAAAAAACCAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAQAAEACIAAAAAAAAQAAYAAAAAAACCAAA=</HashCode>
       <FileName>CollisionManager.h</FileName>
     </TypeIdentifier>
   </Class>

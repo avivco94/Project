@@ -7,10 +7,14 @@ class CollideableTile
 	: public Tile, public CollideableType<CollideableTile> {
 	public:
 		CollideableTile(int value, sf::Texture& texture, sf::IntRect rect);
+		CollideableTile(sf::Texture& texture, sf::IntRect rect, sf::Vector2f pos, bool show = true);
+
 		~CollideableTile();
 		bool isCollide(sf::FloatRect rect) override;
 		void draw(sf::RenderWindow& window) override;
 		sf::Vector2f getCenter() const override;
 		sf::FloatRect getRect() const override;
+	private:
+		bool m_show;
 };
 

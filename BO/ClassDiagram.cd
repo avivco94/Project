@@ -31,11 +31,11 @@
   <Class Name="Server">
     <Position X="17" Y="3.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAgAAqAACAAAAAAAAAAAAAAABAACAAAEAAAAAoQAAIA=</HashCode>
+      <HashCode>AAgAAqAACAAAAAAABAAAAAAAhAAAAAAkAAAAAoQAAIA=</HashCode>
       <FileName>Server.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Updates&lt;T&gt;">
+  <Class Name="Updates&lt;T, S&gt;">
     <Position X="20" Y="3.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AEAAEAAAABAAAAAAAJAAAIACAAEAIAQAAAAAAgAKAAA=</HashCode>
@@ -45,14 +45,35 @@
   <Class Name="Quadtree&lt;T&gt;">
     <Position X="22.25" Y="0.5" Width="4.25" />
     <TypeIdentifier>
-      <HashCode>AEQABAAAAABAQAAEAIIAEAAAQBAAAAAgAAACAAiAAAA=</HashCode>
+      <HashCode>AEQABAAAAABAQAAEAKIAEAAAQBAAAAAgAAACAAqAAAA=</HashCode>
       <FileName>Quadtree.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameInfo" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAIAAAIAAAAAAAAAAEAAAAAAAAAAAAAJAAAAQEAAA=</HashCode>
+      <FileName>GameInfo.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InfoFactory" Collapsed="true">
+    <Position X="31.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACBAAABAAAAAACAAQAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>InfoFactory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameUpdater" Collapsed="true">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAQAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>GameUpdater.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="PlayerInfo">
     <Position X="7" Y="2.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAABAAAAgAIAAQAAAAACQAQAAAAAUAAAA=</HashCode>
+      <HashCode>BAAEAAAAAAAAABAAAAgAIAAQAAAAACQAAAAAAAEEAAA=</HashCode>
       <FileName>PlayerInfo.h</FileName>
     </TypeIdentifier>
   </Struct>
@@ -71,10 +92,31 @@
     </TypeIdentifier>
   </Struct>
   <Struct Name="SerializableInfo">
-    <Position X="7.5" Y="0.5" Width="1.75" />
+    <Position X="6" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAQAACAAAAAAA=</HashCode>
+      <HashCode>BAAAIAAAAAAAAAAAAAAAIAAAAAAAAAAAQAACAAAEAAA=</HashCode>
       <FileName>SerializableInfo.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="BulletInfo" Collapsed="true">
+    <Position X="27" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAGAAAAAAAAAABIAAAgAIAAoQAAAQAAAEEAAA=</HashCode>
+      <FileName>BulletInfo.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ConnectionInfo" Collapsed="true">
+    <Position X="29.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAIAAQAAAAEAQAAAAAAAAEAAA=</HashCode>
+      <FileName>ConnectionInfo.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="HudUpdate" Collapsed="true">
+    <Position X="31.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAACAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>HudUpdate.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Enum Name="Direction">
