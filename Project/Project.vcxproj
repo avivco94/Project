@@ -165,6 +165,7 @@
   <ItemGroup>
     <ClCompile Include="AK47Gun.cpp" />
     <ClCompile Include="AKBullet.cpp" />
+    <ClCompile Include="BorderLine.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CollideableTile.cpp" />
     <ClCompile Include="Collideable.cpp" />
@@ -219,6 +220,7 @@
   <ItemGroup>
     <ClInclude Include="AK47Gun.h" />
     <ClInclude Include="AKBullet.h" />
+    <ClInclude Include="BorderLine.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CollideableTile.h" />
     <ClInclude Include="Collideable.h" />

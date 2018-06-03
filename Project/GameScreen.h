@@ -30,6 +30,8 @@ class GameScreen :
 		void bulletAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void playerAndBulletCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
+		void playerAndBorderCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
+
 		void updateFromServer();
 		std::shared_ptr<Client> m_client;
 		sf::View m_view;

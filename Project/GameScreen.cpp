@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <iostream>
 #include <memory>
+#include "BorderLine.h";
 
 GameScreen::GameScreen(std::shared_ptr<Client> client)
 	: m_client(client) {
@@ -382,4 +383,25 @@ void GameScreen::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, 
 		CollisionManager::getInstance().add(player1);
 		player1->setForceMove(false);
 	}
+}
+
+void GameScreen::playerAndBorderCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	/*auto player = std::static_pointer_cast<Player>(c1);
+	auto borderLine = std::static_pointer_cast<BorderLine>(c2);
+	Circle playerCircle(player->getCenter(), player->getRadius());
+	Line borderLineL(sf::Vector2f(borderLine->getRect().left, borderLine->getRect().top), 
+					sf::Vector2f(borderLine->getRect().left + borderLine->getRect().width, borderLine->getRect().top + borderLine->getRect().height));
+
+	if (playerCircle.isCollide(borderLineL)) {
+		CollisionManager::getInstance().remove(player);
+		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, -m_vec));
+
+		if (borderLineL.m_p1.x == borderLineL.m_p2.x) {
+
+		}
+
+		if (borderLineL.m_p1.y == borderLineL.m_p2.y) {
+
+		}
+	}*/
 }

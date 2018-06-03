@@ -28,9 +28,7 @@ ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p) : m
 }
 
 
-void ShopScreen::update(sf::RenderWindow & window)
-{
-}
+void ShopScreen::update(sf::RenderWindow & window){}
 
 bool ShopScreen::handleEvent(const sf::Event & event)
 {
@@ -65,17 +63,6 @@ bool ShopScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 		
 		auto& weaponWithPrice = WeaponsFactory::getInstace().get(eventByText);
 		m_p->buyWeapon(weaponWithPrice);
-
-		/*if (eventByText == "GLOCK18-"){
-			if (m_p->getCash() >= GLOCK_PRICE)
-				m_p->buyWeapon(Glock);
-		}
-		else if (eventByText == "USP-")
-			std::cout << "USP";
-		else if (eventByText == "AK47-")
-			std::cout << "ak";
-		else if (eventByText == "M4A1-")
-			std::cout << "m4";*/
 		return true;
 	}
 	return false;
