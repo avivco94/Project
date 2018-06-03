@@ -66,6 +66,24 @@ struct Polygon : Shape {
 		}
 		return false;
 	}
+
+	sf::Vector2f getClosestVerticix(sf::Vector2f pos) {
+		float closeX = m_vertices[0].x;
+		float closeY = m_vertices[0].y;
+
+		for (auto ver : m_vertices) {
+			if (abs(ver.x - pos.x) < abs(closeX - pos.x)) {
+				closeX = ver.x;
+			}
+		}
+
+		for (auto ver : m_vertices) {
+			if (abs(ver.y - pos.y) < abs(closeY - pos.y)) {
+				closeY = ver.y;
+			}
+		}
+		return { closeX ,closeY };
+	}
 };
 
 struct Circle : Shape {
