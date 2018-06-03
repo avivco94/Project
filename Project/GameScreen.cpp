@@ -258,7 +258,7 @@ void GameScreen::updateFromServer() {
 void GameScreen::collisionCheck(std::shared_ptr<Collideable> c) {
 	auto suspectedCollisions = CollisionManager::getInstance().retrieve(c);
 	//std::cout << suspectedCollisions->size() << std::endl;
-	std::vector<std::shared_ptr<Collideable>> filtersCollisions;
+	/*std::vector<std::shared_ptr<Collideable>> filtersCollisions;
 	if (suspectedCollisions) {
 		float distanceOffset = sqrt(pow(40, 2) + pow(40, 2));
 		std::for_each(begin(*suspectedCollisions), end(*suspectedCollisions), [this, &distanceOffset, &filtersCollisions, &c](std::shared_ptr<Collideable> sprite) {
@@ -267,9 +267,9 @@ void GameScreen::collisionCheck(std::shared_ptr<Collideable> c) {
 				filtersCollisions.push_back(sprite);
 			}
 		});
-	}
+	}*/
 
-	std::for_each(begin(filtersCollisions), end(filtersCollisions), [this, &c](std::shared_ptr<Collideable> sprite) {
+	std::for_each(begin(*suspectedCollisions), end(*suspectedCollisions), [this, &c](std::shared_ptr<Collideable> sprite) {
 		auto f = CollisionMap::getInstance().lookup(c->type().name(), sprite->type().name());
 		if (f) {
 			f(c, sprite);
