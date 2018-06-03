@@ -41,5 +41,6 @@ class GameScreen :
 		CommandController m_controller;
 		bool m_mouseLongPressed = false;
 		ScreensManager m_sm;
+		sf::Vector2f m_vec;
 };
 

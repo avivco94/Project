@@ -54,6 +54,7 @@ GameScreen::~GameScreen() {}
 
 void GameScreen::update(sf::RenderWindow& window) {
 	if (m_player) {
+		m_vec = { 0, 0 };
 		if (m_mouseLongPressed) {
 			m_controller.addCommandAndExecute(std::make_shared<ShootCommand>(m_player));
 		}
@@ -68,17 +69,11 @@ void GameScreen::update(sf::RenderWindow& window) {
 
 		if (m_directions != 0) {
 			CollisionManager::getInstance().remove(m_player);
-			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(m_player, Helper::getInstance().getVectorToMove(m_directions, m_player->getRotation())));
+			m_vec = Helper::getInstance().getVectorToMove(m_directions, m_player->getRotation());
+			
+			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(m_player, m_vec));
 			CollisionManager::getInstance().add(m_player);
 			if (m_player->isMoved()) {
-				/*std::cout << "Player ";
-				CollisionManager::getInstance().printPath(m_player);
-				std::cout << std::endl;
-				if (!m_otherPlayers.empty()) {
-					std::cout << "Enemy ";
-					CollisionManager::getInstance().printPath(m_otherPlayers.begin()->second);
-					std::cout << std::endl;
-				}*/
 				collisionCheck(m_player);
 			}
 			m_view.setCenter(m_player->getCenter());
@@ -289,45 +284,66 @@ void GameScreen::playerAndWallCollision(std::shared_ptr<Collideable> c1, std::sh
 	Polygon wallPoly(wall->getVertices());
 	if (playerCircle.isCollide(wallPoly)) {
 		player->setForceMove(true);
+		//sf::Vector2f v = Helper::getInstance().getVectorToMove(m_directions, player->getRotation());
+		CollisionManager::getInstance().remove(player);
+		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, -m_vec));
 		sf::Vector2f v = Helper::getInstance().getVectorToMove(m_directions, player->getRotation());
 
 		auto& a = Updates<std::shared_ptr<ICommand>>::getInstance();
 
-		int d = m_map.getDirectionByIndexes(m_map.getIndexByPos(c1->getCenter()), m_map.getIndexByPos(c2->getCenter()));
-		sf::Vector2f temp = v;
+		//Calculate the vertical vector
+		sf::Vector2f temp = { player->getCenter().y - wall->getCenter().y , -(player->getCenter().x - wall->getCenter().x) };
+		//Normalize the vertical vector
+		float len = sqrt(pow(temp.x, 2) + pow(temp.y, 2));
+		temp /= len;
 
-		if (!(((d & Up) == Up && temp.y < 0) || ((d & Down) == Down && temp.y > 0))) {
-			v.y = 0;
-		}
+		auto sign = [](float var) {
+			if (var > 0)
+				return 1;
+			if (var < 0)
+				return -1;
+			return 0;
+		};
 
-		if (!(((d & Left) == Left && temp.x < 0) || ((d & Right) == Right && temp.x > 0))) {
-			v.x = 0;
-		}
+		float dis_x = abs(player->getCenter().x - wall->getCenter().x);
+		float dis_y = abs(player->getCenter().y - wall->getCenter().y);
 
-		if ((d & UpLeft) == UpLeft || (d & DownLeft) == DownLeft ||
-			(d & UpRight) == UpRight || (d & DownRight) == DownRight) {
-			float dis_x = abs(player->getCenter().x - c2->getCenter().x);
-			float dis_y = abs(player->getCenter().y - c2->getCenter().y);
+		float cX = (playerCircle.m_radius / sqrt(2)) + (wall->getTextureRect().width / 2);
+		float cY = (playerCircle.m_radius / sqrt(2)) + (wall->getTextureRect().height / 2);
 
-			if (dis_y >= dis_x)
-				v.y = temp.y;
+		if (((dis_x >= wall->getTextureRect().width * 0.70 && dis_x <= cX) ||
+			(dis_y >= wall->getTextureRect().height * 0.70 && dis_y <= cY)) &&
+			abs(m_vec.x) > 0.01f && abs(m_vec.y) > 0.01f) {
+			
+			temp = { player->getCenter().y - wall->getCenter().y , -(player->getCenter().x - wall->getCenter().x) };
+			//Normalize the vertical vector
+			len = sqrt(pow(temp.x, 2) + pow(temp.y, 2));
+			temp /= len;
 
-			if (dis_x >= dis_y)
-				v.x = temp.x;
+			m_vec.x = temp.x;
+			m_vec.y = temp.y;
+			
+			//If Move clockwise need the opposite vector
+			if (sign(v.x) != sign(m_vec.x) && sign(v.x) != sign(m_vec.x)) {
+				m_vec *= -1.f;
+			}
+		} else {
+			if (abs(temp.x) > abs(temp.y)) {
+				m_vec.y = 0.f;
+				if(abs(m_vec.x) > 0.01f)
+					m_vec.x = v.x;
+			}
 
-			//Fix player pos near to corner of tile
-			if (abs(dis_x - dis_y) <= 10) {
-				if (dis_y >= dis_x)
-					v.y += player->getCenter().y - c2->getCenter().y > 0.f ? -1.f : 1.f;
-				else if (dis_x >= dis_y)
-					v.x += player->getCenter().x - c2->getCenter().x > 0.f ? -1.f : 1.f;
+			if (abs(temp.y) > abs(temp.x)) {
+				m_vec.x = 0.f;
+				if (abs(m_vec.y) > 0.01f)
+					m_vec.y = v.y;
 			}
 		}
-		if (v.x != 0 || v.y != 0) {
-			CollisionManager::getInstance().remove(player);
-			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, -v));
-			CollisionManager::getInstance().add(player);
-		}
+
+		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, m_vec));
+		CollisionManager::getInstance().add(player);
+
 		player->setForceMove(false);
 	}
 }
@@ -367,8 +383,9 @@ void GameScreen::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, 
 	if (playerCircle1.isCollide(playerCircle2)) {
 		player1->setForceMove(true);
 		CollisionManager::getInstance().remove(player1);
-		sf::Vector2f v = Helper::getInstance().getVectorToMove(m_directions, player1->getRotation());
-		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, -v));
+		
+		//sf::Vector2f v = Helper::getInstance().getVectorToMove(m_directions, player1->getRotation());
+		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, -m_vec));
 
 		auto& a = Updates<std::shared_ptr<ICommand>>::getInstance();
 		
@@ -379,6 +396,7 @@ void GameScreen::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, 
 		temp /= len;
 
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, temp));
+		m_vec = temp;
 		CollisionManager::getInstance().add(player1);
 		player1->setForceMove(false);
 	}
