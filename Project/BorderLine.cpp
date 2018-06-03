@@ -2,7 +2,7 @@
 
 
 
-BorderLine::BorderLine(sf::Vector2f size, sf::Vector2f pos): m_line(size){
+BorderLine::BorderLine(sf::Vector2f pos, sf::Vector2f size): m_line(size){
 	m_line.setPosition(pos);
 }
 
@@ -21,7 +21,7 @@ sf::Vector2f BorderLine::getCenter() const
 
 sf::FloatRect BorderLine::getRect() const
 {
-	return sf::FloatRect();
+	return m_line.getGlobalBounds();
 }
 
 bool BorderLine::isCollide(sf::FloatRect rect){

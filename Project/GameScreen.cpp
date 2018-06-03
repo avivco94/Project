@@ -35,6 +35,10 @@ GameScreen::GameScreen(std::shared_ptr<Client> client)
 		playerAndWallCollision(c1, c2);
 	});
 
+	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(BorderLine).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+		playerAndBorderCollision(c1, c2);
+	});
+
 	CollisionMap::getInstance().addEntry(typeid(IBullet).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		bulletAndWallCollision(c1, c2);
 	});
@@ -50,6 +54,11 @@ GameScreen::GameScreen(std::shared_ptr<Client> client)
 	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(EnemyPlayer).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndEnemyPlayerCollision(c1, c2);
 	});
+
+	CollisionMap::getInstance().addEntry(typeid(IBullet).name(), typeid(BorderLine).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+		bulletAndBorderCollision(c1, c2);
+	});
+	
 }
 GameScreen::~GameScreen() {}
 
@@ -404,22 +413,40 @@ void GameScreen::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, 
 }
 
 void GameScreen::playerAndBorderCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-	/*auto player = std::static_pointer_cast<Player>(c1);
+	auto player = std::static_pointer_cast<Player>(c1);
 	auto borderLine = std::static_pointer_cast<BorderLine>(c2);
 	Circle playerCircle(player->getCenter(), player->getRadius());
 	Line borderLineL(sf::Vector2f(borderLine->getRect().left, borderLine->getRect().top), 
-					sf::Vector2f(borderLine->getRect().left + borderLine->getRect().width, borderLine->getRect().top + borderLine->getRect().height));
+					sf::Vector2f(borderLine->getRect().left + (borderLine->getRect().width == 1 ? 0 : borderLine->getRect().width),
+						borderLine->getRect().top + (borderLine->getRect().height == 1 ? 0 : borderLine->getRect().height)));
 
 	if (playerCircle.isCollide(borderLineL)) {
+		player->setForceMove(true);
 		CollisionManager::getInstance().remove(player);
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, -m_vec));
 
 		if (borderLineL.m_p1.x == borderLineL.m_p2.x) {
-
+			m_vec.x = 0.f;
 		}
 
 		if (borderLineL.m_p1.y == borderLineL.m_p2.y) {
-
+			m_vec.y = 0.f;
 		}
-	}*/
+		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, m_vec));
+		CollisionManager::getInstance().add(player);
+		player->setForceMove(false);
+	}
+}
+
+void GameScreen::bulletAndBorderCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2){
+	auto bullet = std::static_pointer_cast<IBullet>(c1);
+	auto border = std::static_pointer_cast<BorderLine>(c2);
+	Polygon bulletPoly(bullet->getVertices());
+	Line line(sf::Vector2f(border->getRect().left, border->getRect().top),
+		sf::Vector2f(border->getRect().left + (border->getRect().width == 1 ? 0 : border->getRect().width), 
+			border->getRect().top + (border->getRect().height == 1 ? 0 : border->getRect().height)));
+
+	if (bulletPoly.isCollide(line)) {
+		bullet->setOver();
+	}
 }

@@ -57,12 +57,19 @@ struct Polygon : Shape {
 	bool isCollide(Polygon p) {
 		for (int i = 0; i < p.m_vertices.size(); i++) {
 			Line l1(p.m_vertices[i], p.m_vertices[(i + 1) % p.m_vertices.size()]);
-			for (int j = 0; j < m_vertices.size(); j++) {
-				Line l2(m_vertices[j], m_vertices[(j + 1) % m_vertices.size()]);
-				if (l1.isCollide(l2))
-					return true;
+			if (isCollide(l1)) {
+				return true;
 			}
+		}
+		return false;
+	}
 
+	bool isCollide(Line l) {
+		for (int j = 0; j < m_vertices.size(); j++) {
+			Line l2(m_vertices[j], m_vertices[(j + 1) % m_vertices.size()]);
+			if (l.isCollide(l2)) {
+				return true;
+			}
 		}
 		return false;
 	}
