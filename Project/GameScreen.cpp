@@ -29,26 +29,6 @@ GameScreen::GameScreen(std::shared_ptr<Client> client)
 	m_view.zoom(1.f);
 
 	m_map.Load("Resources/map.txt", sf::Vector2u(40, 40));
-
-	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-		playerAndWallCollision(c1, c2);
-	});
-
-	CollisionMap::getInstance().addEntry(typeid(IBullet).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-		bulletAndWallCollision(c1, c2);
-	});
-
-	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(IBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-		playerAndBulletCollision(c1, c2);
-	});
-
-	CollisionMap::getInstance().addEntry(typeid(EnemyPlayer).name(), typeid(IBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-		playerAndBulletCollision(c1, c2);
-	});
-
-	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(EnemyPlayer).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-		playerAndEnemyPlayerCollision(c1, c2);
-	});
 }
 GameScreen::~GameScreen() {}
 
@@ -70,11 +50,11 @@ void GameScreen::update(sf::RenderWindow& window) {
 		if (m_directions != 0) {
 			CollisionManager::getInstance().remove(m_player);
 			m_vec = Helper::getInstance().getVectorToMove(m_directions, m_player->getRotation());
-			
+			CollisionManager::getInstance().update(m_directions, m_vec, m_controller);
 			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(m_player, m_vec));
 			CollisionManager::getInstance().add(m_player);
 			if (m_player->isMoved()) {
-				collisionCheck(m_player);
+				CollisionManager::getInstance().collisionCheck(m_player);
 			}
 			m_view.setCenter(m_player->getCenter());
 		}
@@ -83,15 +63,15 @@ void GameScreen::update(sf::RenderWindow& window) {
 
 		auto bullets = m_player->getBullets();
 		std::for_each(begin(*bullets), end(*bullets), [this](std::pair<const std::string, std::shared_ptr<IBullet>>& bullet) {
-			collisionCheck(bullet.second);
+			CollisionManager::getInstance().collisionCheck(bullet.second);
 		});
 
 		std::for_each(begin(m_otherPlayers), end(m_otherPlayers), [this](std::pair<const std::string, std::shared_ptr<EnemyPlayer>>& p) {
 			p.second->updateBullets();
-			collisionCheck(p.second);
+			CollisionManager::getInstance().collisionCheck(p.second);
 			auto bullets = p.second->getBullets();
 			std::for_each(begin(*bullets), end(*bullets), [this](std::pair<const std::string, std::shared_ptr<IBullet>>& bullet) {
-				collisionCheck(bullet.second);
+				CollisionManager::getInstance().collisionCheck(bullet.second);
 			});
 		});
 
@@ -253,151 +233,4 @@ void GameScreen::updateFromServer() {
 	gu.iterateAndPop([&](auto gameUpdate) {
 		gameUpdate->update(shared_from_this());
 	});
-}
-
-void GameScreen::collisionCheck(std::shared_ptr<Collideable> c) {
-	auto suspectedCollisions = CollisionManager::getInstance().retrieve(c);
-	//std::cout << suspectedCollisions->size() << std::endl;
-	/*std::vector<std::shared_ptr<Collideable>> filtersCollisions;
-	if (suspectedCollisions) {
-		float distanceOffset = sqrt(pow(40, 2) + pow(40, 2));
-		std::for_each(begin(*suspectedCollisions), end(*suspectedCollisions), [this, &distanceOffset, &filtersCollisions, &c](std::shared_ptr<Collideable> sprite) {
-			float distance = sqrt(pow(abs(sprite->getCenter().x - c->getCenter().x), 2) + pow(abs(sprite->getCenter().y - c->getCenter().y), 2));
-			if (distance <= distanceOffset && sprite != m_player) {
-				filtersCollisions.push_back(sprite);
-			}
-		});
-	}*/
-
-	std::for_each(begin(*suspectedCollisions), end(*suspectedCollisions), [this, &c](std::shared_ptr<Collideable> sprite) {
-		auto f = CollisionMap::getInstance().lookup(c->type().name(), sprite->type().name());
-		if (f) {
-			f(c, sprite);
-		}
-	});
-}
-
-void GameScreen::playerAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-	auto player = std::static_pointer_cast<Player>(c1);
-	auto wall = std::static_pointer_cast<CollideableTile>(c2);
-	Circle playerCircle(player->getCenter(), player->getRadius());
-	Polygon wallPoly(wall->getVertices());
-	if (playerCircle.isCollide(wallPoly)) {
-		player->setForceMove(true);
-		//sf::Vector2f v = Helper::getInstance().getVectorToMove(m_directions, player->getRotation());
-		CollisionManager::getInstance().remove(player);
-		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, -m_vec));
-		sf::Vector2f v = Helper::getInstance().getVectorToMove(m_directions, player->getRotation());
-
-		auto& a = Updates<std::shared_ptr<ICommand>>::getInstance();
-
-		//Calculate the vertical vector
-		sf::Vector2f temp = { player->getCenter().y - wall->getCenter().y , -(player->getCenter().x - wall->getCenter().x) };
-		//Normalize the vertical vector
-		float len = sqrt(pow(temp.x, 2) + pow(temp.y, 2));
-		temp /= len;
-
-		auto sign = [](float var) {
-			if (var > 0)
-				return 1;
-			if (var < 0)
-				return -1;
-			return 0;
-		};
-
-		float dis_x = abs(player->getCenter().x - wall->getCenter().x);
-		float dis_y = abs(player->getCenter().y - wall->getCenter().y);
-
-		float cX = (playerCircle.m_radius / sqrt(2)) + (wall->getTextureRect().width / 2);
-		float cY = (playerCircle.m_radius / sqrt(2)) + (wall->getTextureRect().height / 2);
-
-		if (((dis_x >= wall->getTextureRect().width * 0.70 && dis_x <= cX) ||
-			(dis_y >= wall->getTextureRect().height * 0.70 && dis_y <= cY)) &&
-			abs(m_vec.x) > 0.01f && abs(m_vec.y) > 0.01f) {
-			
-			temp = { player->getCenter().y - wall->getCenter().y , -(player->getCenter().x - wall->getCenter().x) };
-			//Normalize the vertical vector
-			len = sqrt(pow(temp.x, 2) + pow(temp.y, 2));
-			temp /= len;
-
-			m_vec.x = temp.x;
-			m_vec.y = temp.y;
-			
-			//If Move clockwise need the opposite vector
-			if (sign(v.x) != sign(m_vec.x) && sign(v.x) != sign(m_vec.x)) {
-				m_vec *= -1.f;
-			}
-		} else {
-			if (abs(temp.x) > abs(temp.y)) {
-				m_vec.y = 0.f;
-				if(abs(m_vec.x) > 0.01f)
-					m_vec.x = v.x;
-			}
-
-			if (abs(temp.y) > abs(temp.x)) {
-				m_vec.x = 0.f;
-				if (abs(m_vec.y) > 0.01f)
-					m_vec.y = v.y;
-			}
-		}
-
-		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, m_vec));
-		CollisionManager::getInstance().add(player);
-
-		player->setForceMove(false);
-	}
-}
-
-void GameScreen::bulletAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-	auto bullet = std::static_pointer_cast<IBullet>(c1);
-	auto wall = std::static_pointer_cast<CollideableTile>(c2);
-	Polygon bulletPoly(bullet->getVertices());
-	Polygon wallPoly(wall->getVertices());
-	if (bulletPoly.isCollide(wallPoly)) {
-		bullet->setOver();
-	}
-}
-
-void GameScreen::playerAndBulletCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-	auto player = std::static_pointer_cast<IBasePlayer>(c1);
-	auto bullet = std::static_pointer_cast<IBullet>(c2);
-	Circle playerCircle(player->getCenter(), player->getRadius());
-	Polygon bulletPoly(bullet->getVertices());
-	if (playerCircle.isCollide(bulletPoly)) {
-		auto bullets = player->getBullets()->find(bullet->getId());
-		if (!(bullets != player->getBullets()->end() && bullets->second == bullet) && !bullet->isOver()) {
-			if (bullet->getPId() != player->getId()) {
-				player->decHP(20);
-				std::cout << "Hit " << bullet->getId() << " Player " << m_player->getId() << " HP " << player->getHP() << std::endl;
-				bullet->setOver();
-			}
-		}
-	}
-}
-
-void GameScreen::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
-	auto player1 = std::static_pointer_cast<Player>(c1);
-	auto player2 = std::static_pointer_cast<EnemyPlayer>(c2);
-	Circle playerCircle1(player1->getCenter(), player1->getRadius());
-	Circle playerCircle2(player2->getCenter(), player2->getRadius());
-	if (playerCircle1.isCollide(playerCircle2)) {
-		player1->setForceMove(true);
-		CollisionManager::getInstance().remove(player1);
-		
-		//sf::Vector2f v = Helper::getInstance().getVectorToMove(m_directions, player1->getRotation());
-		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, -m_vec));
-
-		auto& a = Updates<std::shared_ptr<ICommand>>::getInstance();
-		
-		//Calculate the vertical vector
-		sf::Vector2f temp = { player1->getCenter().y - player2->getCenter().y , -(player1->getCenter().x - player2->getCenter().x) };
-		//Normalize the vertical vector
-		float len = sqrt(pow(temp.x, 2) + pow(temp.y, 2));
-		temp /= len;
-
-		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, temp));
-		m_vec = temp;
-		CollisionManager::getInstance().add(player1);
-		player1->setForceMove(false);
-	}
 }

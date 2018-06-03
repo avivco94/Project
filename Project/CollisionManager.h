@@ -1,6 +1,7 @@
 #pragma once
 #include "Quadtree.h"
 #include "Collideable.h"
+#include "CommandController.h"
 
 inline float distance(sf::Vector2f p1, sf::Vector2f p2) {
 	return sqrt(pow(p1.x - p2.x, 2) + pow(p1.y - p2.y, 2));
@@ -141,9 +142,18 @@ class CollisionManager
 		void remove(std::shared_ptr<Collideable> c);
 		std::shared_ptr<std::vector<std::shared_ptr<Collideable>>> retrieve(std::shared_ptr<Collideable> c);
 		void draw(sf::RenderTarget& rt);
+		void collisionCheck(std::shared_ptr<Collideable> c);
+		void playerAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
+		void bulletAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
+		void playerAndBulletCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
+		void playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
+		void update(int directions, sf::Vector2f vec, CommandController& controller);
 	private:
 		std::shared_ptr<Quadtree<Collideable>> m_quad;
 		CollisionManager();
 		~CollisionManager();
+		int m_directions;
+		sf::Vector2f m_vec;
+		CommandController m_controller;
 };
 

@@ -8,8 +8,7 @@ class Request;
 class Response;
 
 template <typename T, typename S = Request>
-class Updates
-{
+class Updates {
 	public:
 		static Updates& getInstance();
 		void add(T gu);

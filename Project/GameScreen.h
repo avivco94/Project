@@ -25,22 +25,17 @@ class GameScreen :
 		void update(PlayerInfo& pi) override;
 		void update(ConnectionInfo & pi) override;
 	private:
-		void collisionCheck(std::shared_ptr<Collideable> c);
-		void playerAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
-		void bulletAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
-		void playerAndBulletCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
-		void playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void updateFromServer();
 		std::shared_ptr<Client> m_client;
-		sf::View m_view;
+		CommandController m_controller;
+		ScreensManager m_sm;
 		Tilemap m_map;
+		sf::View m_view;
 		std::shared_ptr<Player> m_player;
 		std::map<std::string, std::shared_ptr<EnemyPlayer>> m_otherPlayers;
 		int m_directions = 0;
 		float m_lastSend = 0;
-		CommandController m_controller;
 		bool m_mouseLongPressed = false;
-		ScreensManager m_sm;
 		sf::Vector2f m_vec;
 };
 
