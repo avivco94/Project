@@ -21,8 +21,12 @@ struct BulletInfo
 		float m_speed;
 		sf::Vector2f m_passed;
 		void update(std::shared_ptr<GameUpdater> gu) override;
-
+		static std::shared_ptr<SerializableInfo> create(const std::string & type, std::string & data) {
+			return std::make_shared<BulletInfo>(data);
+		}
 	protected:
 		void serialize(std::stringstream& params) override;
+	private:
+		static bool m_registerit;
 };
 

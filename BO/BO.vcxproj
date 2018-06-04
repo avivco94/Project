@@ -157,6 +157,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="deathInfo.h" />
     <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="Factory.h" />
     <ClInclude Include="GameInfo.h" />
     <ClInclude Include="HitInfo.h" />
     <ClInclude Include="HudUpdate.h" />
@@ -167,7 +168,6 @@
     <ClInclude Include="Server.h" />
     <ClInclude Include="GameUpdater.h" />
     <ClInclude Include="Updates.h" />
-    <ClInclude Include="InfoFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BulletInfo.cpp" />
@@ -180,11 +180,7 @@
     <ClCompile Include="PlayerInfo.cpp" />
     <ClCompile Include="SerializableInfo.cpp" />
     <ClCompile Include="Server.cpp" />
-    <ClCompile Include="InfoFactory.cpp" />
     <ClCompile Include="GameUpdater.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BO.rc" />

@@ -4,17 +4,24 @@
 #include "Constants.h"
 #include "Updates.h"
 #include "Exceptions.h"
-#include "InfoFactory.h"
+#include "Factory.h"
 #include "ConnectionInfo.h"
 #include "PlayerInfo.h"
 #include <algorithm> 
 #include <cctype>
+#include "HitInfo.h"
 
 Server::Server() {
 	m_gi = std::make_shared<GameInfo>();
 	//TODO - Start Positions By map
 	for (int i = 1; i < 100; i++)
-		m_startPositions.push_back(sf::Vector2f(40 * i, 40));
+		m_startPositions.push_back(sf::Vector2f(40.f * i, 40.f));
+
+	//TODO- NOT HERE
+	Factory<SerializableInfo>::getInstance().add("BulletInfo", &BulletInfo::create);
+	Factory<SerializableInfo>::getInstance().add("ConnectionInfo", &ConnectionInfo::create);
+	Factory<SerializableInfo>::getInstance().add("HitInfo", &HitInfo::create);
+	Factory<SerializableInfo>::getInstance().add("PlayerInfo", &PlayerInfo::create);
 }
 Server::~Server() {}
 
@@ -75,7 +82,9 @@ void Server::handleClientData(std::map<std::string, sf::TcpSocket*>::iterator& i
 			case sf::Socket::Done: {
 				std::string data;
 				packet >> data;
-				auto info = InfoFactory::getInstance().get(data);
+				auto tad = getTypeAndData(data);
+				auto info = Factory<SerializableInfo>::getInstance().get(tad.first, tad.second);
+
 				info->update(m_gi);
 				auto& pu = Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance();
 				pu.add(info);
@@ -99,7 +108,9 @@ void Server::clientDisconnect(std::map<std::string, sf::TcpSocket*>::iterator& i
 		m_startPositions.push_front(sf::Vector2f(40.f * (std::stoi(player->m_id) + 1), 40.f));
 		player->m_toRemove = true;
 		auto& pu = Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance();
-		pu.add(InfoFactory::getInstance().get(player->deserialize()));
+
+		auto tad = getTypeAndData(player->deserialize());
+		pu.add(Factory<SerializableInfo>::getInstance().get(tad.first, tad.second));
 	}
 
 	m_selector.remove(client);
