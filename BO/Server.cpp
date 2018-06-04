@@ -9,12 +9,19 @@
 #include "PlayerInfo.h"
 #include <algorithm> 
 #include <cctype>
+#include "HitInfo.h"
 
 Server::Server() {
 	m_gi = std::make_shared<GameInfo>();
 	//TODO - Start Positions By map
 	for (int i = 1; i < 100; i++)
 		m_startPositions.push_back(sf::Vector2f(40.f * i, 40.f));
+
+	//TODO- NOT HERE
+	Factory<SerializableInfo>::getInstance().add("BulletInfo", &BulletInfo::create);
+	Factory<SerializableInfo>::getInstance().add("ConnectionInfo", &ConnectionInfo::create);
+	Factory<SerializableInfo>::getInstance().add("HitInfo", &HitInfo::create);
+	Factory<SerializableInfo>::getInstance().add("PlayerInfo", &PlayerInfo::create);
 }
 Server::~Server() {}
 

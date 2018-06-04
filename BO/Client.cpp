@@ -7,10 +7,19 @@
 #include "Constants.h"
 #include <algorithm> 
 #include <cctype>
+#include "BulletInfo.h"
+#include "HitInfo.h"
+#include "PlayerInfo.h"
 
 Client::Client()
 	: m_thread(&Client::run, this) {
 	ConnectionInfo("");
+
+	//TODO- NOT HERE
+	Factory<SerializableInfo>::getInstance().add("BulletInfo", &BulletInfo::create);
+	Factory<SerializableInfo>::getInstance().add("ConnectionInfo", &ConnectionInfo::create);
+	Factory<SerializableInfo>::getInstance().add("HitInfo", &HitInfo::create);
+	Factory<SerializableInfo>::getInstance().add("PlayerInfo", &PlayerInfo::create);
 }
 
 Client::~Client() {}
