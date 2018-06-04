@@ -241,8 +241,10 @@ void GameScreen::update(HitInfo & hi) {
 			m_player->decHP(-100);
 			m_player->goToStart();
 			m_player->addDeath();
+			Updates<std::shared_ptr<DeathInfo>, Request>::getInstance().add(std::make_shared<DeathInfo>(hi.m_shooter,m_player->getId()));
 			
 		}
+
 	}
 }
 

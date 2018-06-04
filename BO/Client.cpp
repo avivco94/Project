@@ -5,6 +5,7 @@
 #include "Factory.h"
 #include "ConnectionInfo.h"
 #include "Constants.h"
+#include "deathInfo.h"
 #include <algorithm> 
 #include <cctype>
 #include "BulletInfo.h"
@@ -18,6 +19,7 @@ Client::Client()
 	//TODO- NOT HERE
 	Factory<SerializableInfo>::getInstance().add("BulletInfo", &BulletInfo::create);
 	Factory<SerializableInfo>::getInstance().add("ConnectionInfo", &ConnectionInfo::create);
+	Factory<SerializableInfo>::getInstance().add("HitInfo", &DeathInfo::create);
 	Factory<SerializableInfo>::getInstance().add("HitInfo", &HitInfo::create);
 	Factory<SerializableInfo>::getInstance().add("PlayerInfo", &PlayerInfo::create);
 }

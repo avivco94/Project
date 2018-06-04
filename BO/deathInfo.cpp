@@ -1,5 +1,7 @@
 #include "deathInfo.h"
+#include "Factory.h"
 
+bool DeathInfo::m_registerit = Factory<SerializableInfo>::getInstance().add("DeathInfo", &DeathInfo::create);
 
 DeathInfo::DeathInfo(std::string params): SerializableInfo("DeathInfo") {
 	auto ss = std::stringstream(params);
