@@ -31,6 +31,7 @@ const std::string PLAYER_TEXTURE = "Resources/Players.png";
 const std::string TILES_TEXTURE = "Resources/tileset.png";
 const std::string BULLETS_TEXTURE = "Resources/Bullets.png";
 const std::string WEAPONS_TEXTURE = "Resources/Weapons.png";
+const std::string INTRO_BR_TEXTURE = "Resources/introbr.jpg";
 const std::string MENU_FONT = "Resources/cs_regular.ttf";
 
 const std::string ON_MOUSE_DOWN = "onMouseDown";

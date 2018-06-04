@@ -1,6 +1,7 @@
 #include "MenuScreen.h"
 #include <iostream>
 #include "Resources.h"
+#include <memory>
 
 
 
@@ -9,10 +10,15 @@ MenuScreen::MenuScreen(sf::Vector2f size): m_rect(size) {
 	int heightJumps = (int)size.y / 4;
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
 	m_em = std::make_shared<EventsManager>();
-	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 1), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Resume"));
-	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 2), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Start"));
-	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 2, heightJumps * 3), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Exit"));
-
+	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, heightJumps * 1), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Connect"));
+	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, heightJumps * 4), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Resume"));
+	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, heightJumps * 2), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Start"));
+	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, heightJumps * 3), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Exit"));
+	//m_brRect(sf::Vector2f(size.x / 2, heightJumps * 1));
+	m_brRect.setSize( sf::Vector2f(size.x/2 , heightJumps*(m_buttons.size()-1)));
+	m_brRect.setPosition(size.x / 4 , size.y/2);
+	m_brRect.setOrigin(m_brRect.getSize().x / 2, m_brRect.getSize().y / 2);
+	m_brRect.setFillColor(sf::Color(0, 0, 0, 200));
 	for (int i = 0; i < m_buttons.size(); i++) {
 		m_buttons[i]->onMouseUp([&](string eventName, sf::Event event, EventSubscriber * object) {
 			return menuSelect(eventName, event, object);
@@ -20,7 +26,9 @@ MenuScreen::MenuScreen(sf::Vector2f size): m_rect(size) {
 	}
 
 	m_rect.setPosition(0, 0);
-	m_rect.setFillColor(sf::Color::Black);
+	auto t = Resources::getInstance().getTexturesMap()->getResource(INTRO_BR_TEXTURE);
+	m_rect.setTexture(&*t);
+	//m_rect.setFillColor(sf::Color::Black);
 
 }
 
@@ -53,6 +61,7 @@ bool MenuScreen::handleEvent(const sf::Event & event)
 
 void MenuScreen::drawScreen(sf::RenderWindow & window) {
 	window.draw(m_rect);
+	window.draw(m_brRect);
 	int counter = 0;
 	for (int i = 0; i < m_buttons.size(); i++) {
 		if (m_buttons[i]->getText() != "Resume" || m_isPaused)

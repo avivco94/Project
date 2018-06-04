@@ -61,6 +61,7 @@ bool ShopScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 		auto weaponWithPrice = Factory<WeaponWithPrice>::getInstance().get(eventByText);
 
 		m_p->buyWeapon(weaponWithPrice);
+		//TODO menu disapeare
 		return true;
 	}
 	return false;
