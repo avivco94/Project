@@ -133,3 +133,19 @@ void IBasePlayer::goToStart(){
 	m_weapon->setCenter(getCenter());
 }
 
+int IBasePlayer::getKills(){
+	return m_kills;
+}
+
+int IBasePlayer::getDeaths(){
+	return m_deaths;
+}
+
+void IBasePlayer::addKill(){
+	m_kills += 1;
+}
+
+void IBasePlayer::addDeath(){
+	m_deaths += 1;
+}
+

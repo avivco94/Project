@@ -29,6 +29,10 @@ public:
 	std::string getId();
 	void setId(const std::string& id);
 	void goToStart();
+	int getKills();
+	int getDeaths();
+	void addKill();
+	void addDeath();
 protected:
 	float m_radius;
 	std::shared_ptr<std::map<std::string, std::shared_ptr<IBullet>>> m_bullets;
@@ -36,4 +40,6 @@ protected:
 	std::string m_id;
 	int m_hp = 100;
 	sf::Vector2f m_startPos;
+	int m_deaths = 0;
+	int m_kills = 0;
 };

@@ -15,6 +15,8 @@ HudScreen::HudScreen(const sf::Vector2f& size, std::shared_ptr<Player> p)
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 0, 20), sf::Color::White, *font, "HP"));
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 1+50, 20), sf::Color::White, *font, "Amoo"));
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 3, 20), sf::Color::White, *font, "$", ""));
+	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 0+70, 60), sf::Color::White, *font, "Kills", ":"));
+	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 2, 60), sf::Color::White, *font, "Deaths", ":"));
 }
 
 
@@ -26,6 +28,8 @@ void HudScreen::update(sf::RenderWindow & window){
 			m_labels[0]->setValue(std::to_string(hu.m_hp));
 			m_labels[1]->setValue(std::to_string(hu.m_ammo));
 			m_labels[2]->setValue(std::to_string(hu.m_fps));
+			m_labels[3]->setValue(std::to_string(hu.m_kills));
+			m_labels[4]->setValue(std::to_string(hu.m_deaths));
 		});
 	}
 	
