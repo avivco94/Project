@@ -82,7 +82,7 @@ void GameScreen::update(sf::RenderWindow& window) {
 			Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
 			m_lastSend = GameClock::getInstance().getElapsedTime();
 		}
-		Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), m_player->getCash() });
+		Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), m_player->getCash() , m_player->getKills(), m_player->getDeaths() });
 
 		m_sm.update(window);
 		m_view.setCenter(m_player->getCenter());
@@ -239,6 +239,7 @@ void GameScreen::update(HitInfo & hi) {
 		if (m_player->getHP() <= 0) {
 			m_player->decHP(-100);
 			m_player->goToStart();
+			m_player->addDeath();
 			//Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
 		}
 			
