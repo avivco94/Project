@@ -28,10 +28,12 @@ public:
 	void decHP(int amount);
 	std::string getId();
 	void setId(const std::string& id);
+	void goToStart();
 protected:
 	float m_radius;
 	std::shared_ptr<std::map<std::string, std::shared_ptr<IBullet>>> m_bullets;
 	std::shared_ptr<IBaseGun> m_weapon;
 	std::string m_id;
 	int m_hp = 100;
+	sf::Vector2f m_startPos;
 };

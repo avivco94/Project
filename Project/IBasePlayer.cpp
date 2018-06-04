@@ -14,7 +14,7 @@
 #include "DefaultGun.h"
 
 IBasePlayer::IBasePlayer(sf::Vector2f pos)
-	: MoveableSpriteObject(*Resources::getInstance().getTexturesMap()->getResource(PLAYER_TEXTURE), PLAYER_TEXTURE_RECT, pos, PLAYER_SPEED), m_radius(PLAYER_TEXTURE_RECT.width / 2.f) {
+	: MoveableSpriteObject(*Resources::getInstance().getTexturesMap()->getResource(PLAYER_TEXTURE), PLAYER_TEXTURE_RECT, pos, PLAYER_SPEED), m_radius(PLAYER_TEXTURE_RECT.width / 2.f), m_startPos(pos) {
 	m_weapon = std::make_shared<GlockGun>(pos);
 	m_weapon->setCenter(getCenter());
 	m_bullets = std::make_shared<std::map<std::string, std::shared_ptr<IBullet>>>();
@@ -126,5 +126,10 @@ std::string IBasePlayer::getId() {
 
 void IBasePlayer::setId(const std::string& id) {
 	m_id = id;
+}
+
+void IBasePlayer::goToStart(){
+	this->setPosition(m_startPos);
+	m_weapon->setCenter(getCenter());
 }
 

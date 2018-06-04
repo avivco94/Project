@@ -233,8 +233,9 @@ void GameScreen::update(ConnectionInfo & pi) {
 void GameScreen::update(HitInfo & hi) {
 	if (hi.m_gotShot == m_player->getId()) {
 		m_player->decHP(10);
-		if (m_player->getHP <= 0) {
+		if (m_player->getHP() <= 0) {
 			m_player->decHP(-100);
+			m_player->goToStart();
 			//Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
 			
 		}
