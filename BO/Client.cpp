@@ -19,7 +19,7 @@ Client::Client()
 	//TODO- NOT HERE
 	Factory<SerializableInfo>::getInstance().add("BulletInfo", &BulletInfo::create);
 	Factory<SerializableInfo>::getInstance().add("ConnectionInfo", &ConnectionInfo::create);
-	Factory<SerializableInfo>::getInstance().add("HitInfo", &DeathInfo::create);
+	Factory<SerializableInfo>::getInstance().add("DeathInfo", &DeathInfo::create);
 	Factory<SerializableInfo>::getInstance().add("HitInfo", &HitInfo::create);
 	Factory<SerializableInfo>::getInstance().add("PlayerInfo", &PlayerInfo::create);
 }

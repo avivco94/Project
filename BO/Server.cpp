@@ -10,6 +10,7 @@
 #include <algorithm> 
 #include <cctype>
 #include "HitInfo.h"
+#include "DeathInfo.h"
 
 Server::Server() {
 	m_gi = std::make_shared<GameInfo>();
@@ -22,6 +23,8 @@ Server::Server() {
 	Factory<SerializableInfo>::getInstance().add("ConnectionInfo", &ConnectionInfo::create);
 	Factory<SerializableInfo>::getInstance().add("HitInfo", &HitInfo::create);
 	Factory<SerializableInfo>::getInstance().add("PlayerInfo", &PlayerInfo::create);
+	Factory<SerializableInfo>::getInstance().add("DeathInfo", &DeathInfo::create);
+
 }
 Server::~Server() {}
 
