@@ -33,8 +33,8 @@ class Quadtree {
 
 template <typename T>
 Quadtree<T>::Quadtree(int pLevel, sf::IntRect pBounds) 
-	: m_level((unsigned)pLevel), m_bounds(pBounds), m_r(sf::Vector2f(pBounds.width, pBounds.height)){
-	m_r.setPosition(pBounds.left, pBounds.top);
+	: m_level((unsigned)pLevel), m_bounds(pBounds), m_r(sf::Vector2f((float)pBounds.width, (float)pBounds.height)){
+	m_r.setPosition((float)pBounds.left, (float)pBounds.top);
 	m_r.setFillColor(sf::Color::Transparent);
 	m_r.setOutlineColor(sf::Color::White);
 	m_r.setOutlineThickness(1);
@@ -155,7 +155,7 @@ bool Quadtree<T>::remove(std::shared_ptr<T> rect) {
 
 		return false;
 	}
-	unsigned int beforeEraseSize = m_objects.size();
+	size_t beforeEraseSize = m_objects.size();
 	std::experimental::erase_if(m_objects, [&rect](std::shared_ptr<T> object) {
 		return object == rect;
 	});
@@ -186,7 +186,7 @@ void Quadtree<T>::retrieve(std::shared_ptr<std::vector<std::shared_ptr<T>>> retu
 
 template <typename T>
 unsigned int Quadtree<T>::size() {
-	return m_objects.size();
+	return (unsigned int)m_objects.size();
 }
 
 template<typename T>

@@ -44,7 +44,7 @@ struct Polygon : Shape {
 	std::vector<sf::Vector2f> m_vertices;
 	Polygon(std::vector<sf::Vector2f> vertices) : m_vertices(vertices){}
 	bool isInside(sf::Vector2f point) override {
-		int i, j;
+		size_t i, j;
 		bool result = false;
 		for (i = 0, j = m_vertices.size() - 1; i < m_vertices.size(); j = i++) {
 			if ((m_vertices[i].y > point.y) != (m_vertices[j].y > point.y) &&

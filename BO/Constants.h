@@ -43,7 +43,7 @@ const std::string MENU_SCREEN = "MenuScreen";
 const std::string SHOP_SCREEN = "ShopScreen";
 const std::string HUD_SCREEN = "HudScreen";
 
-
+const sf::Vector2f TILE_SIZE = sf::Vector2f(40, 40);
 const sf::IntRect PLAYER_TEXTURE_RECT = sf::IntRect(0, 0, 40, 40);
 const sf::IntRect GLOCK_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
 const sf::IntRect USP_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);

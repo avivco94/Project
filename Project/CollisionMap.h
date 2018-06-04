@@ -15,10 +15,12 @@ class CollisionMap {
 		static CollisionMap& getInstance();
 
 		//Add collision to map
-		void addEntry(const std::string& type1, const std::string& type2, HitFunctionPtr collisionFunction);
+		template <typename T, typename S>
+		void addEntry(HitFunctionPtr collisionFunction);
 
 		//Remove collision from map
-		void removeEntry(const std::string& type1, const std::string& type2);
+		template <typename T, typename S>
+		void removeEntry();
 
 		//Get collision function from map
 		HitFunctionPtr lookup(const std::string& type1, const std::string& type2);
@@ -30,3 +32,14 @@ class CollisionMap {
 		~CollisionMap();
 };
 
+template<typename T, typename S>
+inline void CollisionMap::addEntry(HitFunctionPtr collisionFunction) {
+	m_hitMap.insert(std::make_pair(std::make_pair(typeid(T).name(), typeid(S).name()), collisionFunction));
+}
+
+template<typename T, typename S>
+inline void CollisionMap::removeEntry() {
+	auto it = m_hitMap.find(std::make_pair(typeid(T).name(), typeid(S).name()));
+	if (it != m_hitMap.end())
+		m_hitMap.erase(it);
+}

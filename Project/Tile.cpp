@@ -3,8 +3,10 @@
 
 
 
-Tile::Tile(int value, sf::Texture& texture, sf::IntRect rect)
-	: m_value(value), SpriteObject(texture, rect) {}
+Tile::Tile(int value, sf::Texture& texture, sf::IntRect rect, sf::Vector2f pos)
+	: m_value(value), SpriteObject(texture, rect) {
+	setPosition(pos);
+}
 
 
 Tile::~Tile() {}

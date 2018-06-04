@@ -15,32 +15,33 @@ CollisionManager & CollisionManager::getInstance() {
 	return instance;
 }
 
-CollisionManager::CollisionManager(){
-	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+CollisionManager::CollisionManager() {
+	//Regiser the objects
+	CollisionMap::getInstance().addEntry<Player, CollideableTile>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndWallCollision(c1, c2);
 	});
 
-	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(BorderLine).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	CollisionMap::getInstance().addEntry<Player, BorderLine>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndBorderCollision(c1, c2);
 	});
 
-	CollisionMap::getInstance().addEntry(typeid(IBullet).name(), typeid(CollideableTile).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	CollisionMap::getInstance().addEntry<IBullet, CollideableTile>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		bulletAndWallCollision(c1, c2);
 	});
 
-	CollisionMap::getInstance().addEntry(typeid(IBullet).name(), typeid(BorderLine).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	CollisionMap::getInstance().addEntry<IBullet, BorderLine>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		bulletAndBorderCollision(c1, c2);
 	});
 
-	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(IBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	CollisionMap::getInstance().addEntry<Player, IBullet>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndBulletCollision(c1, c2);
 	});
 
-	CollisionMap::getInstance().addEntry(typeid(EnemyPlayer).name(), typeid(IBullet).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	CollisionMap::getInstance().addEntry<EnemyPlayer, IBullet>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndBulletCollision(c1, c2);
 	});
 
-	CollisionMap::getInstance().addEntry(typeid(Player).name(), typeid(EnemyPlayer).name(), [this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	CollisionMap::getInstance().addEntry<Player, EnemyPlayer>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndEnemyPlayerCollision(c1, c2);
 	});
 }
@@ -118,8 +119,8 @@ void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, s
 		float dis_x = abs(player->getCenter().x - wall->getCenter().x);
 		float dis_y = abs(player->getCenter().y - wall->getCenter().y);
 
-		float cX = (playerCircle.m_radius / sqrt(2)) + (wall->getTextureRect().width / 2);
-		float cY = (playerCircle.m_radius / sqrt(2)) + (wall->getTextureRect().height / 2);
+		float cX = (playerCircle.m_radius / (float)sqrt(2)) + (wall->getTextureRect().width / 2);
+		float cY = (playerCircle.m_radius / (float)sqrt(2)) + (wall->getTextureRect().height / 2);
 
 		if (((dis_x >= wall->getTextureRect().width * 0.70 && dis_x <= cX) ||
 			(dis_y >= wall->getTextureRect().height * 0.70 && dis_y <= cY)) &&

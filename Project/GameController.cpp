@@ -15,7 +15,7 @@ GameController::GameController() {
 
 	m_client = std::make_shared<Client>();
 	m_sm.addScreen(GAME_SCREEN, std::make_shared<GameScreen>(m_client));
-	m_sm.addScreen(MENU_SCREEN, std::make_shared<MenuScreen>(sf::Vector2f(WINDOW_SIZE_X, WINDOW_SIZE_Y)));
+	m_sm.addScreen(MENU_SCREEN, std::make_shared<MenuScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y)));
 
 	m_sm.setScreen(GAME_SCREEN);
 
