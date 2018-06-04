@@ -32,8 +32,8 @@ void GameInfo::update(HitInfo & hi){
 	auto playerIt = m_players.find(hi.m_shooter);
 	if (playerIt != m_players.end()) {
 		//playerIt->second->
-		auto& pu = Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance();
-		pu.add(std::make_shared<HitInfo>(hi));
+		//auto& pu = Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance();
+		//pu.add(std::make_shared<HitInfo>(hi));
 	}
 }
 

@@ -1,6 +1,7 @@
 #include "EnemyPlayer.h"
 #include "DefaultBullet.h"
 #include "DefaultGun.h"
+#include "CollisionManager.h"
 
 EnemyPlayer::EnemyPlayer(sf::Vector2f pos)
 	: IBasePlayer(pos) {}
@@ -14,6 +15,7 @@ void EnemyPlayer::addDefaultBullet(BulletInfo& bi) {
 		//std::cout << bi.deserialize() << std::endl;
 		auto bullet = std::make_shared<DefaultBullet>(bi);
 		m_bullets->insert(std::make_pair(bi.m_id, bullet));
+		CollisionManager::getInstance().add(bullet);
 	}
 }
 
