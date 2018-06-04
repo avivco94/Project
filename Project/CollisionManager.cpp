@@ -38,6 +38,10 @@ CollisionManager::CollisionManager() {
 		playerAndBulletCollision(c1, c2);
 	});
 
+	CollisionMap::getInstance().addEntry<IBullet, Player>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+		playerAndBulletCollision(c2, c1);
+	});
+
 	CollisionMap::getInstance().addEntry<EnemyPlayer, IBullet>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndBulletCollision(c1, c2);
 	});
@@ -95,7 +99,7 @@ void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, s
 	auto wall = std::static_pointer_cast<CollideableTile>(c2);
 	Circle playerCircle(player->getCenter(), player->getRadius());
 	Polygon wallPoly(wall->getVertices());
-	if (playerCircle.isCollide(wallPoly)) {
+	if (playerCircle.isCollide(wallPoly) && player->isMoved()) {
 		player->setForceMove(true);
 		CollisionManager::getInstance().remove(player);
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, -m_vec));
@@ -184,9 +188,9 @@ void CollisionManager::playerAndBulletCollision(std::shared_ptr<Collideable> c1,
 				auto a = std::make_shared<HitInfo>(bullet->getPId(), player->getId(), "0");
 				Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(a);
 				//std::cout << "Hit " << bullet->getId() << " Player " << player->getId() << " HP " << player->getHP() << std::endl;
-				bullet->setOver();
 			}
 		}
+		bullet->setOver();
 	}
 }
 

@@ -58,8 +58,9 @@ void GameScreen::update(sf::RenderWindow& window) {
 			if (m_player->isMoved()) {
 				CollisionManager::getInstance().collisionCheck(m_player);
 			}
-			m_view.setCenter(m_player->getCenter());
 		}
+
+		CollisionManager::getInstance().collisionCheck(m_player);
 
 		m_player->updateBullets();
 
@@ -84,6 +85,7 @@ void GameScreen::update(sf::RenderWindow& window) {
 		Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), m_player->getCash() });
 
 		m_sm.update(window);
+		m_view.setCenter(m_player->getCenter());
 	}
 	updateFromServer();
 }
