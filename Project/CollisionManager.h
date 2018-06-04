@@ -153,6 +153,8 @@ class CollisionManager
 		void playerAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void bulletAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void playerAndBulletCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
+		void bulletAndPlayerCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
+
 		void playerAndEnemyPlayerCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void playerAndBorderCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void bulletAndBorderCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);

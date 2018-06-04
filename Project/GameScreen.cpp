@@ -241,7 +241,6 @@ void GameScreen::update(HitInfo & hi) {
 			m_player->goToStart();
 			//Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
 		}
-			
 	}
 }
 
