@@ -242,7 +242,6 @@ void GameScreen::update(HitInfo & hi) {
 			m_player->addDeath();
 			//Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
 		}
-			
 	}
 }
 

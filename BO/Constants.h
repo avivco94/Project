@@ -60,8 +60,8 @@ const sf::IntRect M4_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
 const char SEPARATOR = ',';
 const char SEPARATOR2 = ';';
 
-//const sf::IpAddress SERVER_IP = sf::IpAddress::LocalHost;
-const sf::IpAddress SERVER_IP = "40.118.3.201";
+const sf::IpAddress SERVER_IP = sf::IpAddress::LocalHost;
+//const sf::IpAddress SERVER_IP = "40.118.3.201";
 const unsigned short SERVER_PORT = 5642;
 
 const sf::IntRect GLOCK_TEXTURE_RECT = sf::IntRect(0, 0, 50, 50);
