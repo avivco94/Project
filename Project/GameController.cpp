@@ -89,6 +89,7 @@ void GameController::loadResources() {
 	std::shared_ptr<sf::Texture> tilesT = std::make_shared<sf::Texture>();
 	std::shared_ptr<sf::Texture> bulletT = std::make_shared<sf::Texture>();
 	std::shared_ptr<sf::Texture> weaponsT = std::make_shared<sf::Texture>();
+	std::shared_ptr<sf::Texture> introBRT = std::make_shared<sf::Texture>();
 	std::shared_ptr<sf::Font> menuF = std::make_shared<sf::Font>();
 
 	if (!playerT->loadFromFile(PLAYER_TEXTURE))
@@ -107,6 +108,10 @@ void GameController::loadResources() {
 		throw LoadException("File");
 	weaponsT->setSmooth(false);
 
+	if (!introBRT->loadFromFile(INTRO_BR_TEXTURE))
+		throw LoadException("File");
+	introBRT->setSmooth(false);
+
 	if (!menuF->loadFromFile(MENU_FONT))
 		throw LoadException("Font");
 
@@ -114,6 +119,7 @@ void GameController::loadResources() {
 	Resources::getInstance().getTexturesMap()->addResource(TILES_TEXTURE, tilesT);
 	Resources::getInstance().getTexturesMap()->addResource(BULLETS_TEXTURE, bulletT);
 	Resources::getInstance().getTexturesMap()->addResource(WEAPONS_TEXTURE, weaponsT);
+	Resources::getInstance().getTexturesMap()->addResource(INTRO_BR_TEXTURE, introBRT);
 	Resources::getInstance().getFontsMap()->addResource(MENU_FONT, menuF);
 }
 

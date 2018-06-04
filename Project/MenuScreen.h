@@ -26,6 +26,7 @@ public:
 
 private:
 	sf::RectangleShape m_rect;
+	sf::RectangleShape m_brRect;
 	std::vector<std::unique_ptr<Button>> m_buttons;
 	bool m_show = true;
 	bool m_isPaused = false;
