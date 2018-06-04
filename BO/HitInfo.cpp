@@ -1,7 +1,10 @@
 #include "HitInfo.h"
 
 
-HitInfo::HitInfo(std::string type): SerializableInfo(type){
+HitInfo::HitInfo(std::string params)
+	: SerializableInfo("HitInfo") {
+	auto ss = std::stringstream(params);
+	serialize(ss);
 }
 
 HitInfo::HitInfo(std::string shooter, std::string gotShot, std::string type):

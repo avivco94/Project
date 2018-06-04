@@ -67,7 +67,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HitInfo.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Info</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
