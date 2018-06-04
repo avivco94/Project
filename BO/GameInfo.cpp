@@ -37,6 +37,10 @@ void GameInfo::update(HitInfo & hi){
 	}
 }
 
+void GameInfo::update(DeathInfo & di)
+{
+}
+
 
 const std::unordered_map<std::string, std::shared_ptr<PlayerInfo>>& GameInfo::getPlayers() {
 	return m_players;

@@ -69,6 +69,9 @@
     <ClInclude Include="HitInfo.h">
       <Filter>Header Files\Info</Filter>
     </ClInclude>
+    <ClInclude Include="deathInfo.h">
+      <Filter>Header Files\Info</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Server.cpp">
@@ -102,7 +105,10 @@
       <Filter>Source Files\Info</Filter>
     </ClCompile>
     <ClCompile Include="HitInfo.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Info</Filter>
+    </ClCompile>
+    <ClCompile Include="deathInfo.cpp">
+      <Filter>Source Files\Info</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

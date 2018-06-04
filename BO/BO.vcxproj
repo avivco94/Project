@@ -155,6 +155,7 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="ConnectionInfo.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="deathInfo.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="GameInfo.h" />
     <ClInclude Include="HitInfo.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="BulletInfo.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ConnectionInfo.cpp" />
+    <ClCompile Include="deathInfo.cpp" />
     <ClCompile Include="GameInfo.cpp" />
     <ClCompile Include="HitInfo.cpp" />
     <ClCompile Include="HudUpdate.cpp" />

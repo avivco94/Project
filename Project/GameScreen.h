@@ -25,6 +25,7 @@ class GameScreen :
 		void update(PlayerInfo& pi) override;
 		void update(ConnectionInfo & pi) override;
 		void update(HitInfo & pi) override;
+		void update(DeathInfo & di) override;
 	private:
 		void updateFromServer();
 		std::shared_ptr<Client> m_client;

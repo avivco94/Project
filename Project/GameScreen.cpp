@@ -14,6 +14,7 @@
 #include "HudScreen.h"
 #include "HudUpdate.h"
 #include "PlayerInfo.h"
+#include "deathInfo.h"
 #include <algorithm>
 #include <iostream>
 #include <memory>
@@ -240,8 +241,14 @@ void GameScreen::update(HitInfo & hi) {
 			m_player->decHP(-100);
 			m_player->goToStart();
 			m_player->addDeath();
-			//Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
+			
 		}
+	}
+}
+
+void GameScreen::update(DeathInfo & di){
+	if (di.m_killerID == m_player->getId()) {
+		m_player->addKill();
 	}
 }
 
