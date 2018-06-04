@@ -1,5 +1,8 @@
 #include "ConnectionInfo.h"
 #include "Constants.h"
+#include "Factory.h"
+
+bool ConnectionInfo::m_registerit = Factory<SerializableInfo>::getInstance().add("ConnectionInfo", &ConnectionInfo::create);
 
 ConnectionInfo::ConnectionInfo(std::string params)
  : SerializableInfo("ConnectionInfo") {

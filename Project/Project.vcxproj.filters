@@ -365,9 +365,6 @@
     <ClInclude Include="BorderLine.h">
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
-    <ClInclude Include="Factory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Resources\map.txt">
@@ -378,8 +375,5 @@
     <Image Include="Resources\tileset.png">
       <Filter>Resource Files</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/System.hpp>
 #include <SFML/Network.hpp>
+#include <thread>
 
 class Client {
 	public:
@@ -12,7 +13,7 @@ class Client {
 		void receiveData();
 		void sendData();
 		sf::TcpSocket m_socket;
-		sf::Thread m_thread;
+		std::thread m_thread;
 		sf::Socket::Status receiveWithTimeout(sf::TcpSocket& socket, sf::Packet& packet, sf::Time timeout);
 };
 

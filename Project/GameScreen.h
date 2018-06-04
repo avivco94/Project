@@ -6,7 +6,6 @@
 #include "Constants.h"
 #include "Player.h"
 #include "EnemyPlayer.h"
-
 #include "ScreensManager.h"
 #include "GameUpdater.h"
 #include "ConnectionInfo.h"

@@ -2,17 +2,17 @@
 #include <iostream>
 #include "Updates.h"
 #include "SerializableInfo.h"
-#include "InfoFactory.h"
+#include "Factory.h"
 #include "ConnectionInfo.h"
 #include "Constants.h"
-
 #include <algorithm> 
 #include <cctype>
 
 Client::Client()
 	: m_thread(&Client::run, this) {
-	m_thread.launch();
+	ConnectionInfo("");
 }
+
 Client::~Client() {}
 
 void Client::run() {
@@ -26,8 +26,10 @@ void Client::run() {
 	if (m_socket.receive(packet) != sf::Socket::Done)
 		return;
 	packet >> data;
-	auto info = InfoFactory::getInstance().get(data);
-	
+
+	auto tad = getTypeAndData(data);
+	auto info = Factory<SerializableInfo>::getInstance().get(tad.first, tad.second);
+
 	Updates<std::shared_ptr<SerializableInfo>, Response>::getInstance().add(info);
 	m_socket.setBlocking(false);
 	while (1) {
@@ -43,7 +45,8 @@ void Client::receiveData() {
 	switch (m_socket.receive(packet)) {
 		case sf::Socket::Done: {
 			packet >> data;
-			auto info = InfoFactory::getInstance().get(data);
+			auto tad = getTypeAndData(data);
+			auto info = Factory<SerializableInfo>::getInstance().get(tad.first, tad.second);
 			infoUpdates.add(info);
 			break;
 		}

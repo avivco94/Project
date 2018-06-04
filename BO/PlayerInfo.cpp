@@ -1,6 +1,8 @@
 #include "PlayerInfo.h"
 #include "Constants.h"
-#include "Constants.h"
+#include "Factory.h"
+
+bool PlayerInfo::m_registerit = Factory<SerializableInfo>::getInstance().add("PlayerInfo", &PlayerInfo::create);
 
 PlayerInfo::PlayerInfo(std::string params) 
 	: SerializableInfo("PlayerInfo") {

@@ -2,6 +2,8 @@
 #include <string>
 #include <sstream>
 #include "GameInfo.h"
+#include <cctype>
+#include <algorithm>
 
 struct SerializableInfo {
 	public:
@@ -14,4 +16,15 @@ struct SerializableInfo {
 		virtual std::string deserializeInfo() const = 0;
 		std::string m_type;
 };
+
+
+inline std::pair<std::string, std::string> getTypeAndData(const std::string & data) {
+	std::string type = data.substr(0, data.find_first_of(" \t") + 1);
+	type.erase(std::find_if(type.rbegin(), type.rend(), [](int ch) {
+		return !std::isspace(ch);
+	}).base(), type.end());
+	std::string onlyData = data.substr(data.find_first_of(" \t") + 1);
+	return std::make_pair(type, onlyData);
+}
+
 

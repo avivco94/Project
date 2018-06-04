@@ -1,5 +1,7 @@
 #include "HitInfo.h"
+#include "Factory.h"
 
+bool HitInfo::m_registerit = Factory<SerializableInfo>::getInstance().add("HitInfo", &HitInfo::create);
 
 HitInfo::HitInfo(std::string params)
 	: SerializableInfo("HitInfo") {

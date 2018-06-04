@@ -51,9 +51,6 @@
     <ClInclude Include="ConnectionInfo.h">
       <Filter>Header Files\Info</Filter>
     </ClInclude>
-    <ClInclude Include="InfoFactory.h">
-      <Filter>Header Files\Info</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerInfo.h">
       <Filter>Header Files\Info</Filter>
     </ClInclude>
@@ -68,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="HitInfo.h">
       <Filter>Header Files\Info</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -95,18 +95,12 @@
     <ClCompile Include="PlayerInfo.cpp">
       <Filter>Source Files\Info</Filter>
     </ClCompile>
-    <ClCompile Include="InfoFactory.cpp">
-      <Filter>Source Files\Info</Filter>
-    </ClCompile>
     <ClCompile Include="SerializableInfo.cpp">
       <Filter>Source Files\Info</Filter>
     </ClCompile>
     <ClCompile Include="HitInfo.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Info</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BO.rc">

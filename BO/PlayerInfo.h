@@ -21,6 +21,11 @@ struct PlayerInfo :
 		bool m_toRemove = false;
 		//std::vector<BulletInfo> m_bullets;
 		void update(std::shared_ptr<GameUpdater> gu) override;
+		static std::shared_ptr<SerializableInfo> create(const std::string & type, std::string & data) {
+			return std::make_shared<PlayerInfo>(data);
+		}
 	protected:
 		void serialize(std::stringstream& params) override;
+	private:
+		static bool m_registerit;
 };

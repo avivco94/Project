@@ -1,7 +1,9 @@
 #include "BulletInfo.h"
 #include "PlayerInfo.h"
 #include "Constants.h"
+#include "Factory.h"
 
+bool BulletInfo::m_registerit = Factory<SerializableInfo>::getInstance().add("BulletInfo", &BulletInfo::create);
 
 BulletInfo::BulletInfo(std::string params) 
 	: SerializableInfo("BulletInfo") {

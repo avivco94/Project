@@ -12,8 +12,13 @@ struct ConnectionInfo
 	void update(std::shared_ptr<GameUpdater> gu) override;
 	std::string m_id;
 	sf::Vector2f m_pos;
+	static std::shared_ptr<SerializableInfo> create(const std::string & symbol, std::string & data) {
+		return std::make_shared<ConnectionInfo>(data);
+	}
 	protected:
 		void serialize(std::stringstream& params) override;
+	private:
+		static bool m_registerit;
 
 };
 
