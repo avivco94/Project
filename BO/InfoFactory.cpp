@@ -2,6 +2,7 @@
 #include "Exceptions.h"
 #include "PlayerInfo.h"
 #include "BulletInfo.h"
+#include "HitInfo.h"
 #include "ConnectionInfo.h"
 #include <algorithm> 
 #include <cctype>
@@ -36,6 +37,10 @@ InfoFactory::InfoFactory() {
 
 	m_map.insert(std::make_pair("ConnectionInfo", [this](const std::string & data) {
 		return insert<ConnectionInfo>(data);
+	}));
+
+	m_map.insert(std::make_pair("HitInfo", [this](const std::string & data) {
+		return insert<HitInfo>(data);
 	}));
 }
 

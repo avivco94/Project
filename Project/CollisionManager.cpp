@@ -9,6 +9,7 @@
 #include "ICommand.h"
 #include "MoveCommand.h"
 #include "BorderLine.h"
+#include "HitInfo.h"
 
 CollisionManager & CollisionManager::getInstance() {
 	static CollisionManager instance;
@@ -180,6 +181,8 @@ void CollisionManager::playerAndBulletCollision(std::shared_ptr<Collideable> c1,
 		if (!(bullets != player->getBullets()->end() && bullets->second == bullet) && !bullet->isOver()) {
 			if (bullet->getPId() != player->getId()) {
 				player->decHP(10);
+				auto a = std::make_shared<HitInfo>(bullet->getPId(), player->getId(), "0");
+				Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(a);
 				std::cout << "Hit " << bullet->getId() << " Player " << player->getId() << " HP " << player->getHP() << std::endl;
 				bullet->setOver();
 			}

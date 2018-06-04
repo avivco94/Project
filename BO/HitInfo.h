@@ -2,7 +2,8 @@
 #include "SerializableInfo.h"
 #include <string>
 #include <sstream>
-struct HitInfo : public SerializableInfo
+struct HitInfo 
+	: public SerializableInfo
 {
 public:
 	HitInfo(std::string type);
