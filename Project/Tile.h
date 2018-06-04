@@ -5,7 +5,7 @@
 class Tile 
 	: public SpriteObject {
 	public:
-		Tile(int value, sf::Texture& texture, sf::IntRect rect);
+		Tile(int value, sf::Texture& texture, sf::IntRect rect, sf::Vector2f pos);
 		virtual ~Tile() = 0;
 		int getValue();
 	private:

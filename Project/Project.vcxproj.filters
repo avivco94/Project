@@ -208,7 +208,7 @@
       <Filter>Source Files\Drawables</Filter>
     </ClCompile>
     <ClCompile Include="BorderLine.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Drawables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -369,6 +369,9 @@
       <Filter>Header Files\Drawables</Filter>
     </ClInclude>
     <ClInclude Include="BorderLine.h">
+      <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Factory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
