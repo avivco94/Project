@@ -205,6 +205,7 @@ void GameScreen::update(PlayerInfo & pi) {
 			auto a = m_otherPlayers.insert(std::make_pair(pi.m_id, std::make_shared<EnemyPlayer>(pi.m_pos)));
 			a.first->second->setCenter(pi.m_pos);
 			a.first->second->setRotation(pi.m_rotation);
+			a.first->second->setId(pi.m_id);
 			CollisionManager::getInstance().add(a.first->second);
 		} else {
 			CollisionManager::getInstance().remove(playerIt->second);
@@ -237,7 +238,6 @@ void GameScreen::update(HitInfo & hi) {
 			m_player->decHP(-100);
 			m_player->goToStart();
 			//Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
-			
 		}
 			
 	}

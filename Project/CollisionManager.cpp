@@ -183,7 +183,7 @@ void CollisionManager::playerAndBulletCollision(std::shared_ptr<Collideable> c1,
 				player->decHP(10);
 				auto a = std::make_shared<HitInfo>(bullet->getPId(), player->getId(), "0");
 				Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(a);
-				std::cout << "Hit " << bullet->getId() << " Player " << player->getId() << " HP " << player->getHP() << std::endl;
+				//std::cout << "Hit " << bullet->getId() << " Player " << player->getId() << " HP " << player->getHP() << std::endl;
 				bullet->setOver();
 			}
 		}
