@@ -41,7 +41,7 @@ bool Tilemap::Load(const std::string& filePath, sf::Vector2u tileSize) {
 	for (unsigned int i = 0; i < m_size_y; ++i) {
 		for (unsigned int j = 0; j < m_size_x; ++j) {
 			getline(file, line, ',');
-
+			//Trim left the text
 			line.erase(line.begin(), std::find_if(line.begin(), line.end(), [](int ch) {
 				return !std::isspace(ch);
 			}));
@@ -52,30 +52,6 @@ bool Tilemap::Load(const std::string& filePath, sf::Vector2u tileSize) {
 				CollisionManager::getInstance().add(collideable);
 				m_tiles.emplace_back(collideable);
 			}
-
-			
-			/*int tileNumber = std::stoi(line);
-
-			int max_x = (tileset->getSize().x / tileSize.x);
-			std::shared_ptr<Tile> tile;
-			if (tileNumber == 0 || tileNumber == 1) {
-				tile = std::make_shared<NormalTile>(
-						tileNumber,
-						*tileset,
-						sf::IntRect((tileNumber % max_x) * tileSize.x, (tileNumber / max_x) * tileSize.y, tileSize.x, tileSize.y),
-						getPosByIndex((i * m_size_x) + j));
-			} else {
-				auto coliideable = std::make_shared<CollideableTile>(
-						tileNumber,
-						*tileset,
-						sf::IntRect((tileNumber % max_x) * tileSize.x, (tileNumber / max_x) * tileSize.y, tileSize.x, tileSize.y),
-						getPosByIndex((i * m_size_x) + j));
-				coliideable->setPosition(getPosByIndex((i * m_size_x) + j));
-
-				tile = coliideable;
-				CollisionManager::getInstance().add(coliideable);
-			}
-			m_tiles.emplace_back(tile);*/
 		}
 	}
 	m_renderTexture.create(m_size_x * tileSize.x, m_size_y * tileSize.y);
@@ -92,7 +68,6 @@ void Tilemap::draw(sf::RenderWindow& window) {
 	if (m_reRender) {
 		m_renderTexture.clear(sf::Color::Transparent);
 		for (unsigned int i = 0; i < m_tiles.size(); i++) {
-			//m_tiles[i]->setPosition(getPosByIndex(i));
 			m_tiles[i]->draw(m_renderTexture);
 		}
 		m_renderTexture.display();
@@ -101,7 +76,7 @@ void Tilemap::draw(sf::RenderWindow& window) {
 	}
 	window.draw(m_renderTextureSprite);
 
-	/*if (GameClock::getInstance().isTimePassed(lastDrawQuad, 5)) {
+	/*if (GameClock::getInstance().isTimePassed(lastDrawQuad, 0.5)) {
 		m_renderTextureQuad.clear(sf::Color::Transparent);
 		CollisionManager::getInstance().draw(m_renderTextureQuad);
 		m_renderTextureQuad.display();
