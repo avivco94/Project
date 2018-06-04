@@ -14,6 +14,7 @@ class GameInfo
 		void update(BulletInfo& bi) override;
 		void update(PlayerInfo& pi) override;
 		void update(ConnectionInfo& pi) override;
+		void update(HitInfo & pi) override;
 		const std::unordered_map<std::string, std::shared_ptr<PlayerInfo>>& getPlayers();
 		const std::unordered_map<std::string, std::shared_ptr<BulletInfo>>& getBullets();
 		std::shared_ptr<PlayerInfo> removePlayer(const std::string& id);

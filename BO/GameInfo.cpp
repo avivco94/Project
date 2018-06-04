@@ -1,6 +1,8 @@
 #include "GameInfo.h"
 #include "PlayerInfo.h"
 #include "BulletInfo.h"
+#include "HitInfo.h"
+#include "Updates.h"
 
 GameInfo::GameInfo() {}
 GameInfo::~GameInfo() {}
@@ -25,6 +27,16 @@ void GameInfo::update(PlayerInfo & pi) {
 }
 
 void GameInfo::update(ConnectionInfo & pi) {}
+
+void GameInfo::update(HitInfo & hi){
+	auto playerIt = m_players.find(hi.m_shooter);
+	if (playerIt != m_players.end()) {
+		//playerIt->second->
+		auto& pu = Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance();
+		pu.add(std::make_shared<HitInfo>(hi));
+	}
+}
+
 
 const std::unordered_map<std::string, std::shared_ptr<PlayerInfo>>& GameInfo::getPlayers() {
 	return m_players;

@@ -157,9 +157,11 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="GameInfo.h" />
+    <ClInclude Include="HitInfo.h" />
     <ClInclude Include="HudUpdate.h" />
     <ClInclude Include="PlayerInfo.h" />
     <ClInclude Include="Quadtree.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SerializableInfo.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="GameUpdater.h" />
@@ -171,6 +173,7 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="ConnectionInfo.cpp" />
     <ClCompile Include="GameInfo.cpp" />
+    <ClCompile Include="HitInfo.cpp" />
     <ClCompile Include="HudUpdate.cpp" />
     <ClCompile Include="PlayerInfo.cpp" />
     <ClCompile Include="SerializableInfo.cpp" />
@@ -180,6 +183,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BO.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

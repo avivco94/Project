@@ -77,7 +77,8 @@ void Server::handleClientData(std::map<std::string, sf::TcpSocket*>::iterator& i
 				packet >> data;
 				auto info = InfoFactory::getInstance().get(data);
 				info->update(m_gi);
-				m_broadcast.push_back(info);
+				auto& pu = Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance();
+				pu.add(info);
 				break;
 			} case sf::Socket::Disconnected: {
 				clientDisconnect(it);
@@ -97,7 +98,8 @@ void Server::clientDisconnect(std::map<std::string, sf::TcpSocket*>::iterator& i
 	if (player) {
 		m_startPositions.push_front(sf::Vector2f(40.f * (std::stoi(player->m_id) + 1), 40.f));
 		player->m_toRemove = true;
-		m_broadcast.push_back(InfoFactory::getInstance().get(player->deserialize()));
+		auto& pu = Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance();
+		pu.add(InfoFactory::getInstance().get(player->deserialize()));
 	}
 
 	m_selector.remove(client);
@@ -105,26 +107,27 @@ void Server::clientDisconnect(std::map<std::string, sf::TcpSocket*>::iterator& i
 }
 
 void Server::broadcast() {
-	bool isDeleted = false;
-	while (!m_broadcast.empty()) {
-		auto info = m_broadcast.front();
+	auto& pu = Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance();
+	
+	pu.iterateAndPop([this](std::shared_ptr<SerializableInfo> info) {
+		bool isDeleted = false;
 		for (auto it = m_clients.begin(); it != m_clients.end();) {
+			isDeleted = false;
 			sf::TcpSocket& client = *(*it).second;
 			sf::Packet p;
 			p << info->deserialize();
 			switch (client.send(p)) {
-				case sf::Socket::Done:
-					break;
-				case sf::Socket::Disconnected:
-					clientDisconnect(it);
-					isDeleted = true;
-					break;
-				default:
-					return;
+			case sf::Socket::Done:
+				break;
+			case sf::Socket::Disconnected:
+				clientDisconnect(it);
+				isDeleted = true;
+				break;
+			default:
+				return;
 			}
 			if (!isDeleted)
 				it++;
 		}
-		m_broadcast.pop_front();
-	}
+	});
 }

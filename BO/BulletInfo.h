@@ -5,7 +5,6 @@
 #include <sstream>
 
 
-
 struct BulletInfo 
 	: public SerializableInfo {
 	public:

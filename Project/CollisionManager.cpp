@@ -179,7 +179,7 @@ void CollisionManager::playerAndBulletCollision(std::shared_ptr<Collideable> c1,
 		auto bullets = player->getBullets()->find(bullet->getId());
 		if (!(bullets != player->getBullets()->end() && bullets->second == bullet) && !bullet->isOver()) {
 			if (bullet->getPId() != player->getId()) {
-				player->decHP(20);
+				player->decHP(10);
 				std::cout << "Hit " << bullet->getId() << " Player " << player->getId() << " HP " << player->getHP() << std::endl;
 				bullet->setOver();
 			}

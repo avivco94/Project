@@ -21,7 +21,7 @@ class Server {
 		std::map<std::string, sf::TcpSocket*> m_clients;
 		sf::TcpListener m_listener;
 		sf::SocketSelector m_selector;
-		std::deque<std::shared_ptr<SerializableInfo>> m_broadcast;
+		//std::deque<std::shared_ptr<SerializableInfo>> m_broadcast;
 		std::deque<sf::Vector2f> m_startPositions;
 };
 

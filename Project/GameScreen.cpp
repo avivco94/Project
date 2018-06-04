@@ -18,6 +18,7 @@
 #include <iostream>
 #include <memory>
 #include "BorderLine.h"
+#include "HitInfo.h"
 
 GameScreen::GameScreen(std::shared_ptr<Client> client)
 	: m_client(client) {
@@ -227,6 +228,12 @@ void GameScreen::update(ConnectionInfo & pi) {
 	//Update server - start pos
 	Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
 	m_sm.addScreen(SHOP_SCREEN, std::make_shared<ShopScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y), m_player));
+}
+
+void GameScreen::update(HitInfo & hi) {
+	if (hi.m_gotShot == m_player->getId()) {
+		m_player->decHP(10);
+	}
 }
 
 void GameScreen::updateFromServer() {
