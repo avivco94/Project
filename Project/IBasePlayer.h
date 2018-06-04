@@ -7,7 +7,6 @@
 #include <map>
 #include "IBaseGun.h"
 #include "Constants.h"
-#include "WeaponsFactory.h"
 
 class IBasePlayer
 	: public MoveableSpriteObject, public CollideableType<IBasePlayer> {

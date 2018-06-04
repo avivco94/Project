@@ -215,7 +215,6 @@
     <ClCompile Include="TileObejctMap.cpp" />
     <ClCompile Include="USPBullet.cpp" />
     <ClCompile Include="USPGun.cpp" />
-    <ClCompile Include="WeaponsFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AK47Gun.h" />
@@ -271,7 +270,6 @@
     <ClInclude Include="Factory.h" />
     <ClInclude Include="USPBullet.h" />
     <ClInclude Include="USPGun.h" />
-    <ClInclude Include="WeaponsFactory.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Resources\map.txt" />

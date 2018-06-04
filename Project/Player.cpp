@@ -47,10 +47,10 @@ int Player::getCash(){
 	return m_cash;
 }
 
-void Player::buyWeapon(WeaponWithPrice& w){
-	if (m_cash >= w.price) {
-		m_cash -= w.price;
-		m_weapon = w.buyFunc({0,0});
+void Player::buyWeapon(std::shared_ptr<WeaponWithPrice> w){
+	if (m_cash >= w->price) {
+		m_cash -= w->price;
+		m_weapon = w->buyFunc({0,0});
 		m_weapon->setRotation(getRotation());
 		m_weapon->setCenter(getCenter());
 	}

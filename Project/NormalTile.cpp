@@ -6,7 +6,6 @@
 bool NormalTile::m_registerit0 = Factory<NormalTile>::getInstance().add("0", &NormalTile::create);
 bool NormalTile::m_registerit1 = Factory<NormalTile>::getInstance().add("1", &NormalTile::create);
 
-
 NormalTile::~NormalTile() {}
 
 std::shared_ptr<NormalTile> NormalTile::create(const std::string & symbol, sf::Vector2f pos) {

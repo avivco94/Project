@@ -180,9 +180,6 @@
     <ClCompile Include="Label.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WeaponsFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AK47Gun.cpp">
       <Filter>Source Files\Drawables\Weapons</Filter>
     </ClCompile>
@@ -336,9 +333,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MenuManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WeaponsFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AK47Gun.h">

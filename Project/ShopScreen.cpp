@@ -3,10 +3,7 @@
 #include "Resources.h"
 #include "Button.h"
 #include "Player.h"
-#include "WeaponsFactory.h"
-
-
-
+#include "Factory.h"
 
 ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p) : m_rect(size), m_p(p) {
 	int heightJumps = (int)size.y / 5;
@@ -61,7 +58,8 @@ bool ShopScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 	if (button != NULL) {
 		string eventByText = button->getText();
 		
-		auto& weaponWithPrice = WeaponsFactory::getInstace().get(eventByText);
+		auto weaponWithPrice = Factory<WeaponWithPrice>::getInstance().get(eventByText);
+
 		m_p->buyWeapon(weaponWithPrice);
 		return true;
 	}

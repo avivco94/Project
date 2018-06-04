@@ -7,7 +7,6 @@
 #include <map>
 #include "IBaseGun.h"
 #include "Constants.h"
-#include "WeaponsFactory.h"
 
 class Player
 	: public IBasePlayer {
@@ -20,7 +19,7 @@ class Player
 		void decHP(int amount);
 		int getAmmo();
 		int getCash();
-		void buyWeapon(WeaponWithPrice& w);
+		void buyWeapon(std::shared_ptr<WeaponWithPrice> w);
 		std::type_index type() const override;
 
 	private:

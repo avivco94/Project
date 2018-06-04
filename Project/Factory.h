@@ -3,17 +3,18 @@
 #include <map>
 #include "Exceptions.h"
 #include <functional>
+#include <any>
 
 template <typename T>
 class Factory {
 	public:
 		static Factory& getInstance();
 		template <class... Args>
-		bool add(const std::string& symbol, std::shared_ptr<T>(*)(Args...));
+		bool add(const std::string& symbol, std::shared_ptr<T>(*)(const std::string & symbol, Args...));
 		template <class... Args>
 		std::shared_ptr<T> get(const std::string& symbol, Args &&... args);
 	private:
-		std::map<std::string, void *> m_map;
+		std::map<std::string, std::any> m_map;
 
 };
 
@@ -26,7 +27,7 @@ Factory<T>& Factory<T>::getInstance() {
 
 template<typename T>
 template<class ...Args>
-bool Factory<T>::add(const std::string & symbol, std::shared_ptr<T>(*func)(Args ...)) {
+bool Factory<T>::add(const std::string & symbol, std::shared_ptr<T>(*func)(const std::string & symbol, Args ...)) {
 	m_map[symbol] = func;
 	return true;
 
@@ -38,7 +39,7 @@ inline std::shared_ptr<T> Factory<T>::get(const std::string & symbol, Args && ..
 	auto it = m_map.find(symbol);
 	if (it != m_map.end()) {
 		typedef std::shared_ptr<T>(*func)(const std::string & symbol, Args...);
-		auto createFunc = reinterpret_cast<func>(it->second);
+		auto createFunc = std::any_cast<func>(it->second);
 		return createFunc(symbol, args...);
 	}
 	return nullptr;

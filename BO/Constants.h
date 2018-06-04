@@ -1,8 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
+#include <functional>
+#include <memory>
+
 //Uncomment in server
 //#define SERVER
+
+class IBaseGun;
 
 enum Direction {
 	Up = 1,
@@ -110,3 +115,8 @@ inline std::istream& operator>>(std::istream& is, sf::IntRect& intRect) {
 	is >> intRect.height;
 	return is;
 }
+
+struct WeaponWithPrice {
+	int price;
+	std::function<std::shared_ptr<IBaseGun>(sf::Vector2f)> buyFunc;
+};
