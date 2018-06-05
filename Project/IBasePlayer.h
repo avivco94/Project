@@ -41,5 +41,5 @@ protected:
 	int m_hp = 100;
 	sf::Vector2f m_startPos;
 	int m_deaths = 0;
-	int m_kills = 1;
+	int m_kills = 0;
 };

@@ -19,7 +19,7 @@ public:
    virtual sf::Vector2f getCenter() const override;
    //Return the rect of the object 
    sf::FloatRect getRect() const override;
-
+   void setFocus(bool s);
 protected:
 	sf::Color m_color;
 	sf::Color m_colorOnFocused;
@@ -28,5 +28,7 @@ protected:
 	sf::RenderTexture m_renderTexture;
 	sf::Sprite m_renderTextureSprite;
 	bool m_lastIsHovered = true;
+	bool m_isFocused=false;
+	bool m_lastFocus;
 };
 

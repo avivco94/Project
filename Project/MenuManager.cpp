@@ -2,7 +2,8 @@
 
 
 
-MenuManager::MenuManager(std::shared_ptr<EventsManager> em): ITypeable(em){}
+MenuManager::MenuManager(std::shared_ptr<EventsManager> em): ITypeable(em){
+}
 
 
 MenuManager::~MenuManager()
@@ -11,6 +12,10 @@ MenuManager::~MenuManager()
 
 void MenuManager::addButtom(std::shared_ptr<Button> b){
 	m_buttons.push_back(b);
+	if (m_firstButton){
+		b->setFocus(true);
+		m_firstButton=!m_firstButton;
+	}
 }
 
 void MenuManager::revmoveButtom( int index){
@@ -41,9 +46,33 @@ bool MenuManager::keyPressed(sf::Event event) {
 		case sf::Keyboard::Num5:
 			chooise = 5;
 			break;
+		case sf::Keyboard::Up:
+			chooise = -1;
+			if (m_current>0){
+				m_buttons[m_current]->setFocus(false);
+				m_buttons[m_current - 1]->setFocus(true);
+				m_current-=1;
+			}
+			break;
+		case sf::Keyboard::Down:
+			chooise = -1;
+			if (m_current<m_buttons.size()-1) {
+				m_buttons[m_current]->setFocus(false);
+				m_buttons[m_current + 1]->setFocus(true);
+				m_current += 1;
+			}
+			break;
+		case sf::Keyboard::Return:
+			chooise = -1;
+			m_buttons[m_current]->click(event);
+			break;
 	}
 
 	if (chooise != 0 && m_buttons.size() >= chooise) {
+		for (int i = 0 ; i < m_buttons.size() ; i++) {
+			m_buttons[i]->setFocus(false);
+			}
+		m_buttons[chooise - 1]->setFocus(true);
 		m_buttons[chooise - 1]->click(event);
 		return true;
 	}

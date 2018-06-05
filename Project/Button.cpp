@@ -22,8 +22,10 @@ Button::~Button() {}
 
 void Button::draw(sf::RenderWindow & window)
 {
-	if (m_lastIsHovered != m_isHovered) {
+	if (m_lastIsHovered != m_isHovered || m_isFocused != m_lastFocus) {
 		m_lastIsHovered = m_isHovered;
+		m_lastFocus = m_isFocused;
+
 		float inner_height = (m_rect.getSize().y - 10);
 		float inner_width = (m_rect.getSize().x - 10);
 
@@ -31,7 +33,7 @@ void Button::draw(sf::RenderWindow & window)
 		m_renderTexture.create((int)inner_width, (int)inner_height);
 		m_renderTexture.clear(sf::Color::Transparent);
 
-		if (m_isHovered/* || _isFocused*/) {
+		if (m_isHovered || m_isFocused) {
 			m_text.setFillColor(m_colorOnFocused);
 		}
 		else {
@@ -63,6 +65,11 @@ sf::Vector2<float> Button::getCenter() const {
 sf::FloatRect Button::getRect() const {	
 	//TODO
 	return sf::FloatRect();
+}
+
+void Button::setFocus(bool s){
+	m_lastFocus = m_isFocused;
+	m_isFocused= s ;
 }
 
 

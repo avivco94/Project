@@ -9,7 +9,7 @@ HudScreen::HudScreen(const sf::Vector2f& size, std::shared_ptr<Player> p)
 	int widthJumps = (int)size.x / 4;
 	m_rect.setFillColor(sf::Color::Black);
 	m_rect.setOutlineColor(sf::Color::White);
-	m_rect.setOutlineThickness(2);
+	m_rect.setOutlineThickness(1);
 	m_rect.setPosition(0, 0);
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 0, 20), sf::Color::White, *font, "HP"));
@@ -17,6 +17,10 @@ HudScreen::HudScreen(const sf::Vector2f& size, std::shared_ptr<Player> p)
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 3, 20), sf::Color::White, *font, "$", ""));
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 0+70, 60), sf::Color::White, *font, "Kills", ":"));
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 2, 60), sf::Color::White, *font, "Deaths", ":"));
+	m_rect.setSize(sf::Vector2f(size.x , 100));
+	m_rect.setPosition(0,0);
+	//m_rect.setOrigin(m_rect.getSize().x / 2, m_rect.getSize().y / 2);
+	m_rect.setFillColor(sf::Color(0, 0, 0, 100));
 }
 
 
@@ -52,7 +56,7 @@ sf::FloatRect HudScreen::getRect() const
 
 void HudScreen::drawScreen(sf::RenderWindow & window)
 {	
-	//window.draw(m_rect);
+	window.draw(m_rect);
 	std::for_each(begin(m_labels), end(m_labels), [&window](std::shared_ptr<Label> label) {
 		label->draw(window);
 	});

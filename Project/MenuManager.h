@@ -17,9 +17,12 @@ public:
 
 protected:
 	bool keyPressed(sf::Event data) override;
+	sf::RectangleShape m_brRect;
 
 private:
 	std::vector<std::shared_ptr<Button>> m_buttons;
+	int m_current = 0;
+	bool m_firstButton=true;
 	
 };
 
