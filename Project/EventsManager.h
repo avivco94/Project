@@ -26,4 +26,3 @@ protected:
 	//Return the iterator of the event subscribe if exsits else return the _subscribers end iterator
 	EventsMultiMap::iterator find(string eventName, EventSubscriber * subscriber);
 };
-

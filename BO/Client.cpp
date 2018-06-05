@@ -24,7 +24,9 @@ Client::Client()
 	Factory<SerializableInfo>::getInstance().add("PlayerInfo", &PlayerInfo::create);
 }
 
-Client::~Client() {}
+Client::~Client() {
+	m_thread.join();
+}
 
 void Client::run() {
 	while (m_socket.connect(SERVER_IP, SERVER_PORT, sf::seconds(10)) != sf::Socket::Done);
