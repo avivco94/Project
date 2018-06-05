@@ -70,12 +70,16 @@ sf::FloatRect Button::getRect() const {
 void Button::setFocus(bool s){
 	m_lastFocus = m_isFocused;
 	m_isFocused= s ;
+	if (s) {
+		Resources::getInstance().getSoundsMap()->getResource(MOUSE_OVER_SOUND)->second.play();
+	}
 }
 
 
 bool Button::isContain(sf::Vector2<float> pos) {
 	if (pos.x >= m_rect.getPosition().x - m_rect.getOrigin().x && pos.x <= m_rect.getPosition().x + m_rect.getSize().x - m_rect.getOrigin().x &&
 		pos.y >= m_rect.getPosition().y - m_rect.getOrigin().y && pos.y <= m_rect.getPosition().y + m_rect.getSize().y - m_rect.getOrigin().y)
+		//Resources::getInstance().getSoundsMap()->getResource(MOUSE_OVER_SOUND)->second.play();
 		return true;
 	return false;
 }

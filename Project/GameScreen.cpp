@@ -193,6 +193,7 @@ sf::FloatRect GameScreen::getRect() const {
 }
 
 void GameScreen::update(BulletInfo & bi) {
+	Resources::getInstance().getSoundsMap()->getResource(AK47_SOUND)->second.play();
 	if (bi.m_pid != m_player->getId()) {
 		auto playerIt = m_otherPlayers.find(bi.m_pid);
 		if (playerIt != m_otherPlayers.end()) {
@@ -235,6 +236,7 @@ void GameScreen::update(ConnectionInfo & pi) {
 }
 
 void GameScreen::update(HitInfo & hi) {
+	Resources::getInstance().getSoundsMap()->getResource(HIT_SOUND)->second.play();
 	if (hi.m_gotShot == m_player->getId()) {
 		m_player->decHP(5);
 		if (m_player->getHP() <= 0) {
@@ -247,6 +249,7 @@ void GameScreen::update(HitInfo & hi) {
 }
 
 void GameScreen::update(DeathInfo & di){
+	Resources::getInstance().getSoundsMap()->getResource(DIED_SOUND)->second.play();
 	if (di.m_killerID == m_player->getId()) {
 		m_player->addKill();
 	}

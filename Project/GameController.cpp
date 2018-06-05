@@ -121,7 +121,19 @@ void GameController::loadResources() {
 	Resources::getInstance().getTexturesMap()->addResource(WEAPONS_TEXTURE, weaponsT);
 	Resources::getInstance().getTexturesMap()->addResource(INTRO_BR_TEXTURE, introBRT);
 	Resources::getInstance().getFontsMap()->addResource(MENU_FONT, menuF);
-}
+
+	Resources::getInstance().addSound(DIED_SOUND);
+	Resources::getInstance().addSound(MENU_SOUND);
+	Resources::getInstance().addSound(AK47_SOUND);
+	Resources::getInstance().addSound(USP_SOUND);
+	Resources::getInstance().addSound(M4A1_SOUND);
+	Resources::getInstance().addSound(GLOCK_SOUND);
+	Resources::getInstance().addSound(MOUSE_OVER_SOUND);
+	Resources::getInstance().addSound(HIT_SOUND);
+	
+	Resources::getInstance().getSoundsMap()->getResource(MOUSE_OVER_SOUND)->second.setVolume(100);
+
+}	
 
 bool GameController::handleEvent(const sf::Event& event) {
 	switch (event.type) {
@@ -134,8 +146,10 @@ bool GameController::handleEvent(const sf::Event& event) {
 				case sf::Keyboard::Escape:
 					if (m_sm.dequeSize() > 1) {
 						m_sm.backScreen();
+						Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.stop();
 					} else if (m_sm.dequeSize() == 1) {
 						m_sm.setScreen(MENU_SCREEN);
+						Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.play();
 					}
 					break;
 			}

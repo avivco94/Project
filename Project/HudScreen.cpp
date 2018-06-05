@@ -19,7 +19,6 @@ HudScreen::HudScreen(const sf::Vector2f& size, std::shared_ptr<Player> p)
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 2, 60), sf::Color::White, *font, "Deaths", ":"));
 	m_rect.setSize(sf::Vector2f(size.x , 100));
 	m_rect.setPosition(0,0);
-	//m_rect.setOrigin(m_rect.getSize().x / 2, m_rect.getSize().y / 2);
 	m_rect.setFillColor(sf::Color(0, 0, 0, 100));
 }
 

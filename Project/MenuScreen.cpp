@@ -81,7 +81,7 @@ bool MenuScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 			//m_em->fireEvent(ON_GAME_EXIT, sf::Event(), 0);
 		else if (eventByText == "Resume")
 			std::cout << "Resume";
-			//m_em->fireEvent(ON_GAME_RESUME, sf::Event(), 0);
+			//m_em->fireEvent(ON_GAME_RESUME, sf::Event(), 0);		
 		return true;
 	}
 	return false;
