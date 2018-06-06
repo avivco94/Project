@@ -132,8 +132,10 @@ void GameController::loadResources() {
 	Resources::getInstance().addSound(HIT_SOUND);
 	
 	Resources::getInstance().getSoundsMap()->getResource(MOUSE_OVER_SOUND)->second.setVolume(120);
-	Resources::getInstance().getSoundsMap()->getResource(AK47_SOUND)->second.setVolume(15);
-	Resources::getInstance().getSoundsMap()->getResource(MOUSE_OVER_SOUND)->second.setVolume(100);
+	Resources::getInstance().getSoundsMap()->getResource(AK47_SOUND)->second.setVolume(20);
+	Resources::getInstance().getSoundsMap()->getResource(USP_SOUND)->second.setVolume(20);
+	Resources::getInstance().getSoundsMap()->getResource(M4A1_SOUND)->second.setVolume(20);
+	Resources::getInstance().getSoundsMap()->getResource(GLOCK_SOUND)->second.setVolume(20);
 
 }	
 
