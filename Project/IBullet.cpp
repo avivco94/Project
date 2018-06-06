@@ -5,8 +5,8 @@
 #include <iostream>
 #include "Player.h"
 
-IBullet::IBullet(std::string id, std::string p, sf::IntRect rect, sf::Vector2f startPos, sf::Vector2f direction, float rotation, float durtion, float speed)
-	: m_id(id), m_pid(p), m_startPos(startPos), MoveableSpriteObject(*Resources::getInstance().getTexturesMap()->getResource(BULLETS_TEXTURE), rect, startPos, speed), m_direction(direction), m_rotation(rotation), m_duration(durtion), m_passed(0, 0) {
+IBullet::IBullet(std::string id, std::string p, sf::IntRect rect, sf::Vector2f startPos, sf::Vector2f direction, float rotation, float durtion, float speed, std::string type)
+	: m_id(id), m_pid(p), m_startPos(startPos), MoveableSpriteObject(*Resources::getInstance().getTexturesMap()->getResource(BULLETS_TEXTURE), rect, startPos, speed), m_direction(direction), m_rotation(rotation), m_duration(durtion), m_passed(0, 0), m_type(type) {
 	m_sprite.setPosition(startPos);
 	m_sprite.setOrigin(rect.width / 2.f , rect.height / 2.f);
 	m_sprite.setRotation(rotation);
@@ -30,7 +30,7 @@ void IBullet::setOver() {
 }
 
 std::shared_ptr<BulletInfo> IBullet::getBulletInfo() {
-	return std::make_shared<BulletInfo>(m_id, m_pid, m_sprite.getTextureRect(), m_startPos, m_rotation, m_direction, m_duration, m_speed, m_passed);
+	return std::make_shared<BulletInfo>(m_id, m_pid, m_sprite.getTextureRect(), m_startPos, m_rotation, m_direction, m_duration, m_speed, m_passed, m_type);
 }
 
 void IBullet::draw(sf::RenderWindow & window) {

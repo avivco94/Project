@@ -27,7 +27,7 @@ void Player::shoot() {
 	if (bullet != nullptr) {
 		m_bullets->insert(std::make_pair(std::to_string(m_bulletsCounter), bullet));
 		m_bulletsCounter++;
-		//std::cout << bullet->getBulletInfo()->deserialize() << std::endl;
+		std::cout << bullet->getBulletInfo()->deserialize() << std::endl;
 		Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(bullet->getBulletInfo());
 	}
 }

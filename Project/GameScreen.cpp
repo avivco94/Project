@@ -197,7 +197,7 @@ sf::FloatRect GameScreen::getRect() const {
 }
 
 void GameScreen::update(BulletInfo & bi) {
-	Resources::getInstance().getSoundsMap()->getResource(AK47_SOUND)->second.play();
+	Resources::getInstance().getSoundsMap()->getResource(bi.m_type)->second.play();
 	if (bi.m_pid != m_player->getId()) {
 		auto playerIt = m_otherPlayers.find(bi.m_pid);
 		if (playerIt != m_otherPlayers.end()) {

@@ -10,7 +10,7 @@ class Player;
 class IBullet 
 	: public MoveableSpriteObject, public CollideableType<IBullet> {
 	public: 
-		IBullet(std::string id, std::string pid, sf::IntRect rect, sf::Vector2f startPos, sf::Vector2f direction, float rotation, float durtion, float speed);
+		IBullet(std::string id, std::string pid, sf::IntRect rect, sf::Vector2f startPos, sf::Vector2f direction, float rotation, float durtion, float speed, std::string m_type);
 		virtual ~IBullet() = 0;
 		void move();
 		bool isOver();
@@ -25,6 +25,7 @@ class IBullet
 	protected:
 		std::string m_pid;
 		std::string m_id;
+		std::string m_type;
 		bool m_over = false;
 		sf::Vector2f m_direction;
 		sf::Vector2f m_passed;

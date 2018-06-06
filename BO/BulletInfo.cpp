@@ -11,13 +11,13 @@ BulletInfo::BulletInfo(std::string params)
 	serialize(ss);
 }
 
-BulletInfo::BulletInfo(std::string id, std::string pid, sf::IntRect rect, sf::Vector2f currPos, float rotation, sf::Vector2f direction, float durtion, float speed, sf::Vector2f passed)
-	: SerializableInfo("BulletInfo"), m_id(id), m_pid(pid), m_rect(rect), m_currPos(currPos), m_rotation(rotation), m_direction(direction), m_durtion(durtion), m_speed(speed), m_passed(passed) {}
+BulletInfo::BulletInfo(std::string id, std::string pid, sf::IntRect rect, sf::Vector2f currPos, float rotation, sf::Vector2f direction, float durtion, float speed, sf::Vector2f passed, std::string type)
+	: SerializableInfo("BulletInfo"), m_id(id), m_pid(pid), m_rect(rect), m_currPos(currPos), m_rotation(rotation), m_direction(direction), m_durtion(durtion), m_speed(speed), m_passed(passed), m_type(type) {}
 
 std::string BulletInfo::deserializeInfo() const {
 	return m_id + " " + m_pid + " " + std::to_string(m_rect.left) + " " + std::to_string(m_rect.top) + " " + std::to_string(m_rect.width) + " " + std::to_string(m_rect.height) + " " + std::to_string(m_rotation) + " " +
 		   std::to_string(m_currPos.x) + " " + std::to_string(m_currPos.y) + " " + std::to_string(m_direction.x) + " "  + std::to_string(m_direction.y) + " " + 
-		   std::to_string(m_durtion) + " " + std::to_string(m_speed) + " " + std::to_string(m_passed.x) + " " + std::to_string(m_passed.y);
+		   std::to_string(m_durtion) + " " + std::to_string(m_speed) + " " + std::to_string(m_passed.x) + " " + std::to_string(m_passed.y) + " " + m_type;
 
 }
 
@@ -31,6 +31,7 @@ void BulletInfo::serialize(std::stringstream& params) {
 	params >> m_durtion;
 	params >> m_speed;
 	params >> m_passed;
+	params >> m_type;
 }
 
 
