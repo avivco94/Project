@@ -33,8 +33,8 @@ GameScreen::GameScreen(std::shared_ptr<Client> client)
 
 	m_map.Load("Resources/map.txt", sf::Vector2u(40, 40));
 
-	auto a = m_otherPlayers.insert(std::make_pair("9", std::make_shared<EnemyPlayer>(sf::Vector2f(8 * 40, 40))));
-	CollisionManager::getInstance().add(a.first->second);
+	//auto a = m_otherPlayers.insert(std::make_pair("9", std::make_shared<EnemyPlayer>(sf::Vector2f(8 * 40, 40))));
+	//CollisionManager::getInstance().add(a.first->second);
 
 }
 GameScreen::~GameScreen() {}

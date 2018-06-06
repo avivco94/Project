@@ -29,7 +29,7 @@ Client::~Client() {
 }
 
 void Client::run() {
-	while (m_socket.connect(SERVER_IP, SERVER_PORT, sf::seconds(10)) != sf::Socket::Done);
+	while (m_socket.connect(SERVER_IP, SERVER_PORT, sf::seconds(5)) != sf::Socket::Done);
 	std::cout << "Connected to server " << SERVER_IP << std::endl;
 	
 	std::string data;

@@ -160,7 +160,7 @@ void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, s
 					//m_vec.y = v.y;
 			}
 		}
-		std::cout << "Wall " << m_vec.x << " " << m_vec.y << std::endl;
+		//std::cout << "Wall " << m_vec.x << " " << m_vec.y << std::endl;
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, m_vec));
 		CollisionManager::getInstance().add(player);
 		player->setForceMove(false);
@@ -243,7 +243,7 @@ void CollisionManager::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable
 			}
 			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, temp));
 			m_vec = temp;
-			std::cout << "Circle " << m_vec.x << " " << m_vec.y << std::endl;
+			//std::cout << "Circle " << m_vec.x << " " << m_vec.y << std::endl;
 		}
 		CollisionManager::getInstance().add(player1);
 		player1->setForceMove(false);
@@ -278,7 +278,7 @@ void CollisionManager::playerAndBorderCollision(std::shared_ptr<Collideable> c1,
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, m_vec));
 		CollisionManager::getInstance().add(player);
 		player->setForceMove(false);
-		std::cout << "Border " << m_vec.x << " " << m_vec.y << std::endl;
+		//std::cout << "Border " << m_vec.x << " " << m_vec.y << std::endl;
 
 	}
 }
