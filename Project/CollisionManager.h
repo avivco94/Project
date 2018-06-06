@@ -161,6 +161,7 @@ class CollisionManager
 		void update(int directions, sf::Vector2f vec, CommandController& controller);
 	private:
 		std::shared_ptr<Quadtree<Collideable>> m_quad;
+		std::shared_ptr<Collideable> m_exc = nullptr;
 		CollisionManager();
 		~CollisionManager();
 		int m_directions;

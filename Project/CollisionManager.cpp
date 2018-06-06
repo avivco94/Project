@@ -92,11 +92,13 @@ void CollisionManager::collisionCheck(std::shared_ptr<Collideable> c) {
 			f(c, sprite);
 		}
 	});
+	m_exc = nullptr;
 }
 
 void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 	auto player = std::static_pointer_cast<Player>(c1);
 	auto wall = std::static_pointer_cast<CollideableTile>(c2);
+	bool isInCircle = false;
 	Circle playerCircle(player->getCenter(), player->getRadius());
 	Polygon wallPoly(wall->getVertices());
 	if (playerCircle.isCollide(wallPoly) && player->isMoved()) {
@@ -129,7 +131,7 @@ void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, s
 
 		if (((dis_x >= wall->getTextureRect().width * 0.70 && dis_x <= cX) ||
 			(dis_y >= wall->getTextureRect().height * 0.70 && dis_y <= cY)) &&
-			abs(m_vec.x) > 0.01f && abs(m_vec.y) > 0.01f) {
+			abs(m_vec.x) > 0.001f && abs(m_vec.y) > 0.001f) {
 
 			temp = { player->getCenter().y - wall->getCenter().y , -(player->getCenter().x - wall->getCenter().x) };
 			//Normalize the vertical vector
@@ -143,24 +145,24 @@ void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, s
 			if (sign(v.x) != sign(m_vec.x) && sign(v.x) != sign(m_vec.x)) {
 				m_vec *= -1.f;
 			}
+			isInCircle = true; 
 		}
 		else {
 			if (abs(temp.x) > abs(temp.y)) {
 				m_vec.y = 0.f;
-				if (abs(m_vec.x) > 0.01f)
-					m_vec.x = v.x;
+				//if (abs(m_vec.x) > 0.01f)
+					//m_vec.x = v.x;
 			}
 
 			if (abs(temp.y) > abs(temp.x)) {
 				m_vec.x = 0.f;
-				if (abs(m_vec.y) > 0.01f)
-					m_vec.y = v.y;
+				//if (abs(m_vec.y) > 0.01f)
+					//m_vec.y = v.y;
 			}
 		}
-
+		std::cout << "Wall " << m_vec.x << " " << m_vec.y << std::endl;
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, m_vec));
 		CollisionManager::getInstance().add(player);
-
 		player->setForceMove(false);
 	}
 }
@@ -210,8 +212,11 @@ void CollisionManager::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable
 	Circle playerCircle1(player1->getCenter(), player1->getRadius());
 	Circle playerCircle2(player2->getCenter(), player2->getRadius());
 	if (playerCircle1.isCollide(playerCircle2)) {
-		if (abs(m_vec.x) > 0.01f && abs(m_vec.y) > 0.01f) {
-			player1->setForceMove(true);
+		player1->setForceMove(true);
+		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, -m_vec));
+
+		if (abs(m_vec.x) > 0.001f && abs(m_vec.y) > 0.001f) {
+			
 
 			CollisionManager::getInstance().remove(player1);
 
@@ -219,16 +224,30 @@ void CollisionManager::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable
 
 			auto& a = Updates<std::shared_ptr<ICommand>>::getInstance();
 			//Calculate the vertical vector
-			sf::Vector2f temp = { player1->getCenter().y - player2->getCenter().y , -(player1->getCenter().x - player2->getCenter().x) };
+			sf::Vector2f temp = { player1->getCenter().y - player2->getCenter().y - 1  , -(player1->getCenter().x - player2->getCenter().x - 1) };
 			//Normalize the vertical vector
 			float len = sqrt(pow(temp.x, 2) + pow(temp.y, 2));
 			temp /= len;
+			sf::Vector2f v = Helper::getInstance().getVectorToMove(m_directions, player1->getRotation());
 
+			auto sign = [](float var) {
+				if (var > 0)
+					return 1;
+				if (var < 0)
+					return -1;
+				return 0;
+			};
+			//If Move clockwise need the opposite vector
+			if (sign(v.x) != sign(temp.x) && sign(v.x) != sign(temp.x)) {
+				temp *= -1.f;
+			}
 			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, temp));
 			m_vec = temp;
-			CollisionManager::getInstance().add(player1);
-			player1->setForceMove(false);
+			std::cout << "Circle " << m_vec.x << " " << m_vec.y << std::endl;
 		}
+		CollisionManager::getInstance().add(player1);
+		player1->setForceMove(false);
+
 	}
 }
 
@@ -251,16 +270,16 @@ void CollisionManager::playerAndBorderCollision(std::shared_ptr<Collideable> c1,
 		CollisionManager::getInstance().remove(player);
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, -m_vec));
 
-		if (borderLineL.m_p1.x == borderLineL.m_p2.x) {
+		if (abs(borderLineL.m_p1.x - borderLineL.m_p2.x) < 0.01f) {
 			m_vec.x = 0.f;
-		}
-
-		if (borderLineL.m_p1.y == borderLineL.m_p2.y) {
+		} else if (abs(borderLineL.m_p1.y - borderLineL.m_p2.y) < 0.01f) {
 			m_vec.y = 0.f;
 		}
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, m_vec));
 		CollisionManager::getInstance().add(player);
 		player->setForceMove(false);
+		std::cout << "Border " << m_vec.x << " " << m_vec.y << std::endl;
+
 	}
 }
 

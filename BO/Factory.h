@@ -18,7 +18,6 @@ class Factory {
 
 };
 
-
 template <typename T>
 Factory<T>& Factory<T>::getInstance() {
 	static Factory instance;
@@ -30,7 +29,6 @@ template<class ...Args>
 bool Factory<T>::add(const std::string & symbol, std::shared_ptr<T>(*func)(const std::string & symbol, Args ...)) {
 	m_map[symbol] = func;
 	return true;
-
 }
 
 template<typename T>
