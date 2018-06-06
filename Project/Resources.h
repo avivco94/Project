@@ -18,6 +18,8 @@ public:
 	SoundsMap getSoundsMap();
 	//Get the fonts map
 	FontsMap getFontsMap();
+	//Add sound to map
+	void addSound(std::string path);
 private:
 	TexturesMap m_textures;
 	SoundsMap m_sounds;

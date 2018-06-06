@@ -1,6 +1,8 @@
 #pragma once
 #include "IClickable.h"
 #include "IDrawable.h"
+#include "Constants.h"
+#include "Resources.h"
 #include <SFML/Graphics.hpp>
 
 class Button :

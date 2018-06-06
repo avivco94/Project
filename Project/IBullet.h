@@ -3,6 +3,7 @@
 #include "BulletInfo.h"
 #include "CollideableType.h"
 #include "Constants.h"
+#include "Resources.h"
 
 class Player;
 

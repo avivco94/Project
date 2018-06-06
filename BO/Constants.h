@@ -49,6 +49,15 @@ const std::string MENU_SCREEN = "MenuScreen";
 const std::string SHOP_SCREEN = "ShopScreen";
 const std::string HUD_SCREEN = "HudScreen";
 
+const std::string DIED_SOUND = "Resources/died.wav";
+const std::string AK47_SOUND = "Resources/ak47.wav";
+const std::string GLOCK_SOUND = "Resources/glock18.wav";
+const std::string USP_SOUND = "Resources/usp.wav";
+const std::string M4A1_SOUND = "Resources/m4a1.wav";
+const std::string MENU_SOUND = "Resources/menu.wav";
+const std::string HIT_SOUND = "Resources/hit1.wav";
+const std::string MOUSE_OVER_SOUND = "Resources/MouseOver.ogg";
+
 const sf::Vector2f TILE_SIZE = sf::Vector2f(40, 40);
 const sf::IntRect PLAYER_TEXTURE_RECT = sf::IntRect(0, 0, 40, 40);
 const sf::IntRect GLOCK_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
