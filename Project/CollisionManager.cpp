@@ -213,18 +213,11 @@ void CollisionManager::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable
 	Circle playerCircle2(player2->getCenter(), player2->getRadius());
 	if (playerCircle1.isCollide(playerCircle2)) {
 		player1->setForceMove(true);
+		CollisionManager::getInstance().remove(player1);
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, -m_vec));
-
-		if (abs(m_vec.x) > 0.001f && abs(m_vec.y) > 0.001f) {
-			
-
-			CollisionManager::getInstance().remove(player1);
-
-			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, -m_vec));
-
-			auto& a = Updates<std::shared_ptr<ICommand>>::getInstance();
+		if (abs(m_vec.x) > 0.01f && abs(m_vec.y) > 0.01f) {
 			//Calculate the vertical vector
-			sf::Vector2f temp = { player1->getCenter().y - player2->getCenter().y - 1  , -(player1->getCenter().x - player2->getCenter().x - 1) };
+			sf::Vector2f temp = { player1->getCenter().y - player2->getCenter().y  , -(player1->getCenter().x - player2->getCenter().x) };
 			//Normalize the vertical vector
 			float len = sqrt(pow(temp.x, 2) + pow(temp.y, 2));
 			temp /= len;
@@ -241,10 +234,11 @@ void CollisionManager::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable
 			if (sign(v.x) != sign(temp.x) && sign(v.x) != sign(temp.x)) {
 				temp *= -1.f;
 			}
-			m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, temp));
 			m_vec = temp;
-			//std::cout << "Circle " << m_vec.x << " " << m_vec.y << std::endl;
+		} else {
+			m_vec = { 0,0 };
 		}
+		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, m_vec));
 		CollisionManager::getInstance().add(player1);
 		player1->setForceMove(false);
 
@@ -278,7 +272,6 @@ void CollisionManager::playerAndBorderCollision(std::shared_ptr<Collideable> c1,
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, m_vec));
 		CollisionManager::getInstance().add(player);
 		player->setForceMove(false);
-		//std::cout << "Border " << m_vec.x << " " << m_vec.y << std::endl;
 
 	}
 }
