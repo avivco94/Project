@@ -5,6 +5,7 @@
 
 bool NormalTile::m_registerit0 = Factory<NormalTile>::getInstance().add("0", &NormalTile::create);
 bool NormalTile::m_registerit1 = Factory<NormalTile>::getInstance().add("1", &NormalTile::create);
+bool NormalTile::m_registerit2 = Factory<NormalTile>::getInstance().add("8", &NormalTile::create);
 
 NormalTile::~NormalTile() {}
 

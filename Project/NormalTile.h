@@ -10,5 +10,6 @@ class NormalTile
 	private:
 		static bool m_registerit0;
 		static bool m_registerit1;
+		static bool m_registerit2;
 };
 
