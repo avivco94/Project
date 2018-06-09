@@ -21,7 +21,7 @@
 #include "BorderLine.h"
 #include "HitInfo.h"
 
-GameScreen::GameScreen(std::shared_ptr<Client> client)
+GameScreen::GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsManager> em)
 	: m_client(client) {
 	m_sm.addScreen(HUD_SCREEN, std::make_shared<HudScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y), m_player));
 

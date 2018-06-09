@@ -12,7 +12,7 @@ class MenuScreen :
 {
 public:
 	//Constructor that get size
-	MenuScreen(sf::Vector2f size);
+	MenuScreen(sf::Vector2f size, std::shared_ptr<EventsManager> em);
 	MenuScreen() = delete;
 	~MenuScreen();
 	void showMenu(bool show, bool isPaused);
@@ -30,7 +30,6 @@ private:
 	std::vector<std::unique_ptr<Button>> m_buttons;
 	bool m_show = true;
 	bool m_isPaused = false;
-	std::shared_ptr<EventsManager> m_em;
 
 protected:
 	void drawScreen(sf::RenderWindow& window) override;

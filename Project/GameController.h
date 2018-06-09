@@ -12,6 +12,8 @@
 #include "CommandController.h"
 #include "GameScreen.h"
 #include "ScreensManager.h"
+#include "Constants.h"
+#include "IClickable.h"
 
 class LoadException : public std::exception {
 public:
@@ -25,13 +27,14 @@ private:
 	std::string error;
 };
 
-class GameController
+class GameController : public EventSubscriber
 {
 	public:
-		GameController();
+		GameController(std::shared_ptr<EventsManager> em = std::make_shared<EventsManager>());
 		~GameController();
 		//Run the game
 		void run();
+		bool onFire(string eventName, sf::Event event, int n, va_list arg);
 	private:
 		//Draw the game
 		void drawGame(sf::RenderWindow& windows);
@@ -45,4 +48,5 @@ class GameController
 		ScreensManager m_sm;
 		std::shared_ptr<Client> m_client;
 		std::shared_ptr<sf::CircleShape> m_cursor;
+		
 };

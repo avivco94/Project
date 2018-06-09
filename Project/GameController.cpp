@@ -10,20 +10,27 @@
 #include <iostream>
 
 
-GameController::GameController() {
+GameController::GameController(std::shared_ptr<EventsManager> em ): EventSubscriber(em)  {
 	loadResources();
-
+	m_em->subscribe(ON_GAME_START, this);
+	m_em->subscribe(ON_GAME_EXIT, this);
 	m_client = std::make_shared<Client>();
-	m_sm.addScreen(GAME_SCREEN, std::make_shared<GameScreen>(m_client));
-	m_sm.addScreen(MENU_SCREEN, std::make_shared<MenuScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y)));
+	m_sm.addScreen(GAME_SCREEN, std::make_shared<GameScreen>(m_client,m_em));
+	m_sm.addScreen(MENU_SCREEN, std::make_shared<MenuScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y),m_em));
 
 	m_sm.setScreen(GAME_SCREEN);
 
-	m_cursor = std::make_shared<sf::CircleShape>(5.f);
+	m_cursor = std::make_shared<sf::CircleShape>(3.f);
 	m_cursor->setOrigin(5, 5);
 	m_cursor->setFillColor(sf::Color::White);
+	//m_em->subscribe(ON_GAME_START, this);
+	//m_em->subscribe(ON_GAME_EXIT, this);
+
 }
-GameController::~GameController() {}
+GameController::~GameController() {
+	m_em->unsubscribe(ON_GAME_START, this);
+	m_em->unsubscribe(ON_GAME_EXIT, this);
+}
 
 void GameController::run() {
 	// create the window
@@ -62,10 +69,23 @@ void GameController::run() {
 	window.close();
 }
 
+bool GameController::onFire(string eventName, sf::Event event, int n, va_list arg)
+{	
+	if (eventName == ON_GAME_EXIT) {
+		isRunning=false;
+	}
+	else if (eventName == ON_GAME_START) {
+		m_sm.backScreen();
+		Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.stop();
+	}
+	return true;
+}
+
 void GameController::update(sf::RenderWindow& window) {
 	m_cursor->setPosition(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window)));
 	m_sm.update(window);
 }
+
 
 void GameController::drawGame(sf::RenderWindow& window) {
 	//FPS Limit

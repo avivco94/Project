@@ -3,7 +3,7 @@
 #include <deque>
 #include "IScreen.h"
 
-class ScreensManager
+class ScreensManager 
 {
 	public:
 		ScreensManager();

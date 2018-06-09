@@ -40,7 +40,7 @@ bool EventsManager::fireEvent(string eventName, sf::Event event, int n, ...) {
 		if ((*it).second->onFire(eventName, event, n, args))
 			break;
 
-	}
+ 	}
 
 	va_end(args);
 	return true;

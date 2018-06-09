@@ -13,7 +13,7 @@
 class GameScreen :
 	public IScreen, public GameUpdater, public std::enable_shared_from_this<GameScreen> {
 	public:
-		GameScreen(std::shared_ptr<Client> client);
+		GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsManager> em);
 		~GameScreen();
 		void update(sf::RenderWindow& window) override;
 		bool handleEvent(const sf::Event& event) override;

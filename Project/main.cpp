@@ -13,6 +13,7 @@
 #include "Server.h"
 
 int main() {
+	//std::shared_ptr<EventsManager> em= std::make_shared<EventsManager>();
 	GameController gm;
 	gm.run();
 	return EXIT_SUCCESS;

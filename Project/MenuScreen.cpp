@@ -6,10 +6,10 @@
 
 
 
-MenuScreen::MenuScreen(sf::Vector2f size): m_rect(size) {
+MenuScreen::MenuScreen(sf::Vector2f size, std::shared_ptr<EventsManager> em):IScreen(true,em), m_rect(size){
 	int heightJumps = (int)size.y / 4;
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
-	m_em = std::make_shared<EventsManager>();
+	//m_em = std::make_shared<EventsManager>();
 	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, heightJumps * 1), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Connect"));
 	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, heightJumps * 4), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Resume"));
 	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, heightJumps * 2), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Start"));
@@ -73,12 +73,14 @@ bool MenuScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 	auto button = dynamic_cast<Button *>(obejct);
 	if (button != NULL) {
 		string eventByText = button->getText();
-		if (eventByText == "Start")
+		if (eventByText == "Start"){
 			std::cout << "Start";
-			//m_em->fireEvent(ON_GAME_START, sf::Event(), 0);
-		else if (eventByText == "Exit")
+			m_em->fireEvent(ON_GAME_START, sf::Event(), 0);
+		}
+		else if (eventByText == "Exit") {
 			std::cout << "Exit";
-			//m_em->fireEvent(ON_GAME_EXIT, sf::Event(), 0);
+			m_em->fireEvent(ON_GAME_EXIT, sf::Event(), 0);
+		}
 		else if (eventByText == "Resume")
 			std::cout << "Resume";
 			//m_em->fireEvent(ON_GAME_RESUME, sf::Event(), 0);		
