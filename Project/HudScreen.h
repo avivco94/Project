@@ -16,6 +16,7 @@ class HudScreen :
 		bool handleEvent(const sf::Event& event) override;
 		sf::Vector2f getCenter() const override;
 		sf::FloatRect getRect() const override;
+		bool onFire(string eventName, sf::Event event, int n, va_list arg) override;
 private:
 	sf::RectangleShape m_rect;
 	std::vector<std::shared_ptr<Button>> m_buttons;

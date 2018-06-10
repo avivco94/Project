@@ -1,9 +1,10 @@
 #pragma once
 #include "IDrawable.h"
 #include "EventsManager.h"
+#include "EventSubscriber.h"
 
 class IScreen 
-	: public IDrawable {
+	: public IDrawable, public EventSubscriber {
 	public:
 		IScreen(bool eventsHandler = true, std::shared_ptr<EventsManager> em = std::make_shared<EventsManager>());
 		virtual ~IScreen();
@@ -18,6 +19,5 @@ class IScreen
 		virtual void drawScreen(sf::RenderWindow& window) = 0;
 		bool m_show;
 		bool m_eventsHandler;
-		std::shared_ptr<EventsManager> m_em;
 };
 

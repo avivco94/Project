@@ -66,6 +66,10 @@ bool MenuManager::keyPressed(sf::Event event) {
 			chooise = -1;
 			m_buttons[m_current]->click(event);
 			break;
+		case sf::Keyboard::Escape:
+			chooise = -1;
+			//m_em->fireEvent(ON_GAME_EXIT, event,0);
+			break;
 	}
 
 	if (chooise != 0 && m_buttons.size() >= chooise) {

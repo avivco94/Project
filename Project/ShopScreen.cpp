@@ -5,11 +5,12 @@
 #include "Player.h"
 #include "Factory.h"
 
-ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p) : m_rect(size), m_p(p) {
+ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p, std::shared_ptr<EventsManager> em) : IScreen(true,em), m_rect(size), m_p(p) {
 	int heightJumps = (int)size.y / 5;
 	m_rect.setFillColor(sf::Color::Transparent);
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
-	m_em = std::make_shared<EventsManager>();
+	//m_em = std::make_shared<EventsManager>();
+	//IScreen::m_em = em;
 	m_menu = std::make_shared<MenuManager>(m_em);
 	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2.f, heightJumps * 1.f), sf::Vector2f(220.f, 50.f), sf::Color::White, sf::Color::Red, *font, GLOCK_NAME));
 	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2.f, heightJumps * 2.f), sf::Vector2f(200.f, 50.f), sf::Color::White, sf::Color::Red, *font, "USP-"));
@@ -31,11 +32,11 @@ bool ShopScreen::handleEvent(const sf::Event & event)
 {
 	switch (event.type) {
 		case sf::Event::MouseButtonReleased: {
-			m_em->fireEvent(ON_MOUSE_UP, event, 0);
+			//m_em->fireEvent(ON_MOUSE_UP, event, 0);
 			break;
 		}
 		case sf::Event::MouseMoved: {
-			m_em->fireEvent(ON_MOUSE_MOVE, event, 0);
+			//m_em->fireEvent(ON_MOUSE_MOVE, event, 0);
 			break;
 		}
 		case sf::Event::KeyPressed: {
@@ -62,6 +63,7 @@ bool ShopScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 
 		m_p->buyWeapon(weaponWithPrice);
 		//TODO menu disapeare
+		m_em->fireEvent(ON_SWITCH_MENU,event,0);
 		return true;
 	}
 	return false;
@@ -84,6 +86,10 @@ sf::Vector2f ShopScreen::getCenter() const
 sf::FloatRect ShopScreen::getRect() const
 {
 	return sf::FloatRect();
+}
+
+bool ShopScreen::onFire(string eventName, sf::Event event, int n, va_list arg){
+	return false;
 }
 
 

@@ -53,6 +53,10 @@ sf::FloatRect HudScreen::getRect() const
 	return sf::FloatRect();
 }
 
+bool HudScreen::onFire(string eventName, sf::Event event, int n, va_list arg){
+	return false;
+}
+
 void HudScreen::drawScreen(sf::RenderWindow & window)
 {	
 	window.draw(m_rect);

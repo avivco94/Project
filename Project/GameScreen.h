@@ -9,11 +9,12 @@
 #include "ScreensManager.h"
 #include "GameUpdater.h"
 #include "ConnectionInfo.h"
+#include "EventSubscriber.h"
 
 class GameScreen :
 	public IScreen, public GameUpdater, public std::enable_shared_from_this<GameScreen> {
 	public:
-		GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsManager> em);
+		GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsManager> em = std::make_shared<EventsManager>());
 		~GameScreen();
 		void update(sf::RenderWindow& window) override;
 		bool handleEvent(const sf::Event& event) override;
@@ -25,6 +26,7 @@ class GameScreen :
 		void update(ConnectionInfo & pi) override;
 		void update(HitInfo & pi) override;
 		void update(DeathInfo & di) override;
+		bool onFire(string eventName, sf::Event event, int n, va_list arg) override;
 	private:
 		void updateFromServer();
 		std::shared_ptr<Client> m_client;
@@ -38,5 +40,6 @@ class GameScreen :
 		float m_lastSend = 0;
 		bool m_mouseLongPressed = false;
 		sf::Vector2f m_vec;
+		sf::RectangleShape m_rect;
 };
 

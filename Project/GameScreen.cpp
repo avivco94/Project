@@ -22,11 +22,10 @@
 #include "HitInfo.h"
 
 GameScreen::GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsManager> em)
-	: m_client(client) {
+	:IScreen(true,em), m_client(client) {
+	m_em->subscribe(ON_SWITCH_MENU, this);
 	m_sm.addScreen(HUD_SCREEN, std::make_shared<HudScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y), m_player));
-
 	m_sm.setScreen(HUD_SCREEN);
-
 	m_view = sf::View(sf::Vector2f(60, 60), sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y));
 	m_view.setViewport(sf::FloatRect(0, 0, 1, 1));
 	m_view.zoom(1.f);
@@ -36,9 +35,12 @@ GameScreen::GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsMan
 	//For Collision Debug
 	//auto a = m_otherPlayers.insert(std::make_pair("9", std::make_shared<EnemyPlayer>(sf::Vector2f(8 * 40, 40))));
 	//CollisionManager::getInstance().add(a.first->second);
+	m_rect.setPosition(sf::Vector2f(0, 0));
+	m_rect.setFillColor(sf::Color::Black);
+	m_rect.setSize(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y));
 
 }
-GameScreen::~GameScreen() {}
+GameScreen::~GameScreen() { m_em->unsubscribe(ON_SWITCH_MENU, this); }
 
 void GameScreen::update(sf::RenderWindow& window) {
 	if (m_player) {
@@ -97,18 +99,22 @@ void GameScreen::update(sf::RenderWindow& window) {
 }
 
 bool GameScreen::handleEvent(const sf::Event& event) {
+	int chooise = 1;
 	switch (event.type) {
 		case sf::Event::KeyPressed: {
 			switch (event.key.code) {
 				case sf::Keyboard::B: {
-					if(m_sm.dequeSize() == 1)
-						m_sm.setScreen(SHOP_SCREEN);
-					else if (m_sm.dequeSize() == 2)
-						m_sm.backScreen();
+					if (chooise) {
+						if (m_sm.dequeSize() == 1)
+							m_sm.setScreen(SHOP_SCREEN);
+						else if (m_sm.dequeSize() == 2)
+							m_sm.backScreen();
 					break;
-				}
+				}	
 			}
 			break;
+		}
+		
 		}
 	}
 
@@ -160,7 +166,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 				case sf::Keyboard::A: {
 					m_directions &= ~Left;
 					break;
-				}
+				}					 
 				}
 				break;
 			}
@@ -171,7 +177,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 
 void GameScreen::drawScreen(sf::RenderWindow& window) {
 	sf::View last_view = window.getView();
-
+	window.draw(m_rect);
 	window.setView(m_view);
 
 	m_map.draw(window);
@@ -237,7 +243,7 @@ void GameScreen::update(ConnectionInfo & pi) {
 	m_view.setCenter(m_player->getCenter());
 	//Update server - start pos
 	Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
-	m_sm.addScreen(SHOP_SCREEN, std::make_shared<ShopScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y), m_player));
+	m_sm.addScreen(SHOP_SCREEN, std::make_shared<ShopScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y), m_player,m_em));
 }
 
 void GameScreen::update(HitInfo & hi) {
@@ -257,6 +263,16 @@ void GameScreen::update(DeathInfo & di){
 	Resources::getInstance().getSoundsMap()->getResource(DIED_SOUND)->second.play();
 	if (di.m_killerID == m_player->getId()) {
 		m_player->addKill();
+	}
+}
+
+bool GameScreen::onFire(string eventName, sf::Event event, int n, va_list arg)
+{
+	if (eventName == ON_SWITCH_MENU){
+		if (m_sm.dequeSize() == 1)
+			m_sm.setScreen(SHOP_SCREEN);
+		else if (m_sm.dequeSize() == 2)
+			m_sm.backScreen();
 	}
 }
 

@@ -43,6 +43,7 @@ const std::string ON_MOVE = "onMove";
 const std::string ON_GAME_START = "onGameStart";
 const std::string ON_GAME_EXIT = "onGameExit";
 const std::string ON_GAME_RESUME = "onGameResume";
+const std::string ON_SWITCH_MENU = "onSwitchMenu";
 
 const std::string GAME_SCREEN = "GameScreen";
 const std::string MENU_SCREEN = "MenuScreen";

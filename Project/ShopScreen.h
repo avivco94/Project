@@ -12,7 +12,7 @@ class ShopScreen :
 	public IScreen
 {
 public:
-	ShopScreen(const sf::Vector2f& size, std::shared_ptr<Player> p);
+	ShopScreen(const sf::Vector2f& size, std::shared_ptr<Player> p, std::shared_ptr<EventsManager> em);
 	ShopScreen();
 	~ShopScreen();
 	void showMenu(bool show, bool isPaused);
@@ -21,13 +21,13 @@ public:
 	bool handleEvent(const sf::Event& event) override;
 	sf::Vector2f getCenter() const override;
 	sf::FloatRect getRect() const override;
+	bool onFire(string eventName, sf::Event event, int n, va_list arg) override;
 
 private:
 	sf::RectangleShape m_rect;
 	std::vector<std::shared_ptr<Button>> m_buttons;
 	bool m_show = true;
 	bool m_isPaused = false;
-	std::shared_ptr<EventsManager> m_em;
 	std::shared_ptr<MenuManager> m_menu;
 	std::shared_ptr<Player> m_p;
 protected:

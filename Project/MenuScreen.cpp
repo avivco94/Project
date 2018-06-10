@@ -107,3 +107,7 @@ sf::FloatRect MenuScreen::getRect() const
 {
 	return sf::FloatRect();
 }
+
+bool MenuScreen::onFire(string eventName, sf::Event event, int n, va_list arg){
+	return false;
+}

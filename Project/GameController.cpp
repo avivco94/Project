@@ -15,17 +15,13 @@ GameController::GameController(std::shared_ptr<EventsManager> em ): EventSubscri
 	m_em->subscribe(ON_GAME_START, this);
 	m_em->subscribe(ON_GAME_EXIT, this);
 	m_client = std::make_shared<Client>();
-	m_sm.addScreen(GAME_SCREEN, std::make_shared<GameScreen>(m_client,m_em));
+	//m_sm.addScreen(GAME_SCREEN, std::make_shared<GameScreen>(m_client));
 	m_sm.addScreen(MENU_SCREEN, std::make_shared<MenuScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y),m_em));
-
-	m_sm.setScreen(GAME_SCREEN);
-
+	m_sm.setScreen(MENU_SCREEN);
+	Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.play();
 	m_cursor = std::make_shared<sf::CircleShape>(3.f);
 	m_cursor->setOrigin(5, 5);
 	m_cursor->setFillColor(sf::Color::White);
-	//m_em->subscribe(ON_GAME_START, this);
-	//m_em->subscribe(ON_GAME_EXIT, this);
-
 }
 GameController::~GameController() {
 	m_em->unsubscribe(ON_GAME_START, this);
@@ -75,8 +71,15 @@ bool GameController::onFire(string eventName, sf::Event event, int n, va_list ar
 		isRunning=false;
 	}
 	else if (eventName == ON_GAME_START) {
-		m_sm.backScreen();
+		if (m_sm.dequeSize() > 1) {
+			m_sm.backScreen();
+		}
+		else if (m_sm.dequeSize() == 1) {
+			m_sm.addScreen(GAME_SCREEN, std::make_shared<GameScreen>(m_client, m_em));
+			m_sm.setScreen(GAME_SCREEN);
+		}
 		Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.stop();
+	
 	}
 	return true;
 }
@@ -150,12 +153,15 @@ void GameController::loadResources() {
 	Resources::getInstance().addSound(GLOCK_SOUND);
 	Resources::getInstance().addSound(MOUSE_OVER_SOUND);
 	Resources::getInstance().addSound(HIT_SOUND);
-	
+
+	Resources::getInstance().getSoundsMap()->getResource(HIT_SOUND)->second.setVolume(130);
 	Resources::getInstance().getSoundsMap()->getResource(MOUSE_OVER_SOUND)->second.setVolume(120);
 	Resources::getInstance().getSoundsMap()->getResource(AK47_SOUND)->second.setVolume(20);
 	Resources::getInstance().getSoundsMap()->getResource(USP_SOUND)->second.setVolume(20);
 	Resources::getInstance().getSoundsMap()->getResource(M4A1_SOUND)->second.setVolume(20);
 	Resources::getInstance().getSoundsMap()->getResource(GLOCK_SOUND)->second.setVolume(20);
+	Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.setLoop(true);
+
 
 }	
 
@@ -168,13 +174,16 @@ bool GameController::handleEvent(const sf::Event& event) {
 		case sf::Event::KeyPressed:
 			switch (event.key.code){
 				case sf::Keyboard::Escape:
-					if (m_sm.dequeSize() > 1) {
+					/*if (m_sm.dequeSize() > 1) {
 						m_sm.backScreen();
 						Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.stop();
 					} else if (m_sm.dequeSize() == 1) {
 						m_sm.setScreen(MENU_SCREEN);
 						Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.play();
 					}
+					*/
+					m_sm.backScreen();
+					Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.play();
 					break;
 			}
 			break;
