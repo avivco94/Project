@@ -87,12 +87,11 @@ void CollisionManager::collisionCheck(std::shared_ptr<Collideable> c) {
 	auto suspectedCollisions = CollisionManager::getInstance().retrieve(c);
 
 	std::for_each(begin(*suspectedCollisions), end(*suspectedCollisions), [this, &c](std::shared_ptr<Collideable> sprite) {
-		auto f = CollisionMap::getInstance().lookup(c->type().name(), sprite->type().name());
+		auto f = CollisionMap::getInstance().lookup(c, sprite);
 		if (f) {
 			f(c, sprite);
 		}
 	});
-	m_exc = nullptr;
 }
 
 void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {

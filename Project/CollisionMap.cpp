@@ -7,8 +7,8 @@ CollisionMap & CollisionMap::getInstance() {
 
 
 
-CollisionMap::HitFunctionPtr CollisionMap::lookup(const std::string & type1, const std::string & type2) {
-	auto  mapEntry = m_hitMap.find(std::make_pair(type1, type2));
+CollisionMap::HitFunctionPtr CollisionMap::lookup(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	auto  mapEntry = m_hitMap.find(std::make_pair(c1->type().name(), c2->type().name()));
 	if (mapEntry == m_hitMap.end())
 		return 0;
 	return (*mapEntry).second;

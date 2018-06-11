@@ -23,7 +23,7 @@ class CollisionMap {
 		void removeEntry();
 
 		//Get collision function from map
-		HitFunctionPtr lookup(const std::string& type1, const std::string& type2);
+		HitFunctionPtr lookup(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 
 	private:
 		typedef map<std::pair<std::string, std::string>, HitFunctionPtr> HitMap;

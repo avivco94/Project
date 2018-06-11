@@ -27,6 +27,7 @@ class GameScreen :
 		void update(HitInfo & pi) override;
 		void update(DeathInfo & di) override;
 		bool onFire(string eventName, sf::Event event, int n, va_list arg) override;
+
 	private:
 		void updateFromServer();
 		std::shared_ptr<Client> m_client;
