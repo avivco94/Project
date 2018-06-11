@@ -20,6 +20,12 @@ ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p, std
 
 	m_rect.setPosition(0, 0);
 	m_rect.setFillColor(sf::Color::Black);
+	m_rect.setSize(sf::Vector2f(240, 350));
+	m_rect.setPosition(0, 0);
+	m_rect.setFillColor(sf::Color(0, 0, 0, 100));
+	m_rect.setOutlineColor(sf::Color::White);
+	m_rect.setOutlineThickness(1);
+	m_rect.setPosition(size.x/4.f , heightJumps - 20);
 
 }
 
@@ -46,7 +52,7 @@ bool ShopScreen::handleEvent(const sf::Event & event)
 }
 
 void ShopScreen::drawScreen(sf::RenderWindow & window) {
-		//window.draw(m_rect);
+		window.draw(m_rect);
 		m_menu->drawMenu(window);
 		
 	

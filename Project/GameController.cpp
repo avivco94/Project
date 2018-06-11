@@ -174,16 +174,14 @@ bool GameController::handleEvent(const sf::Event& event) {
 		case sf::Event::KeyPressed:
 			switch (event.key.code){
 				case sf::Keyboard::Escape:
-					/*if (m_sm.dequeSize() > 1) {
+					if (m_sm.dequeSize() >= 2) {
 						m_sm.backScreen();
-						Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.stop();
-					} else if (m_sm.dequeSize() == 1) {
-						m_sm.setScreen(MENU_SCREEN);
 						Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.play();
 					}
-					*/
-					m_sm.backScreen();
-					Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.play();
+					else if (m_sm.dequeSize() == 1) {
+						m_sm.setScreen(GAME_SCREEN);
+					}
+						
 					break;
 			}
 			break;
