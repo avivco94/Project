@@ -75,7 +75,7 @@ bool GameController::onFire(string eventName, sf::Event event, int n, va_list ar
 			m_sm.backScreen();
 		}
 		else if (m_sm.dequeSize() == 1) {
-			m_sm.addScreen(GAME_SCREEN, std::make_shared<GameScreen>(m_client, m_em));
+			m_sm.addScreen(GAME_SCREEN, std::make_shared<GameScreen>(m_client));
 			m_sm.setScreen(GAME_SCREEN);
 		}
 		Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.stop();
