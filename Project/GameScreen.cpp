@@ -22,7 +22,7 @@
 #include "HitInfo.h"
 
 GameScreen::GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsManager> em)
-	:IScreen(true,em), m_client(client) {
+	:IScreen(true, em), m_client(client) {
 	m_em->subscribe(ON_SWITCH_MENU, this);
 	m_sm.addScreen(HUD_SCREEN, std::make_shared<HudScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y), m_player));
 	m_sm.setScreen(HUD_SCREEN);
@@ -40,7 +40,9 @@ GameScreen::GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsMan
 	m_rect.setSize(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y));
 
 }
-GameScreen::~GameScreen() { m_em->unsubscribe(ON_SWITCH_MENU, this); }
+GameScreen::~GameScreen() { 
+	m_em->unsubscribe(ON_SWITCH_MENU, this); 
+}
 
 void GameScreen::update(sf::RenderWindow& window) {
 	if (m_player) {
@@ -274,6 +276,7 @@ bool GameScreen::onFire(string eventName, sf::Event event, int n, va_list arg)
 		else if (m_sm.dequeSize() == 2)
 			m_sm.backScreen();
 	}
+	return true;
 }
 
 void GameScreen::updateFromServer() {

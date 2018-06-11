@@ -25,7 +25,12 @@ Client::Client()
 }
 
 Client::~Client() {
+	stop();
 	m_thread.join();
+}
+
+void Client::stop() {
+	m_isRunning = false;
 }
 
 void Client::run() {
@@ -45,7 +50,7 @@ void Client::run() {
 
 	Updates<std::shared_ptr<SerializableInfo>, Response>::getInstance().add(info);
 	m_socket.setBlocking(false);
-	while (1) {
+	while (m_isRunning) {
 		receiveData();
 		sendData();
 	}
