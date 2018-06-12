@@ -13,10 +13,12 @@ HudScreen::HudScreen(const sf::Vector2f& size, std::shared_ptr<Player> p)
 	m_rect.setPosition(0, 0);
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 0, 20), sf::Color::White, *font, "HP"));
-	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 1+50, 20), sf::Color::White, *font, "Amoo"));
+	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 1+50, 20), sf::Color::White, *font, "Ammo"));
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 3, 20), sf::Color::White, *font, "$", ""));
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 0+70, 60), sf::Color::White, *font, "Kills", ":"));
 	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(widthJumps * 2, 60), sf::Color::White, *font, "Deaths", ":"));
+	m_labels.push_back(std::make_shared<Label>(sf::Vector2f(40, size.x-40), sf::Color::White, *font, "Press 'B' to buy weapon", "."));
+	m_labels[5]->setValue("-");
 	m_rect.setSize(sf::Vector2f(size.x , 100));
 	m_rect.setPosition(0,0);
 	m_rect.setFillColor(sf::Color(0, 0, 0, 100));
@@ -26,6 +28,9 @@ HudScreen::HudScreen(const sf::Vector2f& size, std::shared_ptr<Player> p)
 HudScreen::~HudScreen() {}
 
 void HudScreen::update(sf::RenderWindow & window){
+	
+	
+	
 	if (!Updates<HudUpdate>::getInstance().empty()) {
 		Updates<HudUpdate>::getInstance().iterateAndPop([this](const HudUpdate& hu) {
 			m_labels[0]->setValue(std::to_string(hu.m_hp));
@@ -33,6 +38,10 @@ void HudScreen::update(sf::RenderWindow & window){
 			m_labels[2]->setValue(std::to_string(hu.m_fps));
 			m_labels[3]->setValue(std::to_string(hu.m_kills));
 			m_labels[4]->setValue(std::to_string(hu.m_deaths));
+			if (!hu.m_showMsg && m_showLast){
+				m_showLast = false;
+				m_labels.erase(m_labels.begin()+5);
+			}
 		});
 	}
 	

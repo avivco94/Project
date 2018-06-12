@@ -23,6 +23,7 @@ private:
 	std::vector<std::shared_ptr<Label>> m_labels;
 	std::shared_ptr<MenuManager> m_menu;
 	std::shared_ptr<Player> m_p;
+	bool m_showLast= true;
 	protected:
 		void drawScreen(sf::RenderWindow& window) override;
 };

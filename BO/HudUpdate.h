@@ -6,5 +6,6 @@ struct HudUpdate {
 	int m_fps;
 	int m_kills;
 	int m_deaths;
+	bool m_showMsg;
 };
 

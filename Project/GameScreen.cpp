@@ -92,7 +92,7 @@ void GameScreen::update(sf::RenderWindow& window) {
 			Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
 			m_lastSend = GameClock::getInstance().getElapsedTime();
 		}
-		Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), m_player->getCash() , m_player->getKills(), m_player->getDeaths() });
+		Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), m_player->getCash() , m_player->getKills(), m_player->getDeaths(),m_showMsg });
 
 		m_sm.update(window);
 		m_view.setCenter(m_player->getCenter());
@@ -106,6 +106,7 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 		case sf::Event::KeyPressed: {
 			switch (event.key.code) {
 				case sf::Keyboard::B: {
+					m_showMsg = false;
 					if (chooise) {
 						if (m_sm.dequeSize() == 1)
 							m_sm.setScreen(SHOP_SCREEN);
@@ -271,6 +272,7 @@ void GameScreen::update(DeathInfo & di){
 bool GameScreen::onFire(string eventName, sf::Event event, int n, va_list arg)
 {
 	if (eventName == ON_SWITCH_MENU){
+		
 		if (m_sm.dequeSize() == 1)
 			m_sm.setScreen(SHOP_SCREEN);
 		else if (m_sm.dequeSize() == 2)

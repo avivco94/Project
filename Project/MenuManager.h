@@ -14,6 +14,7 @@ public:
 	void drawMenu(sf::RenderWindow & rw);
 	template <typename T>
 	void setOnClick(T func);
+	int getNumOfButton();
 
 protected:
 	bool keyPressed(sf::Event data) override;

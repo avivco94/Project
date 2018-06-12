@@ -18,10 +18,7 @@ ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p, std
 		return menuSelect(eventName, event, object);
 	}));
 
-	m_rect.setPosition(0, 0);
-	m_rect.setFillColor(sf::Color::Black);
-	m_rect.setSize(sf::Vector2f(240, 350));
-	m_rect.setPosition(0, 0);
+	m_rect.setSize(sf::Vector2f(size.x/2, (m_menu->getNumOfButton())* heightJumps-40));
 	m_rect.setFillColor(sf::Color(0, 0, 0, 100));
 	m_rect.setOutlineColor(sf::Color::White);
 	m_rect.setOutlineThickness(1);
@@ -94,6 +91,10 @@ sf::FloatRect ShopScreen::getRect() const
 
 bool ShopScreen::onFire(string eventName, sf::Event event, int n, va_list arg){
 	return false;
+}
+
+int ShopScreen::getNumOfButton(){
+	return m_buttons.size();
 }
 
 

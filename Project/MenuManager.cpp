@@ -28,6 +28,11 @@ void MenuManager::drawMenu(sf::RenderWindow & rw){
 	});
 }
 
+int MenuManager::getNumOfButton()
+{
+	return m_buttons.size();
+}
+
 bool MenuManager::keyPressed(sf::Event event) {
 	int chooise = 0;
 	switch (event.key.code) {
@@ -65,6 +70,8 @@ bool MenuManager::keyPressed(sf::Event event) {
 		case sf::Keyboard::Return:
 			chooise = -1;
 			m_buttons[m_current]->click(event);
+			m_buttons[m_current]->setFocus(true);
+			return true;
 			break;
 		case sf::Keyboard::Escape:
 			chooise = -1;
@@ -78,6 +85,7 @@ bool MenuManager::keyPressed(sf::Event event) {
 			}
 		m_buttons[chooise - 1]->setFocus(true);
 		m_buttons[chooise - 1]->click(event);
+		m_current = chooise - 1;
 		return true;
 	}
 	return false;

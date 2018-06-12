@@ -42,5 +42,6 @@ class GameScreen :
 		bool m_mouseLongPressed = false;
 		sf::Vector2f m_vec;
 		sf::RectangleShape m_rect;
+		bool m_showMsg = true;
 };
 
