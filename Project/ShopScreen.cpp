@@ -9,8 +9,6 @@ ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p, std
 	int heightJumps = (int)size.y / 5;
 	m_rect.setFillColor(sf::Color::Transparent);
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
-	//m_em = std::make_shared<EventsManager>();
-	//IScreen::m_em = em;
 	m_menu = std::make_shared<MenuManager>(m_em);
 	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2.f, heightJumps * 1.f), sf::Vector2f(220.f, 50.f), sf::Color::White, sf::Color::Red, *font, GLOCK_NAME));
 	m_menu->addButtom(std::make_shared<Button>(m_em, sf::Vector2f(size.x / 2.f, heightJumps * 2.f), sf::Vector2f(200.f, 50.f), sf::Color::White, sf::Color::Red, *font, "USP-"));
@@ -22,6 +20,12 @@ ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p, std
 
 	m_rect.setPosition(0, 0);
 	m_rect.setFillColor(sf::Color::Black);
+	m_rect.setSize(sf::Vector2f(240, 350));
+	m_rect.setPosition(0, 0);
+	m_rect.setFillColor(sf::Color(0, 0, 0, 100));
+	m_rect.setOutlineColor(sf::Color::White);
+	m_rect.setOutlineThickness(1);
+	m_rect.setPosition(size.x/4.f , heightJumps - 20);
 
 }
 
@@ -48,7 +52,7 @@ bool ShopScreen::handleEvent(const sf::Event & event)
 }
 
 void ShopScreen::drawScreen(sf::RenderWindow & window) {
-		//window.draw(m_rect);
+		window.draw(m_rect);
 		m_menu->drawMenu(window);
 		
 	

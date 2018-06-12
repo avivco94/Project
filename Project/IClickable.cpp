@@ -9,19 +9,15 @@ IClickable::IClickable(std::shared_ptr<EventsManager> em) : EventSubscriber(em) 
 	m_em->subscribe(ON_MOUSE_DOWN, this);
 	m_em->subscribe(ON_MOUSE_UP, this);
 	m_em->subscribe(ON_MOUSE_MOVE, this);
-	//m_em->subscribe(ON_GAME_START, this);
-	//m_em->subscribe(ON_GAME_EXIT, this);
 }
 
 IClickable::~IClickable() {
 	m_em->unsubscribe(ON_MOUSE_DOWN, this);
 	m_em->unsubscribe(ON_MOUSE_UP, this);
 	m_em->unsubscribe(ON_MOUSE_MOVE, this);
-	//m_em->unsubscribe(ON_GAME_START, this);
-	//m_em->unsubscribe(ON_GAME_EXIT, this);
 }
 
-bool IClickable::onFire(string eventName, sf::Event event) {
+bool IClickable::onFire(string eventName, sf::Event event, int n, va_list arg) {
 	if (m_mute)
 		return false;
 
@@ -33,12 +29,6 @@ bool IClickable::onFire(string eventName, sf::Event event) {
 	}
 	else if (eventName == ON_MOUSE_MOVE) {
 		return mouseMove(event);
-	}
-	else if (eventName == ON_GAME_START) {
-		return mouseUp(event);
-	}
-	else if (eventName == ON_GAME_EXIT) {
-		return mouseUp(event);
 	}
 	
 	return false;
