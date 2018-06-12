@@ -14,6 +14,7 @@ Label::~Label()
 
 void Label::draw(sf::RenderWindow & window){
 	m_text.setString(m_label + m_separator + " " + m_value);
+	m_text.setColor(m_color);
 	window.draw(m_text);
 }
 
@@ -22,9 +23,8 @@ sf::Vector2f Label::getCenter() const
 	return sf::Vector2f();
 }
 
-sf::FloatRect Label::getRect() const
-{
-	return sf::FloatRect();
+sf::FloatRect Label::getRect() const {
+	return m_text.getGlobalBounds();
 }
 
 void Label::setValue(std::string v){

@@ -18,6 +18,6 @@ class IBaseGun :
 		float m_gunSpeed;
 		int m_bulletsCount;
 		float m_radius;
-		float m_lastShoot;
+		float m_lastShoot = 0;
 };
 

@@ -5,7 +5,8 @@
 #include "Player.h"
 #include "Factory.h"
 
-ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p, std::shared_ptr<EventsManager> em) : IScreen(true,em), m_rect(size), m_p(p) {
+ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p, std::shared_ptr<EventsManager> em) 
+	: IScreen(true,em), m_rect(size), m_p(p) {
 	int heightJumps = (int)size.y / 5;
 	m_rect.setFillColor(sf::Color::Transparent);
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
@@ -18,11 +19,11 @@ ShopScreen::ShopScreen(const sf::Vector2f & size, std::shared_ptr<Player> p, std
 		return menuSelect(eventName, event, object);
 	}));
 
-	m_rect.setSize(sf::Vector2f(size.x/2, (m_menu->getNumOfButton())* heightJumps-40));
+	m_rect.setSize(sf::Vector2f(size.x, size.y));
 	m_rect.setFillColor(sf::Color(0, 0, 0, 100));
 	m_rect.setOutlineColor(sf::Color::White);
 	m_rect.setOutlineThickness(1);
-	m_rect.setPosition(size.x/4.f , heightJumps - 20);
+	m_rect.setPosition(0, 0);
 
 }
 

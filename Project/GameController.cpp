@@ -180,6 +180,7 @@ bool GameController::handleEvent(const sf::Event& event) {
 					}
 					else if (m_sm.dequeSize() == 1) {
 						m_sm.setScreen(GAME_SCREEN);
+						Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.stop();
 					}
 						
 					break;
