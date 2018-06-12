@@ -11,7 +11,7 @@ public:
 	ITypeable(std::shared_ptr<EventsManager> em);
 	~ITypeable();
 	//Override pure virtual onFire EventSubscriber
-	bool onFire(string eventName, sf::Event data, int n, va_list arg);
+	bool onFire(string eventName, sf::Event data);
 	//Set the calback when a key pressed 
 	std::function<bool(string eventName, sf::Event event, EventSubscriber * obejct)> _onKeyPressedFunc;
 

@@ -84,7 +84,7 @@ void CollisionManager::draw(sf::RenderTarget& rt) {
 }
 
 void CollisionManager::collisionCheck(std::shared_ptr<Collideable> c) {
-	auto suspectedCollisions = CollisionManager::getInstance().retrieve(c);
+	auto suspectedCollisions = retrieve(c);
 
 	std::for_each(begin(*suspectedCollisions), end(*suspectedCollisions), [this, &c](std::shared_ptr<Collideable> sprite) {
 		auto f = CollisionMap::getInstance().lookup(c, sprite);
@@ -149,17 +149,12 @@ void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, s
 		else {
 			if (abs(temp.x) > abs(temp.y)) {
 				m_vec.y = 0.f;
-				//if (abs(m_vec.x) > 0.01f)
-					//m_vec.x = v.x;
 			}
 
 			if (abs(temp.y) > abs(temp.x)) {
 				m_vec.x = 0.f;
-				//if (abs(m_vec.y) > 0.01f)
-					//m_vec.y = v.y;
 			}
 		}
-		//std::cout << "Wall " << m_vec.x << " " << m_vec.y << std::endl;
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player, m_vec));
 		CollisionManager::getInstance().add(player);
 		player->setForceMove(false);
@@ -185,10 +180,8 @@ void CollisionManager::playerAndBulletCollision(std::shared_ptr<Collideable> c1,
 		auto bullets = player->getBullets()->find(bullet->getId());
 		if (!(bullets != player->getBullets()->end() && bullets->second == bullet) && !bullet->isOver()) {
 			if (bullet->getPId() != player->getId()) {
-				//player->decHP(10);
 				auto a = std::make_shared<HitInfo>(bullet->getPId(), player->getId(), "0");
 				Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(a);
-				//std::cout << "Hit " << bullet->getId() << " Player " << player->getId() << " HP " << player->getHP() << std::endl;
 			}
 		}
 		bullet->setOver();

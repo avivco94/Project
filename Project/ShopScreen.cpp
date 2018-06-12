@@ -40,7 +40,7 @@ bool ShopScreen::handleEvent(const sf::Event & event)
 			break;
 		}
 		case sf::Event::KeyPressed: {
-			m_em->fireEvent(ON_KEY_PRESSED, event, 0);
+			m_em->fireEvent(ON_KEY_PRESSED, event);
 			break;
 		}
 	}
@@ -63,7 +63,7 @@ bool ShopScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 
 		m_p->buyWeapon(weaponWithPrice);
 		//TODO menu disapeare
-		m_em->fireEvent(ON_SWITCH_MENU,event,0);
+		m_em->fireEvent(ON_SWITCH_MENU, event);
 		return true;
 	}
 	return false;
@@ -88,7 +88,7 @@ sf::FloatRect ShopScreen::getRect() const
 	return sf::FloatRect();
 }
 
-bool ShopScreen::onFire(string eventName, sf::Event event, int n, va_list arg){
+bool ShopScreen::onFire(string eventName, sf::Event event){
 	return false;
 }
 

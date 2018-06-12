@@ -268,7 +268,7 @@ void GameScreen::update(DeathInfo & di){
 	}
 }
 
-bool GameScreen::onFire(string eventName, sf::Event event, int n, va_list arg)
+bool GameScreen::onFire(string eventName, sf::Event event)
 {
 	if (eventName == ON_SWITCH_MENU){
 		if (m_sm.dequeSize() == 1)

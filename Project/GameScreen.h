@@ -26,7 +26,7 @@ class GameScreen :
 		void update(ConnectionInfo & pi) override;
 		void update(HitInfo & pi) override;
 		void update(DeathInfo & di) override;
-		bool onFire(string eventName, sf::Event event, int n, va_list arg) override;
+		bool onFire(string eventName, sf::Event event) override;
 
 	private:
 		void updateFromServer();

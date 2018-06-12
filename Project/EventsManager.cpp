@@ -27,25 +27,16 @@ bool EventsManager::unsubscribe(string eventName, EventSubscriber * subscriber) 
 	return false;
 }
 
-bool EventsManager::fireEvent(string eventName, sf::Event event, int n, ...) {
-	va_list args;
-	va_start(args, n);
+bool EventsManager::fireEvent(string eventName, sf::Event event) {
 
 	auto subscribersByEventName = m_subscribers.equal_range(eventName);
 
-	if (eventName == ON_KEY_PRESSED) {
-		auto a = 0;
-	}
-	/*if (eventName == ON_SWITCH_MENU) {
-		m_subscribers.find(eventName)->second->onFire(eventName, event, n, args);
-	}*/
 	for (auto it = subscribersByEventName.first; it != subscribersByEventName.second; ++it) {
-		if ((*it).second->onFire(eventName, event, n, args))
+		if ((*it).second->onFire(eventName, event))
 			break;
 
  	}
 
-	va_end(args);
 	return true;
 }
 

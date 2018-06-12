@@ -131,7 +131,8 @@ bool Quadtree<T>::remove(std::shared_ptr<T> rect) {
 	int index = getIndex(rect);
 	if (index != -1 && m_nodes[0] != nullptr) {
 		if (m_nodes[index]->remove(rect)) {
-			int sum = m_nodes[0]->size() + m_nodes[1]->size() + m_nodes[2]->size() + m_nodes[3]->size();
+			//TODO - Let god fix it
+			/*int sum = m_nodes[0]->size() + m_nodes[1]->size() + m_nodes[2]->size() + m_nodes[3]->size();
 			if (sum == 0) {
 				m_nodes[0] = nullptr;
 				m_nodes[1] = nullptr;
@@ -149,7 +150,7 @@ bool Quadtree<T>::remove(std::shared_ptr<T> rect) {
 				m_nodes[1] = nullptr;
 				m_nodes[2] = nullptr;
 				m_nodes[3] = nullptr;
-			}
+			}*/
 			return true;
 		}
 
@@ -176,6 +177,7 @@ void Quadtree<T>::retrieve(std::shared_ptr<std::vector<std::shared_ptr<T>>> retu
 	if (index != -1 && m_nodes[0] != nullptr) {
 		m_nodes[index]->retrieve(returnObjects, rect);
 	}
+
 	if (index == -1)
 		getAll(returnObjects);
 

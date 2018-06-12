@@ -21,7 +21,7 @@ IClickable::~IClickable() {
 	//m_em->unsubscribe(ON_GAME_EXIT, this);
 }
 
-bool IClickable::onFire(string eventName, sf::Event event, int n, va_list arg) {
+bool IClickable::onFire(string eventName, sf::Event event) {
 	if (m_mute)
 		return false;
 
@@ -38,7 +38,6 @@ bool IClickable::onFire(string eventName, sf::Event event, int n, va_list arg) {
 		return mouseUp(event);
 	}
 	else if (eventName == ON_GAME_EXIT) {
-		std::cout << "FUCK";
 		return mouseUp(event);
 	}
 	

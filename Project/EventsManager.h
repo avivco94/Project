@@ -18,7 +18,7 @@ public:
 	//Unsubscribe from event
 	bool unsubscribe(string eventName, EventSubscriber * subscriber);
 	//Fire the event by name and data
-	bool fireEvent(string eventName, sf::Event event, int n, ...);
+	bool fireEvent(string eventName, sf::Event event);
 
 protected:
 	typedef multimap<string, EventSubscriber *> EventsMultiMap;

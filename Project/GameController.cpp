@@ -65,7 +65,7 @@ void GameController::run() {
 	window.close();
 }
 
-bool GameController::onFire(string eventName, sf::Event event, int n, va_list arg)
+bool GameController::onFire(string eventName, sf::Event event)
 {	
 	if (eventName == ON_GAME_EXIT) {
 		isRunning=false;

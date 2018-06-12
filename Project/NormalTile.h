@@ -11,5 +11,8 @@ class NormalTile
 		static bool m_registerit0;
 		static bool m_registerit1;
 		static bool m_registerit2;
+		static bool m_registerit3;
+		static bool m_registerit4;
+		static bool m_registerit5;
 };
 
