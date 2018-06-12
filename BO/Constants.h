@@ -24,7 +24,7 @@ enum Direction {
 #define PI 3.14159265358979323846
 
 
-const int WINDOW_SIZE_X = 500;
+const int WINDOW_SIZE_X = 800;
 const int WINDOW_SIZE_Y = 500;
 const std::string TITLE = "Counter Strike 2D";
 const std::string PLAYER_TEXTURE = "Resources/Players.png";

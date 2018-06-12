@@ -17,6 +17,7 @@ class GameScreen :
 		GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsManager> em = std::make_shared<EventsManager>());
 		~GameScreen();
 		void update(sf::RenderWindow& window) override;
+		void UpdateView();
 		bool handleEvent(const sf::Event& event) override;
 		void drawScreen(sf::RenderWindow& window) override;
 		sf::Vector2f getCenter() const override;

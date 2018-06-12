@@ -110,7 +110,7 @@ int Tilemap::isCollide(std::shared_ptr<Collideable> obj) {
 
 sf::FloatRect Tilemap::getRect() const {
 	//TODO
-	return sf::FloatRect();
+	return sf::FloatRect(0, 0, TILE_SIZE.x * m_size_x, TILE_SIZE.y * m_size_y);
 }
 
 std::shared_ptr<Tile> Tilemap::getTileAt(unsigned int index) {
