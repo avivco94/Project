@@ -17,6 +17,7 @@ class GameScreen :
 		GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsManager> em = std::make_shared<EventsManager>());
 		~GameScreen();
 		void update(sf::RenderWindow& window) override;
+		void UpdateView();
 		bool handleEvent(const sf::Event& event) override;
 		void drawScreen(sf::RenderWindow& window) override;
 		sf::Vector2f getCenter() const override;
@@ -26,7 +27,7 @@ class GameScreen :
 		void update(ConnectionInfo & pi) override;
 		void update(HitInfo & pi) override;
 		void update(DeathInfo & di) override;
-		bool onFire(string eventName, sf::Event event, int n, va_list arg) override;
+		bool onFire(string eventName, sf::Event event) override;
 
 	private:
 		void updateFromServer();

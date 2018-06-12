@@ -26,7 +26,7 @@ GameScreen::GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsMan
 	m_em->subscribe(ON_SWITCH_MENU, this);
 	m_sm.addScreen(HUD_SCREEN, std::make_shared<HudScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y), m_player));
 	m_sm.setScreen(HUD_SCREEN);
-	m_view = sf::View(sf::Vector2f(60, 60), sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y));
+	m_view = sf::View(sf::Vector2f((float)WINDOW_SIZE_X / 2.f, (float)WINDOW_SIZE_Y / 2.f), sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y));
 	m_view.setViewport(sf::FloatRect(0, 0, 1, 1));
 	m_view.zoom(1.f);
 
@@ -95,9 +95,33 @@ void GameScreen::update(sf::RenderWindow& window) {
 		Updates<HudUpdate>::getInstance().add({ m_player->getHP(), m_player->getAmmo(), m_player->getCash() , m_player->getKills(), m_player->getDeaths(),m_showMsg });
 
 		m_sm.update(window);
-		m_view.setCenter(m_player->getCenter());
+
+
+		UpdateView();
 	}
 	updateFromServer();
+}
+
+void GameScreen::UpdateView()
+{
+	sf::Vector2f vCenter = m_player->getCenter();
+	if (vCenter.x < m_view.getSize().x / 2.f) {
+		vCenter.x = m_view.getSize().x / 2.f;
+	}
+
+	if (vCenter.x >(m_map.getRect().left + m_map.getRect().width) - (m_view.getSize().x / 2.f)) {
+		vCenter.x = (m_map.getRect().left + m_map.getRect().width) - (m_view.getSize().x / 2.f);
+	}
+
+	if (vCenter.y < m_view.getSize().y / 2.f) {
+		vCenter.y = m_view.getSize().y / 2.f;
+	}
+
+	if (vCenter.y >(m_map.getRect().top + m_map.getRect().height) - (m_view.getSize().y / 2.f)) {
+		vCenter.y = (m_map.getRect().top + m_map.getRect().height) - (m_view.getSize().y / 2.f);
+	}
+
+	m_view.setCenter(vCenter);
 }
 
 bool GameScreen::handleEvent(const sf::Event& event) {
@@ -269,7 +293,7 @@ void GameScreen::update(DeathInfo & di){
 	}
 }
 
-bool GameScreen::onFire(string eventName, sf::Event event, int n, va_list arg)
+bool GameScreen::onFire(string eventName, sf::Event event)
 {
 	if (eventName == ON_SWITCH_MENU){
 		

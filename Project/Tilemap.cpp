@@ -46,6 +46,10 @@ bool Tilemap::Load(const std::string& filePath, sf::Vector2u tileSize) {
 				return !std::isspace(ch);
 			}));
 
+			if (i == 5 && j == 2) {
+				int a = 0;
+			}
+
 			if (auto normal = Factory<NormalTile>::getInstance().get(line, getPosByIndex((i * m_size_x) + j))) {
 				m_tiles.emplace_back(normal);
 			} else if (auto collideable = Factory<CollideableTile>::getInstance().get(line, getPosByIndex((i * m_size_x) + j))) {
@@ -76,7 +80,7 @@ void Tilemap::draw(sf::RenderWindow& window) {
 	}
 	window.draw(m_renderTextureSprite);
 
-	/*if (GameClock::getInstance().isTimePassed(lastDrawQuad, 0.5)) {
+	/*if (GameClock::getInstance().isTimePassed(lastDrawQuad, 0.5f)) {
 		m_renderTextureQuad.clear(sf::Color::Transparent);
 		CollisionManager::getInstance().draw(m_renderTextureQuad);
 		m_renderTextureQuad.display();
@@ -106,7 +110,7 @@ int Tilemap::isCollide(std::shared_ptr<Collideable> obj) {
 
 sf::FloatRect Tilemap::getRect() const {
 	//TODO
-	return sf::FloatRect();
+	return sf::FloatRect(0, 0, TILE_SIZE.x * m_size_x, TILE_SIZE.y * m_size_y);
 }
 
 std::shared_ptr<Tile> Tilemap::getTileAt(unsigned int index) {

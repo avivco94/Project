@@ -3,12 +3,12 @@
 #include "Resources.h"
 #include "Constants.h"
 
-bool CollideableTile::m_registerit = Factory<CollideableTile>::getInstance().add("2", &CollideableTile::create);
-bool CollideableTile::m_registerit3 = Factory<CollideableTile>::getInstance().add("3", &CollideableTile::create);
-bool CollideableTile::m_registerit4 = Factory<CollideableTile>::getInstance().add("4", &CollideableTile::create);
-bool CollideableTile::m_registerit5 = Factory<CollideableTile>::getInstance().add("5", &CollideableTile::create);
-bool CollideableTile::m_registerit6 = Factory<CollideableTile>::getInstance().add("6", &CollideableTile::create);
-bool CollideableTile::m_registerit7 = Factory<CollideableTile>::getInstance().add("7", &CollideableTile::create);
+bool CollideableTile::m_registerit = Factory<CollideableTile>::getInstance().add("6", &CollideableTile::create);
+bool CollideableTile::m_registerit3 = Factory<CollideableTile>::getInstance().add("7", &CollideableTile::create);
+bool CollideableTile::m_registerit4 = Factory<CollideableTile>::getInstance().add("8", &CollideableTile::create);
+bool CollideableTile::m_registerit5 = Factory<CollideableTile>::getInstance().add("9", &CollideableTile::create);
+bool CollideableTile::m_registerit6 = Factory<CollideableTile>::getInstance().add("10", &CollideableTile::create);
+bool CollideableTile::m_registerit7 = Factory<CollideableTile>::getInstance().add("11", &CollideableTile::create);
 
 CollideableTile::CollideableTile(int value, sf::Texture & texture, sf::IntRect rect, sf::Vector2f pos)
 	: Tile(value, texture, rect, pos) {}

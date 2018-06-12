@@ -34,7 +34,7 @@ class GameController : public EventSubscriber
 		~GameController();
 		//Run the game
 		void run();
-		bool onFire(string eventName, sf::Event event, int n, va_list arg);
+		bool onFire(string eventName, sf::Event event) override;
 	private:
 		//Draw the game
 		void drawGame(sf::RenderWindow& windows);

@@ -9,7 +9,7 @@ public:
 	IClickable(std::shared_ptr<EventsManager> em );
 	~IClickable();
 	//Override pure virtual onFire EventSubscriber
-	bool onFire(string eventName, sf::Event event, int n, va_list arg);
+	bool onFire(string eventName, sf::Event event);
 	//Set the calback when the mouse down 
 	void onMouseDown(std::function<bool(string eventName, sf::Event event, EventSubscriber * obejct)> func);
 	//Set the calback when the mouse move 

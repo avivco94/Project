@@ -62,7 +62,7 @@ sf::FloatRect HudScreen::getRect() const
 	return sf::FloatRect();
 }
 
-bool HudScreen::onFire(string eventName, sf::Event event, int n, va_list arg){
+bool HudScreen::onFire(string eventName, sf::Event event){
 	return false;
 }
 

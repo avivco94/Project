@@ -17,7 +17,7 @@ IClickable::~IClickable() {
 	m_em->unsubscribe(ON_MOUSE_MOVE, this);
 }
 
-bool IClickable::onFire(string eventName, sf::Event event, int n, va_list arg) {
+bool IClickable::onFire(string eventName, sf::Event event) {
 	if (m_mute)
 		return false;
 

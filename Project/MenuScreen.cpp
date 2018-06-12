@@ -44,15 +44,15 @@ bool MenuScreen::handleEvent(const sf::Event & event)
 {
 	switch (event.type) {
 		case sf::Event::MouseButtonReleased: {
-			m_em->fireEvent(ON_MOUSE_UP, event, 0);
+			m_em->fireEvent(ON_MOUSE_UP, event);
 			break;
 		}
 		case sf::Event::MouseMoved: {
-			m_em->fireEvent(ON_MOUSE_MOVE, event, 0);
+			m_em->fireEvent(ON_MOUSE_MOVE, event);
 			break;
 		}
 		case sf::Event::KeyPressed: {
-			m_em->fireEvent(ON_KEY_PRESSED, event, 0);
+			m_em->fireEvent(ON_KEY_PRESSED, event);
 			break;
 		}
 	}
@@ -75,11 +75,11 @@ bool MenuScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 		string eventByText = button->getText();
 		if (eventByText == "Start"){
 			std::cout << "Start";
-			m_em->fireEvent(ON_GAME_START, sf::Event(), 0);
+			m_em->fireEvent(ON_GAME_START, sf::Event());
 		}
 		else if (eventByText == "Exit") {
 			std::cout << "Exit";
-			m_em->fireEvent(ON_GAME_EXIT, sf::Event(), 0);
+			m_em->fireEvent(ON_GAME_EXIT, sf::Event());
 		}
 		else if (eventByText == "Resume")
 			std::cout << "Resume";
@@ -108,6 +108,6 @@ sf::FloatRect MenuScreen::getRect() const
 	return sf::FloatRect();
 }
 
-bool MenuScreen::onFire(string eventName, sf::Event event, int n, va_list arg){
+bool MenuScreen::onFire(string eventName, sf::Event event){
 	return false;
 }

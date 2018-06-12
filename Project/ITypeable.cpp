@@ -11,7 +11,7 @@ ITypeable::~ITypeable(){
 	m_em->unsubscribe(ON_KEY_PRESSED, this);
 }
 
-bool ITypeable::onFire(string eventName, sf::Event data, int n, va_list arg)
+bool ITypeable::onFire(string eventName, sf::Event data)
 {
 	if (m_mute)
 		return false;
