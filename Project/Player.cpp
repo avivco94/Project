@@ -46,6 +46,10 @@ int Player::getCash(){
 	return m_cash;
 }
 
+void Player::addCash(int amount) {
+	m_cash += amount;
+}
+
 void Player::buyWeapon(std::shared_ptr<WeaponWithPrice> w){
 	if (m_cash >= w->price) {
 		m_cash -= w->price;

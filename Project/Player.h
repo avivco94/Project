@@ -19,6 +19,7 @@ class Player
 		void decHP(int amount);
 		int getAmmo();
 		int getCash();
+		void addCash(int amount);
 		void buyWeapon(std::shared_ptr<WeaponWithPrice> w);
 		std::type_index type() const override;
 

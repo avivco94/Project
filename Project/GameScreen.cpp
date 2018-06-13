@@ -281,6 +281,7 @@ void GameScreen::update(HitInfo & hi) {
 			m_player->decHP(-100);
 			m_player->goToStart();
 			m_player->addDeath();
+			m_player->addCash(300);
 			Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(std::make_shared<DeathInfo>(hi.m_shooter,m_player->getId()));
 		}
 	}
@@ -290,6 +291,7 @@ void GameScreen::update(DeathInfo & di){
 	Resources::getInstance().getSoundsMap()->getResource(DIED_SOUND)->second.play();
 	if (di.m_killerID == m_player->getId()) {
 		m_player->addKill();
+		m_player->addCash(100);
 	}
 }
 

@@ -78,13 +78,12 @@ void Client::sendData() {
 	auto& pu = Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance();
 	std::string data;
 	sf::Packet packet;
-	if (!pu.empty()) {
-		data = pu.front()->deserialize();
-		packet << data;
+	pu.iterateAndPop([this](std::shared_ptr<SerializableInfo> info) {
+		sf::Packet packet;
+		packet << info->deserialize();
 		if (m_socket.send(packet) != sf::Socket::Done)
 			return;
-		pu.pop();
-	}
+	});
 }
 
 sf::Socket::Status Client::receiveWithTimeout(sf::TcpSocket& socket, sf::Packet& packet, sf::Time timeout) {
