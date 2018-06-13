@@ -60,14 +60,16 @@ void Server::newConnection() {
 	sf::TcpSocket* client = new sf::TcpSocket;
 	if (m_listener.accept(*client) == sf::Socket::Done) {
 		std::cout << "Client connected: " << client->getRemoteAddress() << std::endl;
-		ConnectionInfo ci(std::to_string(m_count), m_startPositions.front());
+		auto pos = m_startPositions.front();
 		m_startPositions.pop_front();
+
+		ConnectionInfo ci(std::to_string(m_count), pos);
 		sf::Packet p;
 		p << ci.deserialize();
 		if ((*client).send(p) != sf::Socket::Done)
 			return;
 
-		m_clients.insert(std::make_pair(std::to_string(m_count), client));
+		m_clients.insert(std::make_pair(std::to_string(m_count), std::make_pair(client, pos)));
 		m_count++;
 		m_selector.add(*client);
 	} else {
@@ -76,9 +78,9 @@ void Server::newConnection() {
 	}
 }
 
-void Server::handleClientData(std::map<std::string, sf::TcpSocket*>::iterator& it) {
+void Server::handleClientData(std::map<std::string, std::pair<sf::TcpSocket*, sf::Vector2f>>::iterator& it) {
 	bool isDeleted = false;
-	sf::TcpSocket& client = *(*it).second;
+	sf::TcpSocket& client = *(*it).second.first;
 	if (m_selector.isReady(client)) {
 		sf::Packet packet;
 		switch (client.receive(packet)) {
@@ -103,12 +105,12 @@ void Server::handleClientData(std::map<std::string, sf::TcpSocket*>::iterator& i
 		it++;
 }
 
-void Server::clientDisconnect(std::map<std::string, sf::TcpSocket*>::iterator& it) {
-	sf::TcpSocket& client = *(*it).second;
+void Server::clientDisconnect(std::map<std::string, std::pair<sf::TcpSocket*, sf::Vector2f>>::iterator& it) {
+	sf::TcpSocket& client = *(*it).second.first;
 
-	auto player = m_gi->removePlayer(it->first);
+	auto player = m_gi->removePlayer((*it).first);
 	if (player) {
-		m_startPositions.push_front(sf::Vector2f(40.f * (std::stoi(player->m_id) + 1), 40.f));
+		m_startPositions.push_front((*it).second.second);
 		player->m_toRemove = true;
 		auto& pu = Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance();
 
@@ -127,7 +129,7 @@ void Server::broadcast() {
 		bool isDeleted = false;
 		for (auto it = m_clients.begin(); it != m_clients.end();) {
 			isDeleted = false;
-			sf::TcpSocket& client = *(*it).second;
+			sf::TcpSocket& client = *(*it).second.first;
 			sf::Packet p;
 			p << info->deserialize();
 			switch (client.send(p)) {
