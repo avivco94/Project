@@ -125,11 +125,11 @@ void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, s
 		float dis_x = abs(player->getCenter().x - wall->getCenter().x);
 		float dis_y = abs(player->getCenter().y - wall->getCenter().y);
 
-		float cX = (playerCircle.m_radius / (float)sqrt(2)) + (wall->getTextureRect().width / 2);
-		float cY = (playerCircle.m_radius / (float)sqrt(2)) + (wall->getTextureRect().height / 2);
+		float cX = (playerCircle.m_radius * (float)sqrt(7/8.f)) + (wall->getTextureRect().width / 2);
+		float cY = (playerCircle.m_radius * (float)sqrt(7/8.f)) + (wall->getTextureRect().height / 2);
 
-		if (((dis_x >= wall->getTextureRect().width * 0.70 && dis_x <= cX) ||
-			(dis_y >= wall->getTextureRect().height * 0.70 && dis_y <= cY)) &&
+		if (((dis_x >= wall->getTextureRect().width * 0.75 && dis_x <= cX) ||
+			(dis_y >= wall->getTextureRect().height * 0.75 && dis_y <= cY)) &&
 			abs(m_vec.x) > 0.001f && abs(m_vec.y) > 0.001f) {
 
 			temp = { player->getCenter().y - wall->getCenter().y , -(player->getCenter().x - wall->getCenter().x) };
