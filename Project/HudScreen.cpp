@@ -34,6 +34,14 @@ void HudScreen::update(sf::RenderWindow & window){
 	
 	if (!Updates<HudUpdate>::getInstance().empty()) {
 		Updates<HudUpdate>::getInstance().iterateAndPop([this](const HudUpdate& hu) {
+			/*if (m_p!=nullptr && hu.m_hp!=m_p->getHP()){
+			m_labels[0]->setValue(std::to_string(hu.m_hp));
+			m_labels[0]->setColor(sf::Color::Red);
+			}
+			if (m_p != nullptr && hu.m_fps != m_p->getCash()) {
+				m_labels[2]->setValue(std::to_string(hu.m_fps));
+				m_labels[2]->setColor(sf::Color::Green);
+			}*/
 			m_labels[0]->setValue(std::to_string(hu.m_hp));
 			m_labels[1]->setValue(std::to_string(hu.m_ammo));
 			m_labels[2]->setValue(std::to_string(hu.m_fps));
