@@ -12,6 +12,7 @@
 #include "CollisionManager.h"
 #include "Updates.h"
 #include "DefaultGun.h"
+#include "GameClock.h"
 
 Player::Player(sf::Vector2f pos) 
 	: IBasePlayer(pos) {}

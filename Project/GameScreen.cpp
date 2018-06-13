@@ -102,8 +102,7 @@ void GameScreen::update(sf::RenderWindow& window) {
 	updateFromServer();
 }
 
-void GameScreen::UpdateView()
-{
+void GameScreen::UpdateView() {
 	sf::Vector2f vCenter = m_player->getCenter();
 	if (vCenter.x < m_view.getSize().x / 2.f) {
 		vCenter.x = m_view.getSize().x / 2.f;
@@ -267,6 +266,7 @@ void GameScreen::update(ConnectionInfo & pi) {
 	//TODO - Get position from server
 	m_player = std::make_shared<Player>(pi.m_pos);
 	m_player->setId(pi.m_id);
+	m_player->setImmortal();
 	m_view.setCenter(m_player->getCenter());
 	//Update server - start pos
 	Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
@@ -275,7 +275,7 @@ void GameScreen::update(ConnectionInfo & pi) {
 
 void GameScreen::update(HitInfo & hi) {
 	Resources::getInstance().getSoundsMap()->getResource(HIT_SOUND)->second.play();
-	if (hi.m_gotShot == m_player->getId()) {
+	if (hi.m_gotShot == m_player->getId() && !m_player->isImmortal()) {
 		m_player->decHP(5);
 		if (m_player->getHP() <= 0) {
 			m_player->decHP(-100);

@@ -12,6 +12,7 @@
 #include "CollisionManager.h"
 #include "Updates.h"
 #include "DefaultGun.h"
+#include "GameClock.h"
 
 IBasePlayer::IBasePlayer(sf::Vector2f pos)
 	: MoveableSpriteObject(*Resources::getInstance().getTexturesMap()->getResource(PLAYER_TEXTURE), PLAYER_TEXTURE_RECT, pos, PLAYER_SPEED), m_radius(PLAYER_TEXTURE_RECT.width / 2.f), m_startPos(pos) {
@@ -39,6 +40,12 @@ bool IBasePlayer::isCollide(sf::FloatRect rect) {
 }
 
 void IBasePlayer::draw(sf::RenderWindow & window) {
+	if (isImmortal()) {
+		m_sprite.setColor(sf::Color(255, 255, 255, 200));
+	} else {
+		m_sprite.setColor(sf::Color(255, 255, 255, 255));
+	}
+
 	SpriteObject::draw(window);
 	m_weapon->draw(window);
 
@@ -131,6 +138,7 @@ void IBasePlayer::setId(const std::string& id) {
 void IBasePlayer::goToStart(){
 	this->setPosition(m_startPos);
 	m_weapon->setCenter(getCenter());
+	setImmortal();
 }
 
 int IBasePlayer::getKills(){
@@ -149,3 +157,10 @@ void IBasePlayer::addDeath(){
 	m_deaths += 1;
 }
 
+bool IBasePlayer::isImmortal() {
+	return !GameClock::getInstance().isTimePassed(m_immortalStart, 2);
+}
+
+void IBasePlayer::setImmortal() {
+	m_immortalStart = GameClock::getInstance().getElapsedTime();
+}

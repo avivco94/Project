@@ -33,6 +33,8 @@ public:
 	int getDeaths();
 	void addKill();
 	void addDeath();
+	bool isImmortal();
+	void setImmortal();
 protected:
 	float m_radius;
 	std::shared_ptr<std::map<std::string, std::shared_ptr<IBullet>>> m_bullets;
@@ -42,4 +44,5 @@ protected:
 	sf::Vector2f m_startPos;
 	int m_deaths = 0;
 	int m_kills = 0;
+	float m_immortalStart = 0;
 };

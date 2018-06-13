@@ -73,8 +73,7 @@ bool GameController::onFire(string eventName, sf::Event event)
 	else if (eventName == ON_GAME_START) {
 		if (m_sm.dequeSize() > 1) {
 			m_sm.backScreen();
-		}
-		else if (m_sm.dequeSize() == 1) {
+		} else if (m_sm.dequeSize() == 1) {
 			m_sm.addScreen(GAME_SCREEN, std::make_shared<GameScreen>(m_client));
 			m_sm.setScreen(GAME_SCREEN);
 		}
