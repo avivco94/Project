@@ -41,7 +41,7 @@ bool IBasePlayer::isCollide(sf::FloatRect rect) {
 
 void IBasePlayer::draw(sf::RenderWindow & window) {
 	if (isImmortal()) {
-		m_sprite.setColor(sf::Color(255, 255, 255, 200));
+		m_sprite.setColor(sf::Color(255, 255, 255, 160));
 	} else {
 		m_sprite.setColor(sf::Color(255, 255, 255, 255));
 	}
@@ -158,7 +158,7 @@ void IBasePlayer::addDeath(){
 }
 
 bool IBasePlayer::isImmortal() {
-	return !GameClock::getInstance().isTimePassed(m_immortalStart, 2);
+	return !GameClock::getInstance().isTimePassed(m_immortalStart, 5);
 }
 
 void IBasePlayer::setImmortal() {
