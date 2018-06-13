@@ -12,6 +12,7 @@ public:
 	//Return the rect of the object (pure virtual)
 	sf::FloatRect getRect() const override;
 	void setValue(std::string v);
+	void setColor(sf::Color c);
 	
 private:
 	std::string m_label;
