@@ -10,6 +10,7 @@
 #include "MoveCommand.h"
 #include "BorderLine.h"
 #include "HitInfo.h"
+#include "KnifeAttack.h"
 
 CollisionManager & CollisionManager::getInstance() {
 	static CollisionManager instance;
@@ -44,6 +45,10 @@ CollisionManager::CollisionManager() {
 
 	CollisionMap::getInstance().addEntry<EnemyPlayer, IBullet>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 		playerAndBulletCollision(c1, c2);
+	});
+
+	CollisionMap::getInstance().addEntry<EnemyPlayer, KnifeAttack>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+		playerAndKnifeCollision(c1, c2);
 	});
 
 	CollisionMap::getInstance().addEntry<Player, EnemyPlayer>([this](std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
@@ -278,5 +283,22 @@ void CollisionManager::bulletAndBorderCollision(std::shared_ptr<Collideable> c1,
 
 	if (bulletPoly.isCollide(line)) {
 		bullet->setOver();
+	}
+}
+
+void CollisionManager::playerAndKnifeCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
+	auto player = std::static_pointer_cast<IBasePlayer>(c1);
+	auto knifeAttack = std::static_pointer_cast<KnifeAttack>(c2);
+	Circle playerCircle(player->getCenter(), player->getRadius());
+	Polygon knifeAttackPoly(knifeAttack->getVertices());
+	if (playerCircle.isCollide(knifeAttackPoly)) {
+		auto attacks = player->getBullets()->find(knifeAttack->getId());
+		if (!(attacks != player->getBullets()->end() && attacks->second == knifeAttack) && !knifeAttack->isOver()) {
+			if (knifeAttack->getPId() != player->getId()) {
+				auto a = std::make_shared<HitInfo>(knifeAttack->getPId(), player->getId(), "0");
+				Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(a);
+			}
+		}
+		knifeAttack->setOver();
 	}
 }

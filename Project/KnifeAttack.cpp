@@ -18,7 +18,11 @@ KnifeAttack::KnifeAttack(const std::string& id, const std::string& pid, sf::Vect
 KnifeAttack::~KnifeAttack() {}
 
 bool KnifeAttack::isOver() {
-	return GameClock::getInstance().isTimePassed(m_startTime, 1.f);
+	return m_over || GameClock::getInstance().isTimePassed(m_startTime, 1.f);
+}
+
+void KnifeAttack::setOver() {
+	m_over = true;
 }
 
 void KnifeAttack::update() {

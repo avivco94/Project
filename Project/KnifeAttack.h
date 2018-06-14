@@ -9,6 +9,7 @@ class KnifeAttack
 		KnifeAttack(const std::string& id, const std::string& pid, sf::Vector2f pos, float rotation);
 		~KnifeAttack();
 		bool isOver();
+		void setOver();
 		void update() override;
 		sf::Vector2f getCenter() const override;
 		void draw(sf::RenderWindow& window) override;
@@ -18,5 +19,6 @@ class KnifeAttack
 
 	private:
 		int m_startTime = 0;
+		bool m_over = false;
 };
 

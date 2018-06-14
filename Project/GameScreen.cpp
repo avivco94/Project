@@ -247,7 +247,7 @@ void GameScreen::update(BulletInfo & bi) {
 
 void GameScreen::update(KnifeAttackInfo & bi) {
 	Resources::getInstance().getSoundsMap()->getResource(KNIFE_SOUND)->second.play();
-	if (bi.m_shooter != m_player->getId()) {
+	/*if (bi.m_shooter != m_player->getId()) {
 		auto playerIt = m_otherPlayers.find(bi.m_shooter);
 		if (playerIt != m_otherPlayers.end()) {
 			m_player->decHP(5);
@@ -259,7 +259,7 @@ void GameScreen::update(KnifeAttackInfo & bi) {
 				Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(std::make_shared<DeathInfo>(bi.m_shooter, m_player->getId()));
 			}
 		}
-	}
+	}*/
 }
 
 
