@@ -2,6 +2,7 @@
 #include "Resources.h"
 #include "Constants.h"
 #include "GameClock.h"
+#include "KnifeAttackInfo.h"
 
 
 
@@ -41,8 +42,5 @@ std::type_index KnifeAttack::type() const {
 
 std::shared_ptr<SerializableInfo> KnifeAttack::getInfo()
 {
-	return nullptr;
-	std::string a = "";
-	//TODO
-	return std::make_shared<BulletInfo>(a, a, m_sprite.getTextureRect(), sf::Vector2f(), 1.f, sf::Vector2f(), 1.f, 1.f,sf::Vector2f(), a);
+	return std::make_shared<KnifeAttackInfo>(m_id, m_pid);
 }
