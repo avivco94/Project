@@ -1,6 +1,7 @@
 #pragma once
 #include "Collideable.h"
 
+//A template class for all object that can be collide with (using this class for factory)
 template <typename T>
 class CollideableType :
 	public Collideable {

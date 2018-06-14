@@ -11,19 +11,24 @@
 using std::string;
 using std::vector;
 
+//Tile map Contain all the vector with tiles objects
 class Tilemap 
 	: public IDrawable
 {
 	public:
 		Tilemap();
 		~Tilemap();
+		//Load a map from file
 		bool Load(const std::string& filePath, sf::Vector2u tileSize);
 		sf::Vector2f getCenter() const override;
 		void draw(sf::RenderWindow& window) override;
 		int isCollide(std::shared_ptr<Collideable> obj);
 		sf::FloatRect getRect() const;
+		//Get tile from map by index
 		std::shared_ptr<Tile> getTileAt(unsigned int index);
+		//Get tile from map by index and direction
 		std::shared_ptr<Tile> getTileAt(unsigned int index, Direction d);
+		//Get tile index by direction
 		unsigned int getIndexByDirection(unsigned int index, Direction d);
 		sf::Vector2f getPosByIndex(unsigned int index) const;
 		int getDirectionByIndexes(unsigned int c, unsigned int o);

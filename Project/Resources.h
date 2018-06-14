@@ -4,6 +4,7 @@
 #include <SFML/Audio.hpp>
 #include "ResourceMap.h"
 
+//A singelton class for managing all resources in the game. 
 class Resources {
 	typedef std::shared_ptr<ResourceMap<sf::Texture>> TexturesMap;
 	typedef std::shared_ptr<ResourceMap<std::pair<sf::SoundBuffer, sf::Sound>>> SoundsMap;

@@ -8,6 +8,7 @@
 #include "IBaseGun.h"
 #include "Constants.h"
 
+//Class for the player
 class Player
 	: public IBasePlayer {
 	public:

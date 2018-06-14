@@ -7,6 +7,7 @@
 
 using std::map;
 
+//A singelton class that holds the collision map functions.
 class CollisionMap {
 	public:
 		typedef std::function<void(std::shared_ptr<Collideable>, std::shared_ptr<Collideable>)> HitFunctionPtr;

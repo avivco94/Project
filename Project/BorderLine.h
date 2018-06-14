@@ -1,6 +1,8 @@
 #pragma once
 #include "CollideableType.h"
 #include "SFML/Graphics.hpp"
+
+//This class is for the map borders line.
 class BorderLine :
 	public CollideableType<BorderLine>
 {

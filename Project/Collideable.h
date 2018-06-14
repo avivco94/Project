@@ -4,6 +4,7 @@
 #include <memory>
 #include <typeindex>
 
+//For all objects that can be collide with.
 class Collideable 
 	: virtual public IDrawable {
 	public:

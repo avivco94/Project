@@ -15,6 +15,8 @@
 #include "Constants.h"
 #include "IClickable.h"
 
+
+//Class for loading a exception by a given string
 class LoadException : public std::exception {
 public:
 	LoadException(const std::string& load) {
@@ -27,6 +29,7 @@ private:
 	std::string error;
 };
 
+//The game controller is managing all the game
 class GameController : public EventSubscriber
 {
 	public:

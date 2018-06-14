@@ -1,5 +1,6 @@
 #pragma once
 #include "IBasePlayer.h"
+//Class for the enemy
 class EnemyPlayer :
 	public IBasePlayer
 {

@@ -1,5 +1,7 @@
 #pragma once
 #include "IDrawable.h"
+
+//Class for labels that can be print on the screen fot hud.
 class Label :
 	public IDrawable
 {
