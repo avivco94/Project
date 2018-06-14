@@ -90,7 +90,7 @@ void CollisionManager::draw(sf::RenderTarget& rt) {
 
 void CollisionManager::collisionCheck(std::shared_ptr<Collideable> c) {
 	auto suspectedCollisions = retrieve(c);
-
+	m_isInCircle = false;
 	std::for_each(begin(*suspectedCollisions), end(*suspectedCollisions), [this, &c](std::shared_ptr<Collideable> sprite) {
 		auto f = CollisionMap::getInstance().lookup(c, sprite);
 		if (f) {
@@ -102,7 +102,6 @@ void CollisionManager::collisionCheck(std::shared_ptr<Collideable> c) {
 void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2) {
 	auto player = std::static_pointer_cast<Player>(c1);
 	auto wall = std::static_pointer_cast<CollideableTile>(c2);
-	bool isInCircle = false;
 	Circle playerCircle(player->getCenter(), player->getRadius());
 	Polygon wallPoly(wall->getVertices());
 	if (playerCircle.isCollide(wallPoly) && player->isMoved()) {
@@ -135,7 +134,7 @@ void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, s
 
 		if (((dis_x >= wall->getTextureRect().width * 0.68 && dis_x <= cX) ||
 			(dis_y >= wall->getTextureRect().height * 0.68 && dis_y <= cY)) &&
-			abs(m_vec.x) > 0.001f && abs(m_vec.y) > 0.001f) {
+			abs(m_vec.x) > 0.001f && abs(m_vec.y) > 0.001f && !m_isInCircle) {
 
 			temp = { player->getCenter().y - wall->getCenter().y , -(player->getCenter().x - wall->getCenter().x) };
 			//Normalize the vertical vector
@@ -149,14 +148,13 @@ void CollisionManager::playerAndWallCollision(std::shared_ptr<Collideable> c1, s
 			if (sign(v.x) != sign(m_vec.x) && sign(v.x) != sign(m_vec.x)) {
 				m_vec *= -1.f;
 			}
-			isInCircle = true; 
-		}
-		else {
-			if (abs(temp.x) > abs(temp.y)) {
+			m_isInCircle = true;
+		} else {
+			if (abs(temp.x) > abs(temp.y) || m_isInCircle) {
 				m_vec.y = 0.f;
 			}
 
-			if (abs(temp.y) > abs(temp.x)) {
+			if (abs(temp.y) > abs(temp.x) || m_isInCircle) {
 				m_vec.x = 0.f;
 			}
 		}
@@ -212,7 +210,7 @@ void CollisionManager::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable
 		player1->setForceMove(true);
 		CollisionManager::getInstance().remove(player1);
 		m_controller.addCommandAndExecute(std::make_shared<MoveCommand>(player1, -m_vec));
-		if (abs(m_vec.x) > 0.01f && abs(m_vec.y) > 0.01f) {
+		if (abs(m_vec.x) > 0.01f && abs(m_vec.y) > 0.01f && !m_isInCircle) {
 			//Calculate the vertical vector
 			sf::Vector2f temp = { player1->getCenter().y - player2->getCenter().y  , -(player1->getCenter().x - player2->getCenter().x) };
 			//Normalize the vertical vector
@@ -232,6 +230,7 @@ void CollisionManager::playerAndEnemyPlayerCollision(std::shared_ptr<Collideable
 				temp *= -1.f;
 			}
 			m_vec = temp;
+			m_isInCircle = true;
 		} else {
 			m_vec = { 0,0 };
 		}

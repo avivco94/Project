@@ -35,7 +35,7 @@ GameScreen::GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsMan
 	m_map.Load("Resources/map.txt", sf::Vector2u(40, 40));
 
 	//For Collision Debug
-	//auto a = m_otherPlayers.insert(std::make_pair("9", std::make_shared<EnemyPlayer>(sf::Vector2f(8 * 40, 40))));
+	//auto a = m_otherPlayers.insert(std::make_pair("9", std::make_shared<EnemyPlayer>(sf::Vector2f(6 * 40,3* 40))));
 	//CollisionManager::getInstance().add(a.first->second);
 	m_rect.setPosition(sf::Vector2f(0, 0));
 	m_rect.setFillColor(sf::Color::Black);

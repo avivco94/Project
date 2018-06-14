@@ -178,12 +178,13 @@ void Quadtree<T>::retrieve(std::shared_ptr<std::vector<std::shared_ptr<T>>> retu
 		m_nodes[index]->retrieve(returnObjects, rect);
 	}
 
-	if (index == -1)
+	if (index == -1) {
 		getAll(returnObjects);
-
-	std::for_each(begin(m_objects), end(m_objects), [&returnObjects](std::shared_ptr<T> object) {
-		returnObjects->push_back(object);
-	});
+	} else {
+		std::for_each(begin(m_objects), end(m_objects), [&returnObjects](std::shared_ptr<T> object) {
+			returnObjects->push_back(object);
+		});
+	}
 }
 
 template <typename T>

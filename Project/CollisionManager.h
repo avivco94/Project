@@ -165,6 +165,7 @@ class CollisionManager
 		~CollisionManager();
 		int m_directions;
 		sf::Vector2f m_vec;
+		bool m_isInCircle = false;
 		CommandController m_controller;
 };
 
