@@ -3,6 +3,7 @@
 #include "Helper.h"
 #include "RotationCommand.h"
 #include "ShootCommand.h"
+#include "ChangeWeaponCommand.h"
 #include "GameClock.h"
 #include "CollisionManager.h"
 #include "CollisionMap.h"
@@ -20,6 +21,7 @@
 #include <memory>
 #include "BorderLine.h"
 #include "HitInfo.h"
+#include "KnifeAttackInfo.h"
 
 GameScreen::GameScreen(std::shared_ptr<Client> client, std::shared_ptr<EventsManager> em)
 	:IScreen(true, em), m_client(client) {
@@ -75,7 +77,7 @@ void GameScreen::update(sf::RenderWindow& window) {
 		m_player->updateBullets();
 
 		auto bullets = m_player->getBullets();
-		std::for_each(begin(*bullets), end(*bullets), [this](std::pair<const std::string, std::shared_ptr<IBullet>>& bullet) {
+		std::for_each(begin(*bullets), end(*bullets), [this](std::pair<const std::string, std::shared_ptr<IHitWeapons>>& bullet) {
 			CollisionManager::getInstance().collisionCheck(bullet.second);
 		});
 
@@ -83,7 +85,7 @@ void GameScreen::update(sf::RenderWindow& window) {
 			p.second->updateBullets();
 			CollisionManager::getInstance().collisionCheck(p.second);
 			auto bullets = p.second->getBullets();
-			std::for_each(begin(*bullets), end(*bullets), [this](std::pair<const std::string, std::shared_ptr<IBullet>>& bullet) {
+			std::for_each(begin(*bullets), end(*bullets), [this](std::pair<const std::string, std::shared_ptr<IHitWeapons>>& bullet) {
 				CollisionManager::getInstance().collisionCheck(bullet.second);
 			});
 		});
@@ -172,6 +174,10 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 					m_directions |= Left;
 					break;
 				}
+				case sf::Keyboard::Q: {
+					m_controller.addCommandAndExecute(std::make_shared<ChangeWeaponCommand>(m_player));
+					break;
+				}
 				}
 				break;
 			}
@@ -238,6 +244,24 @@ void GameScreen::update(BulletInfo & bi) {
 		}
 	}
 }
+
+void GameScreen::update(KnifeAttackInfo & bi) {
+	Resources::getInstance().getSoundsMap()->getResource(KNIFE_SOUND)->second.play();
+	if (bi.m_shooter != m_player->getId()) {
+		auto playerIt = m_otherPlayers.find(bi.m_shooter);
+		if (playerIt != m_otherPlayers.end()) {
+			m_player->decHP(5);
+			if (m_player->getHP() <= 0) {
+				m_player->decHP(-100);
+				m_player->goToStart();
+				m_player->addDeath();
+				m_player->addCash(300);
+				Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(std::make_shared<DeathInfo>(bi.m_shooter, m_player->getId()));
+			}
+		}
+	}
+}
+
 
 void GameScreen::update(PlayerInfo & pi) {
 	if (pi.m_id != m_player->getId()) {

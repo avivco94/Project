@@ -11,6 +11,7 @@
 #include <cctype>
 #include "HitInfo.h"
 #include "DeathInfo.h"
+#include "KnifeAttackInfo.h"
 
 Server::Server() {
 	m_gi = std::make_shared<GameInfo>();
@@ -24,6 +25,8 @@ Server::Server() {
 	Factory<SerializableInfo>::getInstance().add("HitInfo", &HitInfo::create);
 	Factory<SerializableInfo>::getInstance().add("PlayerInfo", &PlayerInfo::create);
 	Factory<SerializableInfo>::getInstance().add("DeathInfo", &DeathInfo::create);
+	Factory<SerializableInfo>::getInstance().add("KnifeAttackInfo", &KnifeAttackInfo::create);
+
 
 }
 Server::~Server() {}

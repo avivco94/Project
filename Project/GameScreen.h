@@ -27,6 +27,7 @@ class GameScreen :
 		void update(ConnectionInfo & pi) override;
 		void update(HitInfo & pi) override;
 		void update(DeathInfo & di) override;
+		void update(KnifeAttackInfo & bi) override;
 		bool onFire(string eventName, sf::Event event) override;
 
 	private:

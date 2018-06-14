@@ -93,7 +93,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <StackReserveSize>2000000</StackReserveSize>
       <StackCommitSize>2000000</StackCommitSize>
       <HeapReserveSize>2000000</HeapReserveSize>
@@ -111,7 +111,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <StackReserveSize>2000000</StackReserveSize>
       <StackCommitSize>2000000</StackCommitSize>
       <HeapReserveSize>2000000</HeapReserveSize>
@@ -133,7 +133,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <StackReserveSize>2000000</StackReserveSize>
       <StackCommitSize>2000000</StackCommitSize>
       <HeapReserveSize>2000000</HeapReserveSize>
@@ -155,7 +155,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <StackReserveSize>2000000</StackReserveSize>
       <StackCommitSize>2000000</StackCommitSize>
       <HeapReserveSize>2000000</HeapReserveSize>
@@ -167,6 +167,7 @@
     <ClCompile Include="AKBullet.cpp" />
     <ClCompile Include="BorderLine.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ChangeWeaponCommand.cpp" />
     <ClCompile Include="CollideableTile.cpp" />
     <ClCompile Include="Collideable.cpp" />
     <ClCompile Include="CollideableType.cpp" />
@@ -182,6 +183,7 @@
     <ClCompile Include="GlockGun.cpp" />
     <ClCompile Include="HudScreen.cpp" />
     <ClCompile Include="IBasePlayer.cpp" />
+    <ClCompile Include="IBaseWeapon.cpp" />
     <ClCompile Include="IBullet.cpp" />
     <ClCompile Include="IClickable.cpp" />
     <ClCompile Include="ICommand.cpp" />
@@ -190,9 +192,12 @@
     <ClCompile Include="GameClock.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="IHitWeapons.cpp" />
     <ClCompile Include="IScreen.cpp" />
     <ClCompile Include="IBaseGun.cpp" />
     <ClCompile Include="ITypeable.cpp" />
+    <ClCompile Include="Knife.cpp" />
+    <ClCompile Include="KnifeAttack.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="M16Gun.cpp" />
     <ClCompile Include="M4Bullet.cpp" />
@@ -221,6 +226,7 @@
     <ClInclude Include="AKBullet.h" />
     <ClInclude Include="BorderLine.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ChangeWeaponCommand.h" />
     <ClInclude Include="CollideableTile.h" />
     <ClInclude Include="Collideable.h" />
     <ClInclude Include="CollideableType.h" />
@@ -236,6 +242,7 @@
     <ClInclude Include="GlockGun.h" />
     <ClInclude Include="HudScreen.h" />
     <ClInclude Include="IBasePlayer.h" />
+    <ClInclude Include="IBaseWeapon.h" />
     <ClInclude Include="IBullet.h" />
     <ClInclude Include="IClickable.h" />
     <ClInclude Include="ICommand.h" />
@@ -244,9 +251,12 @@
     <ClInclude Include="GameClock.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="IHitWeapons.h" />
     <ClInclude Include="IScreen.h" />
     <ClInclude Include="IBaseGun.h" />
     <ClInclude Include="ITypeable.h" />
+    <ClInclude Include="Knife.h" />
+    <ClInclude Include="KnifeAttack.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="M16Gun.h" />
     <ClInclude Include="M4Bullet.h" />

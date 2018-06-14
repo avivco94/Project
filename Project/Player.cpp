@@ -13,23 +13,14 @@
 #include "Updates.h"
 #include "DefaultGun.h"
 #include "GameClock.h"
-
+#include <memory>
 Player::Player(sf::Vector2f pos) 
 	: IBasePlayer(pos) {}
 
 Player::~Player() {}
 
 std::shared_ptr<PlayerInfo> Player::getPlayerInfo() {
-	return std::make_shared<PlayerInfo>(m_id, getCenter(), getRotation(), m_weapon->getCenter(), m_weapon->getTextureRect());
-}
-
-void Player::shoot() {
-	auto bullet = m_weapon->shoot(std::to_string(m_bulletsCounter), m_id);
-	if (bullet != nullptr) {
-		m_bullets->insert(std::make_pair(std::to_string(m_bulletsCounter), bullet));
-		m_bulletsCounter++;
-		Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(bullet->getBulletInfo());
-	}
+	return std::make_shared<PlayerInfo>(m_id, getCenter(), getRotation(), m_weapons[m_currentWeapon]->getCenter(), m_weapons[m_currentWeapon]->getTextureRect());
 }
 
 int Player::getHP() {
@@ -40,7 +31,7 @@ void Player::decHP(int amount) {
 }
 
 int Player::getAmmo() {
-	return m_weapon->getAmmo();
+	return m_weapons[m_currentWeapon]->getAmmo();
 }
 
 int Player::getCash(){
@@ -53,10 +44,14 @@ void Player::addCash(int amount) {
 
 void Player::buyWeapon(std::shared_ptr<WeaponWithPrice> w){
 	if (m_cash >= w->price) {
+		std::experimental::erase_if(m_weapons, [](auto& weapon) {
+			return std::dynamic_pointer_cast<IBaseGun>(weapon);
+		});
 		m_cash -= w->price;
-		m_weapon = w->buyFunc({0,0});
-		m_weapon->setRotation(getRotation());
-		m_weapon->setCenter(getCenter());
+		m_weapons.emplace_back(w->buyFunc({0,0}));
+		m_weapons.back()->setRotation(getRotation());
+		m_weapons.back()->setCenter(getCenter());
+		m_currentWeapon = m_weapons.size() - 1;
 	}
 }
 

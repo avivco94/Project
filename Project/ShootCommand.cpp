@@ -8,7 +8,7 @@ ShootCommand::ShootCommand(std::shared_ptr<Player> ma)
 ShootCommand::~ShootCommand() {}
 
 void ShootCommand::execute() {
-	m_ma->shoot();
+	m_ma->attack();
 }
 
 void ShootCommand::undo() {

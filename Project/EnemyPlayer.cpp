@@ -20,10 +20,11 @@ void EnemyPlayer::addDefaultBullet(BulletInfo& bi) {
 }
 
 void EnemyPlayer::setDefaultWeapon(sf::IntRect rect) {
-	if (m_weapon->getTextureRect() != rect) {
-		m_weapon = std::make_shared<DefaultGun>(rect, sf::Vector2f(0, 0));
-		m_weapon->setRotation(getRotation());
-		m_weapon->setCenter(getCenter());
+	if (m_weapons[m_currentWeapon]->getTextureRect() != rect) {
+		m_weapons.clear();
+		m_weapons.emplace_back(std::make_shared<DefaultGun>(rect, sf::Vector2f(0, 0)));
+		m_weapons[m_currentWeapon]->setRotation(getRotation());
+		m_weapons[m_currentWeapon]->setCenter(getCenter());
 	}
 }
 

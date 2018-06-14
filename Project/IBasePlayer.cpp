@@ -13,12 +13,14 @@
 #include "Updates.h"
 #include "DefaultGun.h"
 #include "GameClock.h"
+#include "Knife.h"
 
 IBasePlayer::IBasePlayer(sf::Vector2f pos)
 	: MoveableSpriteObject(*Resources::getInstance().getTexturesMap()->getResource(PLAYER_TEXTURE), PLAYER_TEXTURE_RECT, pos, PLAYER_SPEED), m_radius(PLAYER_TEXTURE_RECT.width / 2.f), m_startPos(pos) {
-	m_weapon = std::make_shared<GlockGun>(pos);
-	m_weapon->setCenter(getCenter());
-	m_bullets = std::make_shared<std::map<std::string, std::shared_ptr<IBullet>>>();
+	m_weapons.emplace_back(std::make_shared<GlockGun>(pos));
+	m_weapons.emplace_back(std::make_shared<Knife>(pos));
+	m_bullets = std::make_shared<std::map<std::string, std::shared_ptr<IHitWeapons>>>();
+	setCenter(getCenter());
 }
 
 IBasePlayer::~IBasePlayer() {}
@@ -39,6 +41,19 @@ bool IBasePlayer::isCollide(sf::FloatRect rect) {
 	return distanceSquared < (m_radius * m_radius);
 }
 
+void IBasePlayer::attack() {
+	auto bullet = m_weapons[m_currentWeapon]->attack(std::to_string(m_bulletsCounter), m_id);
+	if (bullet != nullptr) {
+		m_bullets->insert(std::make_pair(std::to_string(m_bulletsCounter), bullet));
+		m_bulletsCounter++;
+		Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(bullet->getInfo());
+	}
+}
+
+void IBasePlayer::changeWeapon() {
+	m_currentWeapon = (m_currentWeapon + 1) % m_weapons.size();
+}
+
 void IBasePlayer::draw(sf::RenderWindow & window) {
 	if (isImmortal()) {
 		m_sprite.setColor(sf::Color(255, 255, 255, 160));
@@ -47,18 +62,7 @@ void IBasePlayer::draw(sf::RenderWindow & window) {
 	}
 
 	SpriteObject::draw(window);
-	m_weapon->draw(window);
-
-
-	std::for_each(begin(*m_bullets), end(*m_bullets), [&window](auto& bullet) {
-		if (!bullet.second || bullet.second->isOver())
-			CollisionManager::getInstance().remove(bullet.second);
-	});
-
-	//Erase finished bullets
-	std::experimental::erase_if(*m_bullets, [&window](auto& bullet) {
-		return !bullet.second || bullet.second->isOver();
-	});
+	m_weapons[m_currentWeapon]->draw(window);
 
 	//Draw the Bullets
 	std::for_each(begin(*m_bullets), end(*m_bullets), [&window](auto& bullet) {
@@ -74,7 +78,8 @@ sf::FloatRect IBasePlayer::getRect() const {
 }
 
 void IBasePlayer::setPosition(sf::Vector2f pos) {
-	m_weapon->setPosition(pos);
+	for (auto weapon : m_weapons)
+		weapon->setPosition(pos);
 	auto lastRotation = getRotation();
 	setRotation(0);
 	SpriteObject::setPosition(pos);
@@ -90,33 +95,48 @@ void IBasePlayer::updateBullets() {
 	std::for_each(begin(*m_bullets), end(*m_bullets), [](auto& bullet) {
 		if (bullet.second && !bullet.second->isOver()) {
 			CollisionManager::getInstance().remove(bullet.second);
-			bullet.second->move();
+			bullet.second->update();
 			CollisionManager::getInstance().add(bullet.second);
 		}
+	});
+
+	std::for_each(begin(*m_bullets), end(*m_bullets), [](auto& bullet) {
+		if (!bullet.second || bullet.second->isOver())
+			CollisionManager::getInstance().remove(bullet.second);
+	});
+
+	//Erase finished bullets
+	std::experimental::erase_if(*m_bullets, [](auto& bullet) {
+		return !bullet.second || bullet.second->isOver();
 	});
 }
 
 void IBasePlayer::move(sf::Vector2f vec) {
 	MoveableSpriteObject::move(vec);
-	if (MoveableSpriteObject::isMoved())
-		m_weapon->move(vec);
+	if (MoveableSpriteObject::isMoved()) {
+		for (auto weapon : m_weapons)
+			weapon->move(vec);
+	}
 }
 
 void IBasePlayer::setRotation(float rotation) {
 	MoveableSpriteObject::setRotation(rotation);
-	m_weapon->setRotation(rotation);
+	for (auto weapon : m_weapons)
+		weapon->setRotation(rotation);
 }
 
 void IBasePlayer::setCenter(sf::Vector2f pos) {
 	SpriteObject::setCenter(pos);
-	m_weapon->setCenter(pos);
+
+	for (auto weapon : m_weapons)
+		weapon->setCenter(getCenter());
 }
 
 float IBasePlayer::getRadius() {
 	return m_radius;
 }
 
-std::shared_ptr<std::map<std::string, std::shared_ptr<IBullet>>> IBasePlayer::getBullets() {
+std::shared_ptr<std::map<std::string, std::shared_ptr<IHitWeapons>>> IBasePlayer::getBullets() {
 	return m_bullets;
 }
 
@@ -137,7 +157,8 @@ void IBasePlayer::setId(const std::string& id) {
 
 void IBasePlayer::goToStart(){
 	this->setPosition(m_startPos);
-	m_weapon->setCenter(getCenter());
+	for(auto weapon : m_weapons)
+		weapon->setCenter(getCenter());
 	setImmortal();
 }
 

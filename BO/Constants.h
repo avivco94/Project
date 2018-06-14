@@ -57,14 +57,17 @@ const std::string USP_SOUND = "Resources/usp.wav";
 const std::string M4A1_SOUND = "Resources/m4a1.wav";
 const std::string MENU_SOUND = "Resources/menu.wav";
 const std::string HIT_SOUND = "Resources/hit1.wav";
+const std::string KNIFE_SOUND = "Resources/knife_slash.wav";
+
 const std::string MOUSE_OVER_SOUND = "Resources/MouseOver.ogg";
 
 const sf::Vector2f TILE_SIZE = sf::Vector2f(40, 40);
 const sf::IntRect PLAYER_TEXTURE_RECT = sf::IntRect(0, 0, 40, 40);
-const sf::IntRect GLOCK_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
-const sf::IntRect USP_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
-const sf::IntRect AK_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
-const sf::IntRect M4_BULLET_TEXTURE_RECT = sf::IntRect(0, 40, 5, 10);
+const sf::IntRect GLOCK_BULLET_TEXTURE_RECT = sf::IntRect(0, 0, 5, 10);
+const sf::IntRect USP_BULLET_TEXTURE_RECT = sf::IntRect(0, 0, 5, 10);
+const sf::IntRect AK_BULLET_TEXTURE_RECT = sf::IntRect(0, 0, 5, 10);
+const sf::IntRect M4_BULLET_TEXTURE_RECT = sf::IntRect(0, 0, 5, 10);
+const sf::IntRect KNIFE_ATTACK_RECT = sf::IntRect(5, 0, 10, 5);
 
 
 const char SEPARATOR = ',';
@@ -73,6 +76,8 @@ const char SEPARATOR2 = ';';
 //const sf::IpAddress SERVER_IP = sf::IpAddress::LocalHost;
 const sf::IpAddress SERVER_IP = "40.118.3.201";
 const unsigned short SERVER_PORT = 5642;
+
+const sf::IntRect KNIFE_TEXTURE_RECT = sf::IntRect(200, 0, 50, 50);
 
 const sf::IntRect GLOCK_TEXTURE_RECT = sf::IntRect(0, 0, 50, 50);
 const int GLOCK_BULLETS_COUNT = 100;

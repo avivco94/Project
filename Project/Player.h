@@ -14,7 +14,6 @@ class Player
 		Player(sf::Vector2f pos);
 		~Player();
 		std::shared_ptr<PlayerInfo> getPlayerInfo();
-		void shoot();
 		int getHP();
 		void decHP(int amount);
 		int getAmmo();
@@ -24,6 +23,5 @@ class Player
 		std::type_index type() const override;
 
 	private:
-		int m_bulletsCounter = 0;
 		int m_cash = 10000/*800*/;
 };

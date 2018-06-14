@@ -3,6 +3,7 @@
 #include "BulletInfo.h"
 #include "HitInfo.h"
 #include "Updates.h"
+#include "KnifeAttackInfo.h"
 
 GameInfo::GameInfo() {}
 GameInfo::~GameInfo() {}
@@ -38,6 +39,10 @@ void GameInfo::update(HitInfo & hi){
 }
 
 void GameInfo::update(DeathInfo & di)
+{
+}
+
+void GameInfo::update(KnifeAttackInfo & di)
 {
 }
 

@@ -152,7 +152,9 @@ void GameController::loadResources() {
 	Resources::getInstance().addSound(GLOCK_SOUND);
 	Resources::getInstance().addSound(MOUSE_OVER_SOUND);
 	Resources::getInstance().addSound(HIT_SOUND);
+	Resources::getInstance().addSound(KNIFE_SOUND);
 
+	Resources::getInstance().getSoundsMap()->getResource(KNIFE_SOUND)->second.setVolume(130);
 	Resources::getInstance().getSoundsMap()->getResource(HIT_SOUND)->second.setVolume(130);
 	Resources::getInstance().getSoundsMap()->getResource(MOUSE_OVER_SOUND)->second.setVolume(120);
 	Resources::getInstance().getSoundsMap()->getResource(AK47_SOUND)->second.setVolume(20);

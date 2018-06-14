@@ -6,6 +6,7 @@
 struct PlayerInfo;
 struct BulletInfo;
 struct DeathInfo;
+struct KnifeAttackInfo;
 
 class GameInfo 
 	: public GameUpdater {
@@ -17,6 +18,8 @@ class GameInfo
 		void update(ConnectionInfo& pi) override;
 		void update(HitInfo & pi) override;
 		void update(DeathInfo & di) override;
+		void update(KnifeAttackInfo & di) override;
+
 		const std::unordered_map<std::string, std::shared_ptr<PlayerInfo>>& getPlayers();
 		const std::unordered_map<std::string, std::shared_ptr<BulletInfo>>& getBullets();
 		std::shared_ptr<PlayerInfo> removePlayer(const std::string& id);

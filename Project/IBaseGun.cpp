@@ -3,11 +3,11 @@
 
 
 IBaseGun::IBaseGun(sf::IntRect rect, sf::Vector2f pos, float speed, int bulletsCount)
-	: MoveableSpriteObject(*Resources::getInstance().getTexturesMap()->getResource(WEAPONS_TEXTURE), rect, pos, 0), m_radius(rect.width / 2.f), m_gunSpeed(speed), m_bulletsCount(bulletsCount) {}
+	: IBaseWeapon(rect, pos), m_radius(rect.width / 2.f), m_gunSpeed(speed), m_bulletsCount(bulletsCount) {}
 
 IBaseGun::~IBaseGun() {}
 
-std::shared_ptr<IBullet> IBaseGun::shoot(const std::string& id, const std::string& pid) {
+std::shared_ptr<IHitWeapons> IBaseGun::attack(const std::string& id, const std::string& pid) {
 	if (GameClock::getInstance().isTimePassed(m_lastShoot, 1 / m_gunSpeed)) {
 		if (m_bulletsCount > 0) {
 			auto currRotation = getRotation();

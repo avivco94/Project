@@ -161,6 +161,7 @@
     <ClInclude Include="GameInfo.h" />
     <ClInclude Include="HitInfo.h" />
     <ClInclude Include="HudUpdate.h" />
+    <ClInclude Include="KnifeAttackInfo.h" />
     <ClInclude Include="PlayerInfo.h" />
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="resource.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="GameInfo.cpp" />
     <ClCompile Include="HitInfo.cpp" />
     <ClCompile Include="HudUpdate.cpp" />
+    <ClCompile Include="KnifeAttackInfo.cpp" />
     <ClCompile Include="PlayerInfo.cpp" />
     <ClCompile Include="SerializableInfo.cpp" />
     <ClCompile Include="Server.cpp" />

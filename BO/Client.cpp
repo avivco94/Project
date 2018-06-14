@@ -11,6 +11,7 @@
 #include "BulletInfo.h"
 #include "HitInfo.h"
 #include "PlayerInfo.h"
+#include "KnifeAttackInfo.h"
 
 Client::Client()
 	: m_thread(&Client::run, this) {
@@ -22,6 +23,7 @@ Client::Client()
 	Factory<SerializableInfo>::getInstance().add("DeathInfo", &DeathInfo::create);
 	Factory<SerializableInfo>::getInstance().add("HitInfo", &HitInfo::create);
 	Factory<SerializableInfo>::getInstance().add("PlayerInfo", &PlayerInfo::create);
+	Factory<SerializableInfo>::getInstance().add("KnifeAttackInfo", &KnifeAttackInfo::create);
 }
 
 Client::~Client() {
@@ -79,10 +81,12 @@ void Client::sendData() {
 	std::string data;
 	sf::Packet packet;
 	pu.iterateAndPop([this](std::shared_ptr<SerializableInfo> info) {
-		sf::Packet packet;
-		packet << info->deserialize();
-		if (m_socket.send(packet) != sf::Socket::Done)
-			return;
+		if (info) {
+			sf::Packet packet;
+			packet << info->deserialize();
+			if (m_socket.send(packet) != sf::Socket::Done)
+				return;
+		}
 	});
 }
 

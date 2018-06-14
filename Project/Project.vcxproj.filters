@@ -31,12 +31,6 @@
     <Filter Include="Source Files\Screens">
       <UniqueIdentifier>{cbe134ac-0d99-45f5-8b8f-b08d02e3626b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Drawables\Bullet">
-      <UniqueIdentifier>{eeac49e1-5d73-45f1-ba1a-6ec07de469d9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Drawables\Bullet">
-      <UniqueIdentifier>{e74cb6ea-0f03-48e8-b0fa-fccf79eea70f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Drawables\Weapons">
       <UniqueIdentifier>{3d9ef1c1-8079-45ba-8119-52db4178bd37}</UniqueIdentifier>
     </Filter>
@@ -48,6 +42,12 @@
     </Filter>
     <Filter Include="Header Files\Drawables\Tiles">
       <UniqueIdentifier>{081d31dd-1335-490f-81d4-801c5f22c254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Drawables\Weapons\Bullet">
+      <UniqueIdentifier>{e74cb6ea-0f03-48e8-b0fa-fccf79eea70f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Drawables\Weapons\Bullet">
+      <UniqueIdentifier>{eeac49e1-5d73-45f1-ba1a-6ec07de469d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -109,16 +109,16 @@
       <Filter>Source Files\Screens</Filter>
     </ClCompile>
     <ClCompile Include="IBullet.cpp">
-      <Filter>Source Files\Drawables\Bullet</Filter>
+      <Filter>Source Files\Drawables\Weapons\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="GlockBullet.cpp">
-      <Filter>Source Files\Drawables\Bullet</Filter>
+      <Filter>Source Files\Drawables\Weapons\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="ShootCommand.cpp">
       <Filter>Source Files\Commands</Filter>
     </ClCompile>
     <ClCompile Include="DefaultBullet.cpp">
-      <Filter>Source Files\Drawables\Bullet</Filter>
+      <Filter>Source Files\Drawables\Weapons\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="IBaseGun.cpp">
       <Filter>Source Files\Drawables\Weapons</Filter>
@@ -184,16 +184,16 @@
       <Filter>Source Files\Drawables\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="AKBullet.cpp">
-      <Filter>Source Files\Drawables\Bullet</Filter>
+      <Filter>Source Files\Drawables\Weapons\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="USPBullet.cpp">
-      <Filter>Source Files\Drawables\Bullet</Filter>
+      <Filter>Source Files\Drawables\Weapons\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="USPGun.cpp">
       <Filter>Source Files\Drawables\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="M4Bullet.cpp">
-      <Filter>Source Files\Drawables\Bullet</Filter>
+      <Filter>Source Files\Drawables\Weapons\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="CollideableType.cpp">
       <Filter>Source Files\Drawables</Filter>
@@ -206,6 +206,21 @@
     </ClCompile>
     <ClCompile Include="BorderLine.cpp">
       <Filter>Source Files\Drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="IHitWeapons.cpp">
+      <Filter>Source Files\Drawables\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="KnifeAttack.cpp">
+      <Filter>Source Files\Drawables\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="IBaseWeapon.cpp">
+      <Filter>Source Files\Drawables\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="Knife.cpp">
+      <Filter>Source Files\Drawables\Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeWeaponCommand.cpp">
+      <Filter>Source Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -267,16 +282,16 @@
       <Filter>Header Files\Screens</Filter>
     </ClInclude>
     <ClInclude Include="IBullet.h">
-      <Filter>Header Files\Drawables\Bullet</Filter>
+      <Filter>Header Files\Drawables\Weapons\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="GlockBullet.h">
-      <Filter>Header Files\Drawables\Bullet</Filter>
+      <Filter>Header Files\Drawables\Weapons\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="ShootCommand.h">
       <Filter>Header Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="DefaultBullet.h">
-      <Filter>Header Files\Drawables\Bullet</Filter>
+      <Filter>Header Files\Drawables\Weapons\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="IBaseGun.h">
       <Filter>Header Files\Drawables\Weapons</Filter>
@@ -339,13 +354,13 @@
       <Filter>Header Files\Drawables\Weapons</Filter>
     </ClInclude>
     <ClInclude Include="AKBullet.h">
-      <Filter>Header Files\Drawables\Bullet</Filter>
+      <Filter>Header Files\Drawables\Weapons\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="M4Bullet.h">
-      <Filter>Header Files\Drawables\Bullet</Filter>
+      <Filter>Header Files\Drawables\Weapons\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="USPBullet.h">
-      <Filter>Header Files\Drawables\Bullet</Filter>
+      <Filter>Header Files\Drawables\Weapons\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="USPGun.h">
       <Filter>Header Files\Drawables\Weapons</Filter>
@@ -364,6 +379,21 @@
     </ClInclude>
     <ClInclude Include="BorderLine.h">
       <Filter>Header Files\Drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="IHitWeapons.h">
+      <Filter>Header Files\Drawables\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="KnifeAttack.h">
+      <Filter>Header Files\Drawables\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="IBaseWeapon.h">
+      <Filter>Header Files\Drawables\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="Knife.h">
+      <Filter>Header Files\Drawables\Weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeWeaponCommand.h">
+      <Filter>Header Files\Commands</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
