@@ -3,6 +3,7 @@
 #include "SpriteObject.h"
 #include "SerializableInfo.h"
 
+//A abstract class for all objects weapons that can hit a other object like player
 class IHitWeapons 
 	: public CollideableType<IHitWeapons> {
 	public:

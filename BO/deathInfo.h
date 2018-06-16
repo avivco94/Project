@@ -3,6 +3,8 @@
 #include <string>
 #include <sstream>
 #include <memory>
+
+//Struct for sending and reciving the info between server and client
 struct DeathInfo : public SerializableInfo
 {
 public:

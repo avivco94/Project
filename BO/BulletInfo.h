@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 
-
+//Struct for sending and reciving the info between server and client
 struct BulletInfo 
 	: public SerializableInfo {
 	public:
@@ -22,6 +22,7 @@ struct BulletInfo
 		sf::Vector2f m_passed;
 		std::string m_type;
 		void update(std::shared_ptr<GameUpdater> gu) override;
+		//Creating a bulletinfo object with factory
 		static std::shared_ptr<SerializableInfo> create(const std::string & type, std::string & data) {
 			return std::make_shared<BulletInfo>(data);
 		}

@@ -1,6 +1,7 @@
 #pragma once
 #include <exception>
 
+//Class for execptions
 class NotFoundException 
 	: public std::exception {
 	public:

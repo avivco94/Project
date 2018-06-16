@@ -6,6 +6,7 @@
 #include "IBullet.h"
 #include "IHitWeapons.h"
 
+//A base class for all guns objects
 class IBaseGun :
 	public IBaseWeapon
 {

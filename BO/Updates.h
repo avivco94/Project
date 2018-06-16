@@ -7,6 +7,7 @@
 class Request;
 class Response;
 
+//This class is a singelton class that gets two object (Response/Request) and manages the updates for all users/
 template <typename T, typename S = Request>
 class Updates {
 	public:

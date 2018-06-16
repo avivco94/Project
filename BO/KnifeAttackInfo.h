@@ -1,6 +1,8 @@
 #pragma once
 #include "SerializableInfo.h"
 
+
+//Struct for sending and reciving the info between server and client
 struct KnifeAttackInfo :
 	public SerializableInfo
 {

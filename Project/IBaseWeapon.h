@@ -2,6 +2,7 @@
 #include "MoveableSpriteObject.h"
 #include "IHitWeapons.h"
 
+//A base class for all weapon objects
 class IBaseWeapon :
 	public MoveableSpriteObject
 {

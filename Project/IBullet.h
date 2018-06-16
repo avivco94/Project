@@ -8,12 +8,15 @@
 
 class Player;
 
+//A base class for all bullets types objects
 class IBullet 
 	: public MoveableSpriteObject, public IHitWeapons {
 	public: 
 		IBullet(std::string id, std::string pid, sf::IntRect rect, sf::Vector2f startPos, sf::Vector2f direction, float rotation, float durtion, float speed, std::string m_type);
 		virtual ~IBullet() = 0;
+		//Moving the bullet
 		void move();
+		//Check if bullet need to clear itself
 		bool isOver();
 		void update();
 		void setOver();

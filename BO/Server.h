@@ -6,6 +6,7 @@
 #include "GameInfo.h"
 #include "SerializableInfo.h"
 
+//Class for runing a server with socket using sfml socket.
 class Server {
 	public:
 		Server();

@@ -1,5 +1,6 @@
 #pragma once
 
+//Struct for updting the hud data
 struct HudUpdate {
 	int m_hp;
 	int m_ammo;

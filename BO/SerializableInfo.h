@@ -5,6 +5,8 @@
 #include <cctype>
 #include <algorithm>
 
+
+//A abstract struct for sending and reciving the info between server and client
 struct SerializableInfo {
 	public:
 		SerializableInfo(std::string type);

@@ -5,6 +5,8 @@
 #include <functional>
 #include <any>
 
+
+//A singelton template class that make different types of factorys.
 template <typename T>
 class Factory {
 	public:

@@ -7,6 +7,7 @@
 //Uncomment in server
 //#define SERVER
 
+//Constants for all enumes and paths.
 class IBaseGun;
 
 enum Direction {

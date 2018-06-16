@@ -6,6 +6,7 @@ struct HitInfo;
 struct DeathInfo;
 struct KnifeAttackInfo;
 
+//A abstract class for all objects that need to update the game from server (for the game screen) 
 class GameUpdater
 {
 	public:

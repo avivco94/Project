@@ -3,6 +3,7 @@
 #include <SFML/Network.hpp>
 #include <thread>
 
+//Class for client
 class Client {
 	public:
 		Client();

@@ -2,6 +2,8 @@
 #include "SerializableInfo.h"
 #include <string>
 #include <sstream>
+
+//Struct for sending and reciving the info between server and client
 struct HitInfo 
 	: public SerializableInfo
 {

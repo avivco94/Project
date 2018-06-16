@@ -8,6 +8,7 @@ struct BulletInfo;
 struct DeathInfo;
 struct KnifeAttackInfo;
 
+//Struct for sending and reciving the info between server and client
 class GameInfo 
 	: public GameUpdater {
 	public:

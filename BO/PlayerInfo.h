@@ -7,6 +7,8 @@
 #include <vector>
 #include "GameInfo.h"
 
+
+//Struct for sending and reciving the info between server and client
 struct PlayerInfo :
 	public SerializableInfo {
 	public:
