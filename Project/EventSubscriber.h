@@ -6,6 +6,7 @@
 
 using std::string;
 
+//The event subscriber is for all objects that uses the observer EventSubscriber.
 class EventSubscriber {
 public:
 	EventSubscriber(std::shared_ptr<EventsManager> em);

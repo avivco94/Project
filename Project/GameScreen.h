@@ -11,6 +11,7 @@
 #include "ConnectionInfo.h"
 #include "EventSubscriber.h"
 
+//This class uses for handling all the game view like players and tiles
 class GameScreen :
 	public IScreen, public GameUpdater, public std::enable_shared_from_this<GameScreen> {
 	public:
@@ -22,13 +23,16 @@ class GameScreen :
 		void drawScreen(sf::RenderWindow& window) override;
 		sf::Vector2f getCenter() const override;
 		sf::FloatRect getRect() const override;
+		bool onFire(string eventName, sf::Event event) override;
+
+		//Functions for updting the screen as soon as a update arrives from the server
 		void update(BulletInfo& bi) override;
 		void update(PlayerInfo& pi) override;
 		void update(ConnectionInfo & pi) override;
 		void update(HitInfo & pi) override;
 		void update(DeathInfo & di) override;
 		void update(KnifeAttackInfo & bi) override;
-		bool onFire(string eventName, sf::Event event) override;
+	
 
 	private:
 		void updateFromServer();

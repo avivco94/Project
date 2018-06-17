@@ -3,13 +3,17 @@
 #include "Button.h"
 #include <SFML/Graphics.hpp>
 #include <memory>
+
+//Class that manage the menu navigting and choosing
 class MenuManager :
 	public ITypeable
 {
 public:
 	MenuManager(std::shared_ptr<EventsManager> em);
 	~MenuManager();
+	//Add button to menu
 	void addButtom(std::shared_ptr<Button> b);
+	//Remove button from menu
 	void revmoveButtom(int index);
 	void drawMenu(sf::RenderWindow & rw);
 	template <typename T>

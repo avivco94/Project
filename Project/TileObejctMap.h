@@ -7,6 +7,7 @@
 
 using std::map;
 
+//A singelton class that contains the hit map, to get a tile by its index.
 class TileObejctMap {
 	public:
 		//Singleton get instance

@@ -11,6 +11,7 @@
 #include "IHitWeapons.h"
 #include "KnifeAttack.h"
 
+//Base class for all player types
 class IBasePlayer
 	: public MoveableSpriteObject, public CollideableType<IBasePlayer> {
 public:

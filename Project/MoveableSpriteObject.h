@@ -2,6 +2,7 @@
 #include "SpriteObject.h"
 #include "Moveable.h"
 
+//Class for all sprites that can be moved
 class MoveableSpriteObject :
 	public SpriteObject, public Moveable {
 	public:

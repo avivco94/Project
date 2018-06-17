@@ -3,6 +3,7 @@
 #include "EventSubscriber.h"
 #include <functional>
 
+//All objects that can be clicked on
 class IClickable : public EventSubscriber
 {
 public:

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "SpriteObject.h"
 
+//Base class for tiles
 class Tile 
 	: public SpriteObject {
 	public:

@@ -8,6 +8,7 @@
 #include "MenuManager.h"
 #include "Player.h"
 
+//Class for the weapon buy menu, uses buttons for navigating
 class ShopScreen :
 	public IScreen
 {

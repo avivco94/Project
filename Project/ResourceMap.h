@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <string>
 
+//A template class that handel an unordered map for all the game resources.
+//Each resource type have a different map.
 template <typename T>
 class ResourceMap {
 	typedef std::unordered_map<std::string, std::shared_ptr<T>> ResourceMapType;

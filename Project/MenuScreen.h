@@ -7,6 +7,7 @@
 #include <SFML/Graphics.hpp>
 using std::string;
 
+//Class for the intro menu, uses buttons for navigating
 class MenuScreen :
 	public IScreen
 {

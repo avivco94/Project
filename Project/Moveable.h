@@ -3,6 +3,7 @@
 #include "IDrawable.h"
 #include <memory>
 
+//An abstract class for all objects that can be moved
 class Moveable 
 	: virtual public IDrawable {
 	public:

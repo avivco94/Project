@@ -5,6 +5,7 @@
 #include "Resources.h"
 #include <SFML/Graphics.hpp>
 
+//This class is for all buttons in the menus.
 class Button :
 	public IClickable , public IDrawable 
 {
@@ -14,7 +15,6 @@ public:
    ~Button();
    bool isContain(sf::Vector2<float> pos) override;
    string getText();
-
    // Draw the object on the window
    virtual void draw(sf::RenderWindow& window);
    //Return the center of the object 

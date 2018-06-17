@@ -3,6 +3,7 @@
 #include "EventsManager.h"
 #include "EventSubscriber.h"
 
+//Base class for all screens, All the screens uses the observer event manager.
 class IScreen 
 	: public IDrawable, public EventSubscriber {
 	public:

@@ -4,7 +4,7 @@
 #include "Constants.h"
 class EventsManager;
 
-
+//All objects that listens to user types.
 class ITypeable : public EventSubscriber
 {
 public:

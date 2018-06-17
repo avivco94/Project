@@ -1,6 +1,7 @@
 #pragma once
 #include "IDrawable.h"
 
+//Class for all spriteObjects with texture
 class SpriteObject :
 	virtual public IDrawable {
 	public:
