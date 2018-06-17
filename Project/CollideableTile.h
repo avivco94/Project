@@ -17,12 +17,5 @@ class CollideableTile
 		static std::shared_ptr<CollideableTile> create(const std::string& symbol, sf::Vector2f pos);
 	private:
 		bool m_show;
-		static bool m_registerit;
-		static bool m_registerit5;
-		static bool m_registerit4;
-		static bool m_registerit3;
-		static bool m_registerit6;
-		static bool m_registerit7;
-
 };
 

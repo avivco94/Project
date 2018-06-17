@@ -3,13 +3,6 @@
 #include "Resources.h"
 #include "Factory.h"
 
-bool NormalTile::m_registerit0 = Factory<NormalTile>::getInstance().add("0", &NormalTile::create);
-bool NormalTile::m_registerit1 = Factory<NormalTile>::getInstance().add("1", &NormalTile::create);
-bool NormalTile::m_registerit2 = Factory<NormalTile>::getInstance().add("2", &NormalTile::create);
-bool NormalTile::m_registerit3 = Factory<NormalTile>::getInstance().add("3", &NormalTile::create);
-bool NormalTile::m_registerit4 = Factory<NormalTile>::getInstance().add("4", &NormalTile::create);
-bool NormalTile::m_registerit5 = Factory<NormalTile>::getInstance().add("5", &NormalTile::create);
-
 NormalTile::~NormalTile() {}
 
 std::shared_ptr<NormalTile> NormalTile::create(const std::string & symbol, sf::Vector2f pos) {

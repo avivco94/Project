@@ -16,6 +16,7 @@ class Tilemap
 {
 	public:
 		Tilemap();
+		void regTilesFromFile();
 		~Tilemap();
 		bool Load(const std::string& filePath, sf::Vector2u tileSize);
 		sf::Vector2f getCenter() const override;

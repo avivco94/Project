@@ -237,6 +237,7 @@
     <ClInclude Include="EnemyPlayer.h" />
     <ClInclude Include="EventsManager.h" />
     <ClInclude Include="EventSubscriber.h" />
+    <ClInclude Include="FactoryReg.h" />
     <ClInclude Include="GameScreen.h" />
     <ClInclude Include="GlockBullet.h" />
     <ClInclude Include="GlockGun.h" />
@@ -290,6 +291,9 @@
     <ProjectReference Include="..\BO\BO.vcxproj">
       <Project>{fc2a9ef3-9503-414a-a1db-6bdfbb8c0f91}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\map.ini" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
