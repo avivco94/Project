@@ -18,7 +18,7 @@ class KnifeAttack
 		std::shared_ptr<SerializableInfo> getInfo();
 
 	private:
-		int m_startTime = 0;
+		float m_startTime = 0;
 		bool m_over = false;
 };
 

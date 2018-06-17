@@ -14,7 +14,7 @@ Label::~Label()
 
 void Label::draw(sf::RenderWindow & window){
 	m_text.setString(m_label + m_separator + " " + m_value);
-	m_text.setColor(m_color);
+	m_text.setFillColor(m_color);
 	window.draw(m_text);
 }
 

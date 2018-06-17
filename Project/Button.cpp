@@ -4,7 +4,7 @@
 
 Button::Button(std::shared_ptr<EventsManager> em, sf::Vector2f pos, sf::Vector2f size,
 	sf::Color color, sf::Color colorOnFocused, sf::Font& font, std::string text)
-	: IClickable(em), m_rect(size), m_text(text, font, size.y - 10),
+	: IClickable(em), m_rect(size), m_text(text, font, (unsigned int)(size.y - 10)),
 	m_color(color), m_colorOnFocused(colorOnFocused) {
 	m_rect.setPosition(pos);
 	m_rect.setFillColor(sf::Color::Transparent);

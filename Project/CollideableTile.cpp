@@ -31,10 +31,10 @@ sf::FloatRect CollideableTile::getRect() const {
 std::shared_ptr<CollideableTile> CollideableTile::create(const std::string& symbol, sf::Vector2f pos) {
 	int tileNumber = std::stoi(symbol);
 	auto tileset = Resources::getInstance().getTexturesMap()->getResource(TILES_TEXTURE);
-	int max_x = (tileset->getSize().x / TILE_SIZE.x);
+	int max_x = (int)(tileset->getSize().x / TILE_SIZE.x);
 	return std::make_shared<CollideableTile>(
 		tileNumber,
 		*tileset,
-		sf::IntRect((tileNumber % max_x) * TILE_SIZE.x, (tileNumber / max_x) * TILE_SIZE.y, TILE_SIZE.x, TILE_SIZE.y),
+		sf::IntRect((tileNumber % max_x) * (int)TILE_SIZE.x, (tileNumber / max_x) * (int)TILE_SIZE.y, (int)TILE_SIZE.x, (int)TILE_SIZE.y),
 		pos);
 }

@@ -51,7 +51,7 @@ void Player::buyWeapon(std::shared_ptr<WeaponWithPrice> w){
 		m_weapons.emplace_back(w->buyFunc({0,0}));
 		m_weapons.back()->setRotation(getRotation());
 		m_weapons.back()->setCenter(getCenter());
-		m_currentWeapon = m_weapons.size() - 1;
+		m_currentWeapon = (unsigned int)(m_weapons.size() - 1);
 	}
 }
 
