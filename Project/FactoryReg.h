@@ -3,7 +3,7 @@
 #include "Factory.h"
 #include "NormalTile.h"
 #include "CollideableTile.h"
-
+//Register object to factory
 class FactoryReg {
 public:
 	FactoryReg(const std::string& name) 

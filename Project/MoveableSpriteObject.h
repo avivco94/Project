@@ -14,7 +14,9 @@ class MoveableSpriteObject :
 		void draw(sf::RenderWindow& window) override;
 		sf::Vector2f getCenter() const override;
 		sf::FloatRect getRect() const override;
+		//Is object moved
 		bool isMoved();
+		//Force object moved
 		void setForceMove(bool forceMove);
 	protected:
 		float m_lastMove = 0;

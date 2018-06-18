@@ -15,9 +15,12 @@ public:
 	void addButtom(std::shared_ptr<Button> b);
 	//Remove button from menu
 	void revmoveButtom(int index);
+	//Draw the menu
 	void drawMenu(sf::RenderWindow & rw);
+	//Set OnClick call back
 	template <typename T>
 	void setOnClick(T func);
+	//Get menu size
 	int getNumOfButton();
 
 protected:

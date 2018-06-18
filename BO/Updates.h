@@ -7,6 +7,7 @@
 class Request;
 class Response;
 
+//Manage thread-safe deque
 template <typename T, typename S = Request>
 class Updates {
 	public:

@@ -46,14 +46,6 @@ void IClickable::onMouseUp(std::function<bool(string eventName, sf::Event event,
 	m_onMouseUpFunc = func;
 }
 
-void IClickable::onExit(std::function<bool(string eventName, sf::Event event, EventSubscriber*obejct)> func){
-	m_onExit = func;
-}
-
-void IClickable::onStart(std::function<bool(string eventName, sf::Event event, EventSubscriber*obejct)> func){
-	m_onExit = func;
-}
-
 bool IClickable::click(sf::Event event) {
 	if (m_onMouseUpFunc != NULL && !m_onMouseUpFunc(ON_MOUSE_DOWN, event, this)) {
 		return false;

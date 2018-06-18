@@ -76,7 +76,7 @@ void GameScreen::update(sf::RenderWindow& window) {
 
 		m_player->updateBullets();
 
-		auto bullets = m_player->getBullets();
+		auto bullets = m_player->getHitObjects();
 		std::for_each(begin(*bullets), end(*bullets), [this](std::pair<const std::string, std::shared_ptr<IHitWeapons>>& bullet) {
 			CollisionManager::getInstance().collisionCheck(bullet.second);
 		});
@@ -84,7 +84,7 @@ void GameScreen::update(sf::RenderWindow& window) {
 		std::for_each(begin(m_otherPlayers), end(m_otherPlayers), [this](std::pair<const std::string, std::shared_ptr<EnemyPlayer>>& p) {
 			p.second->updateBullets();
 			CollisionManager::getInstance().collisionCheck(p.second);
-			auto bullets = p.second->getBullets();
+			auto bullets = p.second->getHitObjects();
 			std::for_each(begin(*bullets), end(*bullets), [this](std::pair<const std::string, std::shared_ptr<IHitWeapons>>& bullet) {
 				CollisionManager::getInstance().collisionCheck(bullet.second);
 			});

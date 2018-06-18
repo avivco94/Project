@@ -19,7 +19,7 @@ IBasePlayer::IBasePlayer(sf::Vector2f pos)
 	: MoveableSpriteObject(*Resources::getInstance().getTexturesMap()->getResource(PLAYER_TEXTURE), PLAYER_TEXTURE_RECT, pos, PLAYER_SPEED), m_radius(PLAYER_TEXTURE_RECT.width / 2.f), m_startPos(pos) {
 	m_weapons.emplace_back(std::make_shared<GlockGun>(pos));
 	m_weapons.emplace_back(std::make_shared<Knife>(pos));
-	m_bullets = std::make_shared<std::map<std::string, std::shared_ptr<IHitWeapons>>>();
+	m_hitObjects = std::make_shared<std::map<std::string, std::shared_ptr<IHitWeapons>>>();
 	setCenter(getCenter());
 }
 
@@ -42,10 +42,10 @@ bool IBasePlayer::isCollide(sf::FloatRect rect) {
 }
 
 void IBasePlayer::attack() {
-	auto bullet = m_weapons[m_currentWeapon]->attack(std::to_string(m_bulletsCounter), m_id);
+	auto bullet = m_weapons[m_currentWeapon]->attack(std::to_string(m_hitObjectsCounter), m_id);
 	if (bullet != nullptr) {
-		m_bullets->insert(std::make_pair(std::to_string(m_bulletsCounter), bullet));
-		m_bulletsCounter++;
+		m_hitObjects->insert(std::make_pair(std::to_string(m_hitObjectsCounter), bullet));
+		m_hitObjectsCounter++;
 		Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(bullet->getInfo());
 	}
 }
@@ -65,7 +65,7 @@ void IBasePlayer::draw(sf::RenderWindow & window) {
 	m_weapons[m_currentWeapon]->draw(window);
 
 	//Draw the Bullets
-	std::for_each(begin(*m_bullets), end(*m_bullets), [&window](auto& bullet) {
+	std::for_each(begin(*m_hitObjects), end(*m_hitObjects), [&window](auto& bullet) {
 		bullet.second->draw(window);
 	});
 }
@@ -92,7 +92,7 @@ sf::Vector2f IBasePlayer::getCenter() const {
 
 
 void IBasePlayer::updateBullets() {
-	std::for_each(begin(*m_bullets), end(*m_bullets), [](auto& bullet) {
+	std::for_each(begin(*m_hitObjects), end(*m_hitObjects), [](auto& bullet) {
 		if (bullet.second && !bullet.second->isOver()) {
 			CollisionManager::getInstance().remove(bullet.second);
 			bullet.second->update();
@@ -100,13 +100,13 @@ void IBasePlayer::updateBullets() {
 		}
 	});
 
-	std::for_each(begin(*m_bullets), end(*m_bullets), [](auto& bullet) {
+	std::for_each(begin(*m_hitObjects), end(*m_hitObjects), [](auto& bullet) {
 		if (!bullet.second || bullet.second->isOver())
 			CollisionManager::getInstance().remove(bullet.second);
 	});
 
 	//Erase finished bullets
-	std::experimental::erase_if(*m_bullets, [](auto& bullet) {
+	std::experimental::erase_if(*m_hitObjects, [](auto& bullet) {
 		return !bullet.second || bullet.second->isOver();
 	});
 }
@@ -136,8 +136,8 @@ float IBasePlayer::getRadius() {
 	return m_radius;
 }
 
-std::shared_ptr<std::map<std::string, std::shared_ptr<IHitWeapons>>> IBasePlayer::getBullets() {
-	return m_bullets;
+std::shared_ptr<std::map<std::string, std::shared_ptr<IHitWeapons>>> IBasePlayer::getHitObjects() {
+	return m_hitObjects;
 }
 
 int IBasePlayer::getHP() {

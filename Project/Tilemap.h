@@ -17,6 +17,7 @@ class Tilemap
 {
 	public:
 		Tilemap();
+		//Register tile map types frm file
 		void regTilesFromFile();
 		~Tilemap();
 		//Load a map from file
@@ -31,8 +32,11 @@ class Tilemap
 		std::shared_ptr<Tile> getTileAt(unsigned int index, Direction d);
 		//Get tile index by direction
 		unsigned int getIndexByDirection(unsigned int index, Direction d);
+		//Position by index
 		sf::Vector2f getPosByIndex(unsigned int index) const;
+		//Direction by index
 		int getDirectionByIndexes(unsigned int c, unsigned int o);
+		//Index by position
 		int getIndexByPos(sf::Vector2f pos);
 	private:
 		std::vector<std::shared_ptr<Tile>> m_tiles;

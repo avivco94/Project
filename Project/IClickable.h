@@ -17,8 +17,7 @@ public:
 	void onMouseMove(std::function<bool(string eventName, sf::Event event, EventSubscriber * obejct)> func);
 	//Set the calback when the mouse realesed 
 	void onMouseUp(std::function<bool(string eventName, sf::Event event, EventSubscriber * obejct)> func);
-	void onExit(std::function<bool(string eventName, sf::Event event, EventSubscriber * obejct)> func);
-	void onStart(std::function<bool(string eventName, sf::Event event, EventSubscriber * obejct)> func);
+	//Click
 	bool click(sf::Event event);
 protected:
 	bool m_isFocused = false;

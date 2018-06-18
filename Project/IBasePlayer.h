@@ -26,25 +26,40 @@ public:
 	void move(sf::Vector2f vec) override;
 	void setRotation(float rotation) override;
 	void setCenter(sf::Vector2f pos) override;
+	//Get the radius
 	float getRadius();
-	std::shared_ptr<std::map<std::string, std::shared_ptr<IHitWeapons>>> getBullets();
+	//Get the IHitWeapons
+	std::shared_ptr<std::map<std::string, std::shared_ptr<IHitWeapons>>> getHitObjects();
+	//Get hp
 	int getHP();
+	//Dec hp
 	void decHP(int amount);
+	//Get id
 	std::string getId();
+	//Set id
 	void setId(const std::string& id);
+	//Go to start pos
 	void goToStart();
+	//Get kills
 	int getKills();
+	//Get deaths
 	int getDeaths();
+	//Add kill
 	void addKill();
+	//Add death
 	void addDeath();
+	//Checks if immortal
 	bool isImmortal();
+	//Set immortal
 	void setImmortal();
+	//Attack
 	void attack();
+	//Change weapon
 	void changeWeapon();
 protected:
 	float m_radius;
-	std::shared_ptr<std::map<std::string, std::shared_ptr<IHitWeapons>>> m_bullets;
-	int m_bulletsCounter = 0;
+	std::shared_ptr<std::map<std::string, std::shared_ptr<IHitWeapons>>> m_hitObjects;
+	int m_hitObjectsCounter = 0;
 	std::vector<std::shared_ptr<IBaseWeapon>> m_weapons;
 	std::string m_id;
 	int m_hp = 100;

@@ -10,7 +10,9 @@ class Factory {
 	public:
 		static Factory& getInstance();
 		template <class... Args>
+		//Add to factory
 		bool add(const std::string& symbol, std::shared_ptr<T>(*)(const std::string & symbol, Args...));
+		//Get from factory
 		template <class... Args>
 		std::shared_ptr<T> get(const std::string& symbol, Args &&... args);
 	private:

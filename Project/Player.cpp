@@ -23,13 +23,6 @@ std::shared_ptr<PlayerInfo> Player::getPlayerInfo() {
 	return std::make_shared<PlayerInfo>(m_id, getCenter(), getRotation(), m_weapons[m_currentWeapon]->getCenter(), m_weapons[m_currentWeapon]->getTextureRect());
 }
 
-int Player::getHP() {
-	return m_hp;
-}
-void Player::decHP(int amount) {
-	m_hp -= amount;
-}
-
 int Player::getAmmo() {
 	return m_weapons[m_currentWeapon]->getAmmo();
 }
