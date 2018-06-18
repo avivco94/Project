@@ -180,8 +180,8 @@ void CollisionManager::playerAndBulletCollision(std::shared_ptr<Collideable> c1,
 	Circle playerCircle(player->getCenter(), player->getRadius());
 	Polygon bulletPoly(bullet->getVertices());
 	if (playerCircle.isCollide(bulletPoly)) {
-		auto bullets = player->getBullets()->find(bullet->getId());
-		if (!(bullets != player->getBullets()->end() && bullets->second == bullet) && !bullet->isOver()) {
+		auto bullets = player->getHitObjects()->find(bullet->getId());
+		if (!(bullets != player->getHitObjects()->end() && bullets->second == bullet) && !bullet->isOver()) {
 			if (bullet->getPId() != player->getId()) {
 				auto a = std::make_shared<HitInfo>(bullet->getPId(), player->getId(), "0");
 				Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(a);
@@ -291,8 +291,8 @@ void CollisionManager::playerAndKnifeCollision(std::shared_ptr<Collideable> c1, 
 	Circle playerCircle(player->getCenter(), player->getRadius());
 	Polygon knifeAttackPoly(knifeAttack->getVertices());
 	if (playerCircle.isCollide(knifeAttackPoly)) {
-		auto attacks = player->getBullets()->find(knifeAttack->getId());
-		if (!(attacks != player->getBullets()->end() && attacks->second == knifeAttack) && !knifeAttack->isOver()) {
+		auto attacks = player->getHitObjects()->find(knifeAttack->getId());
+		if (!(attacks != player->getHitObjects()->end() && attacks->second == knifeAttack) && !knifeAttack->isOver()) {
 			if (knifeAttack->getPId() != player->getId()) {
 				auto a = std::make_shared<HitInfo>(knifeAttack->getPId(), player->getId(), "0");
 				Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(a);

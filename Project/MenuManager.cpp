@@ -28,9 +28,8 @@ void MenuManager::drawMenu(sf::RenderWindow & rw){
 	});
 }
 
-int MenuManager::getNumOfButton()
-{
-	return m_buttons.size();
+int MenuManager::getNumOfButton() {
+	return (int)m_buttons.size();
 }
 
 bool MenuManager::keyPressed(sf::Event event) {

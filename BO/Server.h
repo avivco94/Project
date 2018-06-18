@@ -13,9 +13,13 @@ class Server {
 		~Server();
 		void run();
 	private:
+		//Get new connection
 		void newConnection();
+		//Handle client data
 		void handleClientData(std::map<std::string, std::pair<sf::TcpSocket*, sf::Vector2f>>::iterator& it);
+		//Client disconnect
 		void clientDisconnect(std::map<std::string, std::pair<sf::TcpSocket*, sf::Vector2f>>::iterator& it);
+		//Broadcast to all clients
 		void broadcast();
 		int m_count = 0;
 		std::shared_ptr<GameInfo> m_gi;

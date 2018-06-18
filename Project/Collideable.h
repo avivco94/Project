@@ -10,7 +10,9 @@ class Collideable
 	public:
 		Collideable();
 		~Collideable();
+		//Check if FloatRects are collide
 		virtual bool isCollide(sf::FloatRect rect) = 0;
+		//Get type of object for collision
 		virtual std::type_index type() const = 0;
 };
 

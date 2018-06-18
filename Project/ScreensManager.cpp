@@ -44,7 +44,7 @@ void ScreensManager::update(sf::RenderWindow& window) {
 }
 
 unsigned int ScreensManager::dequeSize() {
-	return m_screensDeque.size();
+	return (unsigned int)m_screensDeque.size();
 }
 
 void ScreensManager::backScreen() {

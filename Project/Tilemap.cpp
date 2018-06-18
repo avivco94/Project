@@ -13,10 +13,31 @@
 #include "Factory.h"
 #include <cctype>
 #include <algorithm>
+#include "FactoryReg.h"
+#include <sstream>
 
 using std::ifstream;
 
-Tilemap::Tilemap() {}
+Tilemap::Tilemap() {
+	regTilesFromFile();
+}
+
+void Tilemap::regTilesFromFile() {
+	ifstream file(MAP_INI);
+	std::string line;
+	std::string type;
+	std::string id;
+
+	while (!file.eof()) {
+		getline(file, line);
+		std::stringstream ss(line);
+		ss >> type;
+		while (!ss.eof()) {
+			ss >> id;
+			Factory<FactoryReg>::getInstance().get(type, id);
+		}
+	}
+}
 Tilemap::~Tilemap() {}
 
 bool Tilemap::Load(const std::string& filePath, sf::Vector2u tileSize) {

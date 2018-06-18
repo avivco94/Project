@@ -95,7 +95,7 @@ bool ShopScreen::onFire(string eventName, sf::Event event){
 }
 
 int ShopScreen::getNumOfButton(){
-	return m_buttons.size();
+	return (int)m_buttons.size();
 }
 
 

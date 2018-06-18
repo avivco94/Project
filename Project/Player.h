@@ -15,8 +15,6 @@ class Player
 		Player(sf::Vector2f pos);
 		~Player();
 		std::shared_ptr<PlayerInfo> getPlayerInfo();
-		int getHP();
-		void decHP(int amount);
 		int getAmmo();
 		int getCash();
 		void addCash(int amount);

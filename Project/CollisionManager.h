@@ -143,12 +143,19 @@ class CollisionManager
 {
 	public:
 		static CollisionManager & getInstance();
+		//Initiallize
 		void init(sf::IntRect rect);
+		//Add object to CollisionManager
 		void add(std::shared_ptr<Collideable> c);
+		//Print the path to object
 		void printPath(std::shared_ptr<Collideable> c);
+		//Remove object from CollisionManager
 		void remove(std::shared_ptr<Collideable> c);
+		//Retrieve suspected object from CollisionManager
 		std::shared_ptr<std::vector<std::shared_ptr<Collideable>>> retrieve(std::shared_ptr<Collideable> c);
+		//Draw the quad tree bounds
 		void draw(sf::RenderTarget& rt);
+		//Check collision
 		void collisionCheck(std::shared_ptr<Collideable> c);
 		void playerAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void bulletAndWallCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
@@ -158,11 +165,12 @@ class CollisionManager
 		void playerAndBorderCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void bulletAndBorderCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
 		void playerAndKnifeCollision(std::shared_ptr<Collideable> c1, std::shared_ptr<Collideable> c2);
+		//Update data of CollisionManager
 		void update(int directions, sf::Vector2f vec, CommandController& controller);
 	private:
-		std::shared_ptr<Quadtree<Collideable>> m_quad;
 		CollisionManager();
 		~CollisionManager();
+		std::shared_ptr<Quadtree<Collideable>> m_quad;
 		int m_directions;
 		sf::Vector2f m_vec;
 		bool m_isInCircle = false;

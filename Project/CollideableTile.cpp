@@ -3,13 +3,6 @@
 #include "Resources.h"
 #include "Constants.h"
 
-bool CollideableTile::m_registerit = Factory<CollideableTile>::getInstance().add("6", &CollideableTile::create);
-bool CollideableTile::m_registerit3 = Factory<CollideableTile>::getInstance().add("7", &CollideableTile::create);
-bool CollideableTile::m_registerit4 = Factory<CollideableTile>::getInstance().add("8", &CollideableTile::create);
-bool CollideableTile::m_registerit5 = Factory<CollideableTile>::getInstance().add("9", &CollideableTile::create);
-bool CollideableTile::m_registerit6 = Factory<CollideableTile>::getInstance().add("10", &CollideableTile::create);
-bool CollideableTile::m_registerit7 = Factory<CollideableTile>::getInstance().add("11", &CollideableTile::create);
-
 CollideableTile::CollideableTile(int value, sf::Texture & texture, sf::IntRect rect, sf::Vector2f pos)
 	: Tile(value, texture, rect, pos) {}
 
@@ -38,10 +31,10 @@ sf::FloatRect CollideableTile::getRect() const {
 std::shared_ptr<CollideableTile> CollideableTile::create(const std::string& symbol, sf::Vector2f pos) {
 	int tileNumber = std::stoi(symbol);
 	auto tileset = Resources::getInstance().getTexturesMap()->getResource(TILES_TEXTURE);
-	int max_x = (tileset->getSize().x / TILE_SIZE.x);
+	int max_x = (int)(tileset->getSize().x / TILE_SIZE.x);
 	return std::make_shared<CollideableTile>(
 		tileNumber,
 		*tileset,
-		sf::IntRect((tileNumber % max_x) * TILE_SIZE.x, (tileNumber / max_x) * TILE_SIZE.y, TILE_SIZE.x, TILE_SIZE.y),
+		sf::IntRect((tileNumber % max_x) * (int)TILE_SIZE.x, (tileNumber / max_x) * (int)TILE_SIZE.y, (int)TILE_SIZE.x, (int)TILE_SIZE.y),
 		pos);
 }

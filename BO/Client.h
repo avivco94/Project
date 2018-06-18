@@ -11,8 +11,11 @@ class Client {
 		std::string m_id;
 		void stop();
 	private:
+		//Run the client
 		void run();
+		//Recive data from server
 		void receiveData();
+		//Send data to server
 		void sendData();
 		sf::TcpSocket m_socket;
 		std::thread m_thread;

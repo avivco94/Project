@@ -43,7 +43,9 @@ class GameController : public EventSubscriber
 		void drawGame(sf::RenderWindow& windows);
 		//Load game resources
 		void loadResources();
+		//Handle Event
 		bool handleEvent(const sf::Event& event);
+		//Update
 		void update(sf::RenderWindow& window);
 		bool isRunning = true;
 		sf::View m_fixed;

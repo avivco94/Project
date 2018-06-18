@@ -5,22 +5,33 @@
 #include <experimental\vector>
 #include <iostream>
 
+//A tree the split the world into quarters
 template <typename T>
 class Quadtree {
 	public:
 		Quadtree(int pLevel, sf::IntRect pBounds);
+		//Cleacr
 		void clear();
+		//Split
 		void split();
+		//Insert object
 		void insert(std::shared_ptr<T> pRect);
+		//Remove object
 		bool remove(std::shared_ptr<T> pRect);
+		//Get the size
 		unsigned int size();
+		//Print the path to object
 		void printPath(std::shared_ptr<T> pRect);
+		//Get all from node
 		void getAll(std::shared_ptr<std::vector<std::shared_ptr<T>>> returnObjects);
+		//Retrive objects that can collide
 		std::shared_ptr<std::vector<std::shared_ptr<T>>> retrieve(std::shared_ptr<T> pRect);
+		//Draw bound
 		void draw(sf::RenderTarget& rt);
 	private:
+		//Retrive objects that can collide
 		void retrieve(std::shared_ptr<std::vector<std::shared_ptr<T>>> returnObjects, std::shared_ptr<T> pRect);
-
+		//Get index of rect
 		int getIndex(std::shared_ptr<T> pRect);
 		unsigned int m_max_object = 2;
 		unsigned int m_max_levels = 8;

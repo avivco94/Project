@@ -9,8 +9,11 @@ class Moveable
 	public:
 		Moveable(float speed);
 		~Moveable();
+		//Get the object rotation
 		virtual float getRotation() const = 0;
+		//Set the object rotation
 		virtual void setRotation(float rotation) = 0;
+		//Move the object
 		virtual void move(sf::Vector2f vec) = 0;
 	protected:
 		float m_speed;

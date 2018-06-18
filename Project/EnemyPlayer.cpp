@@ -10,11 +10,11 @@ EnemyPlayer::~EnemyPlayer() {}
 
 void EnemyPlayer::addDefaultBullet(BulletInfo& bi) {
 	//std::cout << m_bullets->size() << std::endl;
-	auto it = m_bullets->find(bi.m_id);
-	if (it == m_bullets->end()) {
+	auto it = m_hitObjects->find(bi.m_id);
+	if (it == m_hitObjects->end()) {
 		//std::cout << bi.deserialize() << std::endl;
 		auto bullet = std::make_shared<DefaultBullet>(bi);
-		m_bullets->insert(std::make_pair(bi.m_id, bullet));
+		m_hitObjects->insert(std::make_pair(bi.m_id, bullet));
 		CollisionManager::getInstance().add(bullet);
 	}
 }

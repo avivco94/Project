@@ -62,6 +62,8 @@ const std::string KNIFE_SOUND = "Resources/knife_slash.wav";
 
 const std::string MOUSE_OVER_SOUND = "Resources/MouseOver.ogg";
 
+const std::string MAP_INI = "Resources/map.ini";
+
 const sf::Vector2f TILE_SIZE = sf::Vector2f(40, 40);
 const sf::IntRect PLAYER_TEXTURE_RECT = sf::IntRect(0, 0, 40, 40);
 const sf::IntRect GLOCK_BULLET_TEXTURE_RECT = sf::IntRect(0, 0, 5, 10);

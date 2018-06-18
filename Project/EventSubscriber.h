@@ -10,7 +10,9 @@ using std::string;
 class EventSubscriber {
 public:
 	EventSubscriber(std::shared_ptr<EventsManager> em);
+	//On fire event
 	virtual bool onFire(string eventName, sf::Event event) = 0;
+	//Mute events
 	virtual void muteEvents(bool mute);
 protected:
 	bool m_mute = false;
