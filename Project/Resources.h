@@ -21,11 +21,15 @@ public:
 	FontsMap getFontsMap();
 	//Add sound to map
 	void addSound(std::string path);
+	void playSound(std::string path);
+	void stopSound(std::string path);
+	void setMute(bool mute);
+	bool isMute();
 private:
 	TexturesMap m_textures;
 	SoundsMap m_sounds;
 	FontsMap m_fonts;
-
+	bool m_isMute = false;;
 	Resources();
 	~Resources();
 };

@@ -10,10 +10,10 @@ MenuScreen::MenuScreen(sf::Vector2f size, std::shared_ptr<EventsManager> em):ISc
 	int heightJumps = (int)size.y / 4;
 	auto font = Resources::getInstance().getFontsMap()->getResource(MENU_FONT);
 	//m_em = std::make_shared<EventsManager>();
-	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, (float)heightJumps * 1), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Connect"));
-	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, (float)heightJumps * 4), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Resume"));
-	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, (float)heightJumps * 2), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Start"));
-	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, (float)heightJumps * 3), sf::Vector2f(200, 50), sf::Color::White, sf::Color::Red, *font, "Exit"));
+	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, (float)heightJumps * 4), sf::Vector2f(300, 50), sf::Color::White, sf::Color::Red, *font, "Resume"));
+	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, (float)heightJumps * 1), sf::Vector2f(300, 50), sf::Color::White, sf::Color::Red, *font, "Start"));
+	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, (float)heightJumps * 2), sf::Vector2f(300, 50), sf::Color::White, sf::Color::Red, *font, "Toggle Sound"));
+	m_buttons.push_back(std::make_unique<Button>(m_em, sf::Vector2f(size.x / 4, (float)heightJumps * 3), sf::Vector2f(300, 50), sf::Color::White, sf::Color::Red, *font, "Exit"));
 	//m_brRect(sf::Vector2f(size.x / 2, heightJumps * 1));
 	m_brRect.setSize(sf::Vector2f(size.x/2 , (float)heightJumps*(m_buttons.size()-1)));
 	m_brRect.setPosition(size.x / 4 , size.y/2);
@@ -81,9 +81,15 @@ bool MenuScreen::menuSelect(string eventName, sf::Event event, EventSubscriber *
 			std::cout << "Exit";
 			m_em->fireEvent(ON_GAME_EXIT, sf::Event());
 		}
-		else if (eventByText == "Resume")
-			std::cout << "Resume";
-			//m_em->fireEvent(ON_GAME_RESUME, sf::Event(), 0);		
+		else if (eventByText == "Toggle Sound") {
+			if (Resources::getInstance().isMute()) {
+				Resources::getInstance().setMute(false);
+				Resources::getInstance().playSound(MENU_SOUND);
+			} else {
+				Resources::getInstance().setMute(true);
+				Resources::getInstance().stopSound(MENU_SOUND);
+			}
+		}
 		return true;
 	}
 	return false;

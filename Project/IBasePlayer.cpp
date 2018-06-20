@@ -160,6 +160,7 @@ void IBasePlayer::goToStart(){
 	for(auto weapon : m_weapons)
 		weapon->setCenter(getCenter());
 	setImmortal();
+	Resources::getInstance().playSound(CLICK_SOUND);
 }
 
 int IBasePlayer::getKills(){

@@ -14,6 +14,8 @@
 #include "DefaultGun.h"
 #include "GameClock.h"
 #include <memory>
+#include "Resources.h"
+
 Player::Player(sf::Vector2f pos) 
 	: IBasePlayer(pos) {}
 
@@ -37,6 +39,7 @@ void Player::addCash(int amount) {
 
 void Player::buyWeapon(std::shared_ptr<WeaponWithPrice> w){
 	if (m_cash >= w->price) {
+
 		std::experimental::erase_if(m_weapons, [](auto& weapon) {
 			return std::dynamic_pointer_cast<IBaseGun>(weapon);
 		});
@@ -45,6 +48,7 @@ void Player::buyWeapon(std::shared_ptr<WeaponWithPrice> w){
 		m_weapons.back()->setRotation(getRotation());
 		m_weapons.back()->setCenter(getCenter());
 		m_currentWeapon = (unsigned int)(m_weapons.size() - 1);
+		Resources::getInstance().playSound(CLICK_SOUND);
 	}
 }
 

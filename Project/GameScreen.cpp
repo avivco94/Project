@@ -158,19 +158,23 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 			}
 			case sf::Event::KeyPressed: {
 				switch (event.key.code) {
-				case sf::Keyboard::W: {
+				case sf::Keyboard::W:
+				case sf::Keyboard::Up: {
 					m_directions |= Up;
 					break;
 				}
-				case sf::Keyboard::S: {
+				case sf::Keyboard::S:
+				case sf::Keyboard::Down: {
 					m_directions |= Down;
 					break;
 				}
-				case sf::Keyboard::D: {
+				case sf::Keyboard::D:
+				case sf::Keyboard::Right: {
 					m_directions |= Right;
 					break;
 				}
-				case sf::Keyboard::A: {
+				case sf::Keyboard::A:
+				case sf::Keyboard::Left: {
 					m_directions |= Left;
 					break;
 				}
@@ -183,19 +187,23 @@ bool GameScreen::handleEvent(const sf::Event& event) {
 			}
 			case sf::Event::KeyReleased: {
 				switch (event.key.code) {
-				case sf::Keyboard::W: {
+				case sf::Keyboard::W:
+				case sf::Keyboard::Up: {
 					m_directions &= ~Up;
 					break;
 				}
-				case sf::Keyboard::S: {
+				case sf::Keyboard::S:
+				case sf::Keyboard::Down: {
 					m_directions &= ~Down;
 					break;
 				}
-				case sf::Keyboard::D: {
+				case sf::Keyboard::D:
+				case sf::Keyboard::Right: {
 					m_directions &= ~Right;
 					break;
 				}
-				case sf::Keyboard::A: {
+				case sf::Keyboard::A:
+				case sf::Keyboard::Left: {
 					m_directions &= ~Left;
 					break;
 				}					 
@@ -236,7 +244,7 @@ sf::FloatRect GameScreen::getRect() const {
 }
 
 void GameScreen::update(BulletInfo & bi) {
-	Resources::getInstance().getSoundsMap()->getResource(bi.m_type)->second.play();
+	Resources::getInstance().playSound(bi.m_type);
 	if (bi.m_pid != m_player->getId()) {
 		auto playerIt = m_otherPlayers.find(bi.m_pid);
 		if (playerIt != m_otherPlayers.end()) {
@@ -246,20 +254,7 @@ void GameScreen::update(BulletInfo & bi) {
 }
 
 void GameScreen::update(KnifeAttackInfo & bi) {
-	Resources::getInstance().getSoundsMap()->getResource(KNIFE_SOUND)->second.play();
-	/*if (bi.m_shooter != m_player->getId()) {
-		auto playerIt = m_otherPlayers.find(bi.m_shooter);
-		if (playerIt != m_otherPlayers.end()) {
-			m_player->decHP(5);
-			if (m_player->getHP() <= 0) {
-				m_player->decHP(-100);
-				m_player->goToStart();
-				m_player->addDeath();
-				m_player->addCash(300);
-				Updates<std::shared_ptr<SerializableInfo>, Request>::getInstance().add(std::make_shared<DeathInfo>(bi.m_shooter, m_player->getId()));
-			}
-		}
-	}*/
+	Resources::getInstance().playSound(KNIFE_SOUND);
 }
 
 
@@ -290,7 +285,7 @@ void GameScreen::update(ConnectionInfo & pi) {
 	//TODO - Get position from server
 	m_player = std::make_shared<Player>(pi.m_pos);
 	m_player->setId(pi.m_id);
-	m_player->setImmortal();
+	m_player->goToStart();
 	m_view.setCenter(m_player->getCenter());
 	//Update server - start pos
 	Updates<std::shared_ptr<PlayerInfo>, Request>::getInstance().add(m_player->getPlayerInfo());
@@ -298,7 +293,7 @@ void GameScreen::update(ConnectionInfo & pi) {
 }
 
 void GameScreen::update(HitInfo & hi) {
-	Resources::getInstance().getSoundsMap()->getResource(HIT_SOUND)->second.play();
+	Resources::getInstance().playSound(HIT_SOUND);
 	if (hi.m_gotShot == m_player->getId() && !m_player->isImmortal()) {
 		m_player->decHP(5);
 		if (m_player->getHP() <= 0) {
@@ -312,7 +307,7 @@ void GameScreen::update(HitInfo & hi) {
 }
 
 void GameScreen::update(DeathInfo & di){
-	Resources::getInstance().getSoundsMap()->getResource(DIED_SOUND)->second.play();
+	Resources::getInstance().playSound(DIED_SOUND);
 	if (di.m_killerID == m_player->getId()) {
 		m_player->addKill();
 		m_player->addCash(100);

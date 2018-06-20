@@ -25,6 +25,24 @@ void Resources::addSound(std::string path) {
 	curr->second.setBuffer(curr->first);
 }
 
+void Resources::playSound(std::string path) {
+	if(!m_isMute)
+		m_sounds->getResource(path)->second.play();
+}
+
+void Resources::stopSound(std::string path) {
+	m_sounds->getResource(path)->second.stop();
+}
+
+void Resources::setMute(bool mute) {
+	m_isMute = mute;
+}
+
+bool Resources::isMute() {
+	return m_isMute;
+}
+
+
 Resources::Resources()
 	: m_textures(std::make_shared<ResourceMap<sf::Texture>>()),
 	  m_sounds(std::make_shared<ResourceMap<std::pair<sf::SoundBuffer, sf::Sound>>>()),

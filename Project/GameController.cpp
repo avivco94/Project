@@ -18,7 +18,7 @@ GameController::GameController(std::shared_ptr<EventsManager> em ): EventSubscri
 	//m_sm.addScreen(GAME_SCREEN, std::make_shared<GameScreen>(m_client));
 	m_sm.addScreen(MENU_SCREEN, std::make_shared<MenuScreen>(sf::Vector2f((float)WINDOW_SIZE_X, (float)WINDOW_SIZE_Y),m_em));
 	m_sm.setScreen(MENU_SCREEN);
-	Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.play();
+	Resources::getInstance().playSound(MENU_SOUND);
 	m_cursor = std::make_shared<sf::CircleShape>(3.f);
 	m_cursor->setOrigin(5, 5);
 	m_cursor->setFillColor(sf::Color::White);
@@ -153,17 +153,17 @@ void GameController::loadResources() {
 	Resources::getInstance().addSound(MOUSE_OVER_SOUND);
 	Resources::getInstance().addSound(HIT_SOUND);
 	Resources::getInstance().addSound(KNIFE_SOUND);
+	Resources::getInstance().addSound(CLICK_SOUND);
 
-	Resources::getInstance().getSoundsMap()->getResource(KNIFE_SOUND)->second.setVolume(130);
-	Resources::getInstance().getSoundsMap()->getResource(HIT_SOUND)->second.setVolume(130);
-	Resources::getInstance().getSoundsMap()->getResource(MOUSE_OVER_SOUND)->second.setVolume(120);
+	Resources::getInstance().getSoundsMap()->getResource(KNIFE_SOUND)->second.setVolume(100);
+	Resources::getInstance().getSoundsMap()->getResource(HIT_SOUND)->second.setVolume(80);
+	Resources::getInstance().getSoundsMap()->getResource(MOUSE_OVER_SOUND)->second.setVolume(80);
 	Resources::getInstance().getSoundsMap()->getResource(AK47_SOUND)->second.setVolume(20);
 	Resources::getInstance().getSoundsMap()->getResource(USP_SOUND)->second.setVolume(20);
 	Resources::getInstance().getSoundsMap()->getResource(M4A1_SOUND)->second.setVolume(20);
 	Resources::getInstance().getSoundsMap()->getResource(GLOCK_SOUND)->second.setVolume(20);
+	Resources::getInstance().getSoundsMap()->getResource(CLICK_SOUND)->second.setVolume(20);
 	Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.setLoop(true);
-
-
 }	
 
 bool GameController::handleEvent(const sf::Event& event) {
@@ -177,11 +177,11 @@ bool GameController::handleEvent(const sf::Event& event) {
 				case sf::Keyboard::Escape:
 					if (m_sm.dequeSize() >= 2) {
 						m_sm.backScreen();
-						Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.play();
+						Resources::getInstance().playSound(MENU_SOUND);
 					}
 					else if (m_sm.dequeSize() == 1) {
 						m_sm.setScreen(GAME_SCREEN);
-						Resources::getInstance().getSoundsMap()->getResource(MENU_SOUND)->second.stop();
+						Resources::getInstance().stopSound(MENU_SOUND);
 					}
 						
 					break;

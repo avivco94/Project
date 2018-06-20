@@ -71,7 +71,7 @@ void Button::setFocus(bool s){
 	m_lastFocus = m_isFocused;
 	m_isFocused= s ;
 	if (s) {
-		Resources::getInstance().getSoundsMap()->getResource(MOUSE_OVER_SOUND)->second.play();
+		Resources::getInstance().playSound(MOUSE_OVER_SOUND);
 	}
 }
 

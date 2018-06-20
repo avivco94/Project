@@ -59,6 +59,7 @@ const std::string M4A1_SOUND = "Resources/m4a1.wav";
 const std::string MENU_SOUND = "Resources/menu.wav";
 const std::string HIT_SOUND = "Resources/hit1.wav";
 const std::string KNIFE_SOUND = "Resources/knife_slash.wav";
+const std::string CLICK_SOUND = "Resources/click.wav";
 
 const std::string MOUSE_OVER_SOUND = "Resources/MouseOver.ogg";
 
